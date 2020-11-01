@@ -15,7 +15,11 @@ $ cd tweet-analyzer
 > install.packages("renv")
 > renv::restore()
 ```
-### 新たに導入したパッケージを`renv.lock`に記録
+### 新たに導入したパッケージを`renv.lock`に記録（コンソール上でおこなう）
 ```R
 > renv::snapshot()
+```
+### 静的コード解析（コンソール上でおこなう）
+```R
+> lintr::lint_dir(path = "src")
 ```

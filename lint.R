@@ -3,4 +3,4 @@
 
 library(lintr)
 
-lint_dir(path = "app")
+lint_dir(path = "src")

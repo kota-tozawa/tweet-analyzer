@@ -1,6 +1,7 @@
 library(dplyr)
 library(ggplot2)
-library(lubridate)
+library(ggthemes)
+library(fontregisterer)
 library(stringr)
 library(RMeCab)
 library(ggwordcloud)
@@ -14,27 +15,29 @@ setwd("./output/tmp_data")
 load(filename)
 setwd("../../")
 
-# ツイート数の推移を可視化
-
-## 文字列のcreated_atをPOSIXctオブジェクトにする
-tws$created_at <- ymd_hms(tws$created_at)
-
-## ヒストグラムを描きだす
-tws %>%
-  ggplot(aes(x = created_at)) +
-  geom_histogram(aes(fill = ..count..), bins = 100) +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  scale_fill_gradient2(low = "midnightblue", high = "aquamarine4") +
-  labs(
-    x = NULL, y = NULL,
-    title = "Histogram of Frequency of Your Tweets",
-    subtitle = "Darkness of the green is proportional to the number of tweets"
-  )
+# ggplot2用のフォントを用意
+# TODO fontregisterer::get_standard_font()がうまく機能しないので，関数の中身をそのままもってくることで対処
+if (Sys.info()["sysname"] == "Windows") {
+  if (as.integer(str_extract(Sys.info()["release"], "^[0-9]+")) >= 8) {
+    family_sans <- "Yu Gothic"
+    family_serif <- "Yu Mincho"
+  } else {
+    family_sans <- "MS Gothic"
+    family_serif <- "MS Mincho"
+  }
+} else if (Sys.info()["sysname"] == "Linux") {
+  family_sans <- "Noto Sans CJK JP"
+  family_serif <- "Noto Serif CJK JP"
+} else if (Sys.info()["sysname"] == "Darwin") {
+  family_sans <- "Hiragino Sans"
+  family_serif <- "Hiragino Mincho ProN"
+} else {
+  family_sans <- "Noto Sans CJK JP"
+  family_serif <- "Noto Serif CJK JP"
+}
 
 # ツイートのワードクラウド作成
-
-## ツイートから記号・数値を取り除く
+# ツイートから記号・数値を取り除く
 txts <- tws %>%
   select(text) %>%
   mutate(
@@ -42,7 +45,7 @@ txts <- tws %>%
     text = str_remove_all(text, "\\p{So}|\\p{Cn}")
   )
 
-## すべてのツイートを1つのテキストファイルに保存
+# すべてのツイートを1つのテキストファイルに保存
 setwd("./output/text_data")
 textfile <- paste("tweets_", user, ".txt", sep = "")
 txts %>%
@@ -50,19 +53,19 @@ txts %>%
   write(textfile)
 setwd("../../")
 
-## 上で作成したテキストファイルを対象に形態素解析を実行
+# 上で作成したテキストファイルを対象に形態素解析を実行
 setwd("./output/text_data")
 txt_df <- docDF(textfile, type = 1)
 setwd("../../")
 
-## 品詞大分類とその細分類を組み合わせてフィルターにかける
+# 品詞大分類とその細分類を組み合わせてフィルターにかける
 txt_df <- txt_df %>%
   filter(
     POS1 %in% c("名詞", "形容詞", "動詞"),
     POS2 %in% c("一般", "自立", "非自立", "助詞類接続")
   )
 
-## ストップワード設定
+# ストップワード設定
 tmp <- read_csv(
   "http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt",
   col_names = "TERM"
@@ -76,7 +79,7 @@ en_stop_words <- stopwords("en", source = "stopwords-iso") %>%
   select(TERM = 1)
 stop_words <- rbind(ja_stop_words, en_stop_words)
 
-## 描画
+# 描画
 setwd("./output/text_data")
 txt_df_refined <- txt_df %>%
   select(TERM, FREQ = textfile) %>%

@@ -27,17 +27,17 @@ $ cd tweet-analyzer
 ```
 ### 実行中のコンテナの状態を保存し，次作業するときに以前の状態からはじめる方法
 ```bash
-hogehoge@abcde ~$ docker ps
+hogehoge@fugafuga ~$ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS                    NAMES
 da13575a8a55        rocker/rstudio      "/init"             About a minute ago   Up About a minute   0.0.0.0:8787->8787/tcp   interesting_williams
-hogehoge@abcde ~$ docker commit da13575a8a55 foobar
+hogehoge@fugafuga ~$ docker commit da13575a8a55 foobar
 sha256:4f49a8f25a428bc54b1c4902b1e2ffd559d276bdf734a674819046aaeb700cc4
-hogehoge@abcde ~$ docker images
+hogehoge@fugafuga ~$ docker images
 REPOSITORY                TAG                 IMAGE ID            CREATED              SIZE
 foobar                    latest              4f49a8f25a42        About a minute ago   1.9GB
 rocker/verse              latest              acb9adf64bd9        8 days ago           3.62GB
 rocker/rstudio            latest              f6cf30c3483b        8 days ago           1.9GB
-hogehoge@abcde ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
+hogehoge@fugafuga ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
 [s6-init] making user provided files available at /var/run/s6/etc...exited 0.
 [s6-init] ensuring user provided files have correct perms...exited 0.
 [fix-attrs.d] applying ownership & permissions fixes...
@@ -50,17 +50,17 @@ hogehoge@abcde ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
 [services.d] done.
 ```
 ## 環境構築後にやること
-### 開発に必要なパッケージをインストール（RStudioのコンソール上でおこなうとよい）
+### 開発に必要なパッケージをインストール（RStudioのコンソール上でおこなう）
 ```R
 > install.packages("renv")
 > renv::restore()
 ```
 ## 開発していくなかで適宜行うべきこと
-### 新たに導入したパッケージを`renv.lock`に記録（RStudioのコンソール上でおこなうとよい）
+### 新たに導入したパッケージを`renv.lock`に記録（RStudioのコンソール上でおこなう）
 ```R
 > renv::snapshot()
 ```
-### 静的コード解析（RStudioのコンソール上でおこなうとよい）
+### 静的コード解析（RStudioのコンソール上でおこなう）
 ```R
-> lintr::lint_dir(path = "src")
+> lintr::lint_dir(path = "ingestion")
 ```

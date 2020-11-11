@@ -41,6 +41,6 @@ vignettes/*.pdf
 # JSON file that contains auth info for twitter api
 /auth.json
 
-# npm
+# js
 node_modules/
 dist/

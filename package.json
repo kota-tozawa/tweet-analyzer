@@ -4,7 +4,10 @@
   "description": "helps you analyze your own tweets",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "Rscript main.R",
+    "build": "webpack --mode production",
+    "dev": "webpack-dev-server --mode development",
+    "lint-fix": "./node_modules/.bin/eslint --fix ./"
   },
   "repository": {
     "type": "git",
@@ -17,6 +20,11 @@
   },
   "homepage": "https://github.com/kota-tozawa/tweet-analyzer#readme",
   "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "prettier": "2.1.2",
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {

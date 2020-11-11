@@ -1,0 +1,38 @@
+{
+    "extends": [
+        "prettier",
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "plugins": [
+        "react",
+        "prettier"
+    ],
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true,
+                "semi": false
+            }
+        ],
+        "yoda": 0,
+        "no-unused-vars": 1
+    },
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "globals": {
+        "$": false
+    },
+    "settings": {
+        "react": {
+            "version": "17.0.1"
+        }
+    }
+}

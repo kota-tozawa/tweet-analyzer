@@ -1,30 +1,49 @@
 # tweet-analyzer
-ツイートを取得し，テキストアナリティクス・自然言語処理の手法で分析する．
+ツイートを取得し，テキストアナリティクス・自然言語処理の手法で分析し，ダッシュボードに表示するアプリケーション．\
+フロントエンドに，Shiny（RのWebアプリケーションフレームワーク）とReact（JavaScriptフレームワーク）を用いている．
 
+## dev実行
+1. Shinyアプリを起動
+```bash
+$ npm start
+```
+2. webpack-dev-serverを立ち上げる
+```bash
+$ npm run dev
+```
+3. [http://localhost:4000](http://localhost:4000)をブラウザで開く
+## prd実行
+1. Reactアプリをビルド
+```bash
+$ npm run build
+```
+2. Shinyアプリを起動
+```bash
+$ npm start
+```
+3. [http://localhost:3000](http://localhost:3000)をブラウザで開く
 ## 開発環境
 RStudioと，必要に応じてVSCodeを用いる．\
 RStudioに関して，ローカルのPCにインストールしてもよいし，Dockerコンテナ上で起動して開発を行ってもよい．\
-下記にはDockerを用いて開発環境を構築する方法を記す．
+下記にはDockerを用いてRStudioをインストールする方法を記す．
 
-## 環境構築（Docker）
-### Dockerイメージ取得・コンテナ起動（怒られるのでとりあえずパスワードは設定しておく）
+### Dockerコンテナ上でRStudioを使う
+1. Dockerイメージ取得・コンテナ起動（怒られるのでとりあえずパスワードは設定しておく）
 ```bash
 $ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio
 ```
-### 「ホストアドレス:8787」でブラウザからRStudioにアクセスする
-```
-http://localhost:8787/
-```
-### サインイン
+2. [http://localhost:8787/](http://localhost:8787/)をブラウザで開く
+3. `2.`を実行後，サインインの画面が表示されるので，下記のように入力しサインイン
 ```
 Username: rstudio
 Password: yourpasswordhere
 ```
-### プロジェクトをクローン
+4. RStudioが立ち上がるので，プロジェクトをクローンしてくる
 ```bash
 $ git clone https://github.com/kota-tozawa/tweet-analyzer.git
 $ cd tweet-analyzer
 ```
+5. 「環境構築後にやること」を行う
 ### 実行中のコンテナの状態を保存し，次作業するときに以前の状態からはじめる方法
 ```bash
 hogehoge@fugafuga ~$ docker ps

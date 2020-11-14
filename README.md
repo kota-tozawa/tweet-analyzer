@@ -68,6 +68,7 @@ hogehoge@fugafuga ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
 [services.d] starting services
 [services.d] done.
 ```
+
 ## 環境構築後にやること
 ### 開発に必要なパッケージをインストール
 #### Rのパッケージをインストールする
@@ -79,6 +80,7 @@ hogehoge@fugafuga ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
 ```bash
 $ npm run install
 ```
+
 ## 開発していくなかで適宜行うべきこと
 ### 新たに導入したRのパッケージを`renv.lock`に記録する
 ```R

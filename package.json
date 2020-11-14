@@ -7,7 +7,7 @@
     "start": "Rscript main.R",
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development",
-    "lint-fix": "./node_modules/.bin/eslint --fix ./"
+    "lint-fix": "./node_modules/.bin/eslint --fix --ext .js ./src/"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/kota-tozawa/tweet-analyzer#readme",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",

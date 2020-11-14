@@ -50,17 +50,28 @@ hogehoge@fugafuga ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
 [services.d] done.
 ```
 ## 環境構築後にやること
-### 開発に必要なパッケージをインストール（RStudioのコンソール上でおこなう）
+### 開発に必要なパッケージをインストール
+- Rのパッケージ
 ```R
 > install.packages("renv")
 > renv::restore()
 ```
+- JavaScriptのパッケージ
+```bash
+$ npm run install
+```
 ## 開発していくなかで適宜行うべきこと
-### 新たに導入したパッケージを`renv.lock`に記録（RStudioのコンソール上でおこなう）
+### 新たに導入したパッケージを`renv.lock`に記録
+- R
 ```R
 > renv::snapshot()
 ```
-### 静的コード解析（RStudioのコンソール上でおこなう）
+### lint
+- Rのコードを静的解析
 ```R
 > lintr::lint_dir(path = "ingestion")
+```
+- JavaScriptのコードを静的解析
+```bash
+$ npm run lint-fix
 ```

@@ -4,7 +4,7 @@ library(rtweet)
 
 # Twitter APiからツイート情報取得
 get_tweets <- function(user) {
-  auth <- "ingestion/common/constants/auth.json" %>%
+  auth <- "ingestion/common/consts/auth.json" %>%
     read_json(simplifyVector = TRUE)
 
   # Twitter APIアクセス用トークン取得

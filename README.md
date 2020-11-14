@@ -2,8 +2,8 @@
 ツイートを取得し，テキストアナリティクス・自然言語処理の手法で分析する．
 
 ## 開発環境
-RStudioを用いる．\
-ローカルのPCにRStudioをインストールしてもよいし，Dockerコンテナ上でRStudioを起動して開発を行ってもよい．\
+RStudioと，必要に応じてVSCodeを用いる．\
+RStudioに関して，ローカルのPCにインストールしてもよいし，Dockerコンテナ上で起動して開発を行ってもよい．\
 下記にはDockerを用いて開発環境を構築する方法を記す．
 
 ## 環境構築（Docker）
@@ -11,7 +11,7 @@ RStudioを用いる．\
 ```bash
 $ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio
 ```
-### 「ホストアドレス:8787」でブラウザからRStudioにアクセス
+### 「ホストアドレス:8787」でブラウザからRStudioにアクセスする
 ```
 http://localhost:8787/
 ```
@@ -51,27 +51,26 @@ hogehoge@fugafuga ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
 ```
 ## 環境構築後にやること
 ### 開発に必要なパッケージをインストール
-- Rのパッケージ
+#### Rのパッケージをインストールする
 ```R
 > install.packages("renv")
 > renv::restore()
 ```
-- JavaScriptのパッケージ
+#### JavaScriptのパッケージをインストールする
 ```bash
 $ npm run install
 ```
 ## 開発していくなかで適宜行うべきこと
-### 新たに導入したパッケージを`renv.lock`に記録
-- R
+### 新たに導入したRのパッケージを`renv.lock`に記録する
 ```R
 > renv::snapshot()
 ```
-### lint
-- Rのコードを静的解析
+### コードの静的解析・整形
+#### Rのコードを静的解析する（下記を実行して得られる解析結果を見て，手でコードを整形する）
 ```R
 > lintr::lint_dir(path = "ingestion")
 ```
-- JavaScriptのコードを静的解析
+#### JavaScriptのコードを静的解析及び自動整形する
 ```bash
 $ npm run lint-fix
 ```

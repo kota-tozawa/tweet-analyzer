@@ -23,7 +23,7 @@ $ npm start
 ```
 3. [http://localhost:3000](http://localhost:3000)をブラウザで開く
 ## 開発環境
-RStudioと，必要に応じてVSCodeを用いる．\
+RとJavaScriptを書いたり動かしたりするのに適したエディタを用いる．（RStudio，VSCodeなど）\
 RStudioに関して，ローカルのPCにインストールしてもよいし，Dockerコンテナ上で起動して開発を行ってもよい．\
 下記にはDockerを用いてRStudioをインストールする方法を記す．
 

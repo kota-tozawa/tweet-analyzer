@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { hot } from 'react-hot-loader'
 import { Container, Row, Col, Card, CardBody } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
-import PeriodInput from './PeriodInput'
-import LineChart from './LineGraph'
+import { ParameterInput } from './components/ParameterInput'
 
 class App extends Component {
   constructor(props) {
@@ -42,21 +40,11 @@ class App extends Component {
     const { period, periodData } = this.state
     return (
       <Container fluid>
-        <h2 className="mt-3">ツイート頻度の推移</h2>
+        <h2 className="mt-3">ツイート頻度分析</h2>
         <Row>
           <Col sm="4">
-            <Card style={{ backgroundColor: '#f5f5f5' }}>
-              <CardBody>
-                <PeriodInput
-                  value={period}
-                  options={['1month', '1year', 'longest']}
-                  onChange={this.handlePeriodChange}
-                />
-              </CardBody>
-            </Card>
-          </Col>
-          <Col sm="8">
-            {periodData && <LineChart {...periodData} xAxisLabel="時間" />}
+            <h3 className="mt-3">分析パラメーター入力</h3>
+            <ParameterInput />
           </Col>
         </Row>
       </Container>

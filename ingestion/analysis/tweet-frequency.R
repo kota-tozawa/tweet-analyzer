@@ -98,12 +98,12 @@ tweet_freq <- function(user, period) {
   # プロットから値を取り出す
   ggb <- ggplot_build(gg)
   breaks <- pluck(ggb, "plot", "data", "CREATED_AT")
-  freq <- pluck(ggb, "plot", "data", "FREQ")
+  freqs <- pluck(ggb, "plot", "data", "FREQ")
 
   # 下記をリストに詰めてreturn:
   # Note: breaksとfreq以外の値はmetricsリストに詰めている
   # breaks（年月または年），freq（ツイート頻度），n_days（プロット期間内の総日数），
   # n_tweets（プロット期間内の総ツイート数），mean_tweets_per_day（1日当たり平均ツイート頻度），
   # gt_one_tws（1回以上ツイートした日），zero_tweets（1回もツイートしなかった日）
-  return(list(breaks, freq, metrics))
+  return(list(breaks, freqs, metrics))
 }

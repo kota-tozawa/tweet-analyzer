@@ -1,17 +1,19 @@
 server <- function(input, output, session) {
-  periodData <- reactive({
+  lineGraphData <- reactive({
     req(input$user)
     req(input$period)
     tweetFreq <- tweet_freq(input$user, period = input$period)
+    breaks = pluck(tweetFreq, 1)
+    freqs = pluck(tweetFreq, 2)
     list(
-      breaks = pluck(tweetFreq, 1),
-      freq = pluck(tweetFreq, 2),
+      breaks = breaks,
+      freqs = freqs,
       ticks = pretty(breaks)
     )
   })
 
   observe({
-    session$sendCustomMessage("periodData", periodData())
+    session$sendCustomMessage("lineGraphData", lineGraphData())
   })
 }
 

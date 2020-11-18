@@ -7,7 +7,9 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
+  // TODO マウスオーバー時にラベルを表示させる
   Label,
+  Legend,
   Tooltip,
 } from 'recharts'
 
@@ -44,37 +46,19 @@ class LineGraph extends Component {
       label: `(${breaks[i]}: ${f}回]`,
     }))
 
-    console.log(data)
-
     return (
       <ResponsiveContainer width="100%" height={400}>
-        <LineChart width={500} height={300} data={data}>
-          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          <XAxis
-            dataKey="breaks"
-            type="string"
-            domain={['auto', 'auto']}
-            ticks={ticks}
-            tickCount={ticks.length}
-          >
-            <Label value={xAxisLabel} offset={-20} position="insideBottom" />
-          </XAxis>
-          <YAxis>
-            <Label
-              value={yAxisLabel}
-              angle={-90}
-              offset={10}
-              position="insideLeft"
-              style={{ textAnchor: 'middle' }}
-            />
-          </YAxis>
-          <Tooltip
-            content={this.renderTooltipWithLabel}
-            offset={40}
-            isAnimationActive={false}
-            labelStyle={{ fontWeight: '700' }}
+        <LineChart width={700} height={500} data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="period" interval="preserveStartEnd" />
+          <YAxis dataKey="freq" interval="preserveStartEnd" />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="freq"
+            stroke="#8884d8"
+            activeDot={{ r: 8 }}
           />
-          <Line type="monotone" dataKey="uv" stroke="#8884d8" />
         </LineChart>
       </ResponsiveContainer>
     )

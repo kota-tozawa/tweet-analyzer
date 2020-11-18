@@ -11,8 +11,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: 'tzwqq',
-      period: '1month',
+      user: '',
+      period: '',
       lineGraphData: null,
     }
     this.handleUserChange = this.handleUserChange.bind(this)
@@ -48,13 +48,13 @@ class App extends Component {
 
   render() {
     const { user, period, lineGraphData } = this.state
-    // const options = [
-    //   { key: '', name: '' },
-    //   { key: '1month', name: '1ヶ月' },
-    //   { key: '1year', name: '1年' },
-    //   { key: 'longest', name: 'できるだけ長い期間' },
-    // ]
-    const options = ['', '1month', '1year', 'longest']
+    const options = [
+      { key: '', name: '' },
+      { key: '1month', name: '1か月' },
+      { key: '1year', name: '1年' },
+      { key: 'longest', name: '表示可能な最長期間' },
+    ]
+    // const options = ['', '1month', '1year', 'longest']
     return (
       <Container fluid>
         <h2 className="mt-3">ツイート頻度の推移</h2>

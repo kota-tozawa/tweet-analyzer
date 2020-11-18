@@ -3,9 +3,9 @@ import { hot } from 'react-hot-loader'
 import { Container, Row, Col, Card, CardBody, Input, Button } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import UserInput from './components/UserInput'
-import PeriodInput from './components/PeriodInput'
-import LineGraph from './components/LineGraph'
+import UserInput from './components/input/UserInput'
+import PeriodInput from './components/input/PeriodInput'
+import LineGraph from './components/tweetFrequencyGraph/LineGraph'
 
 class App extends Component {
   constructor(props) {
@@ -69,6 +69,7 @@ class App extends Component {
                   options={options}
                   onChange={this.handlePeriodChange}
                 />
+                {/* TODO ボタンを右端に表示 */}
                 <Button type="submit">OK</Button>
               </CardBody>
             </Card>

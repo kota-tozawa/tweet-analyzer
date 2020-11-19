@@ -5,8 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import UserInput from './components/input/UserInput'
 import PeriodInput from './components/input/PeriodInput'
-import LineGraph from './components/tweetFrequencyGraph/LineGraph'
+import LineGraph from './components/tweetFrequency/LineGraph'
 
+// TODO 関数コンポーネントに書き換える
 class App extends Component {
   constructor(props) {
     super(props)

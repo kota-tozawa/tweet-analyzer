@@ -25,7 +25,7 @@ module.exports = {
   devServer: {
     hot: true,
     port: 4000,
-    // Proxy everything besides the bundle to Shiny
+    // proxyに関して、shinyアプリのバンドルは除いている
     proxy: {
       '/': {
         target: 'http://localhost:3000',

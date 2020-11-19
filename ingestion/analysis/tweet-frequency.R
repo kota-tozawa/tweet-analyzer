@@ -5,21 +5,19 @@ library(lubridate)
 library(stringr)
 library(purrr)
 
-# ツイート頻度（回数）の時系列グラフを作成
-# 引数にはperiod（期間）を入れる
-# TODO 入力可能な期間（period）が、「表示可能な最長期間」、「1年」、「1ヶ月」の3パターンのみ
+# ツイート頻度（回数）の時系列グラフ（折れ線グラフ）を作成
+# 引数にはuser（Twitterユーザー名）とperiod（期間）を入れる
+# TODO 引数として入力可能な期間（period）が、「表示可能な最長期間」、「1年」、「1ヶ月」の3パターンのみ
 tweet_freq <- function(user, period) {
   # Rオブジェクトとして保存したツイート情報をロード
   filename <- paste0(user, ".Rdata")
-  setwd("./output/raw")
+  setwd("./output/raw/rdata")
   load(filename)
-  setwd("../../")
+  setwd("../../../")
 
-  tws_cpy <- tws
-
-  # 期間の範囲などを設定
+  # 表示対象期間を設定
   if (identical(period, "表示可能な最長期間")) {
-    init_date <- min(tws_cpy$CREATED_AT) %>%
+    init_date <- min(tws$CREATED_AT) %>%
       substr(1, 10) %>%
       as.Date()
   } else if (identical(period, "1年")) {
@@ -36,10 +34,10 @@ tweet_freq <- function(user, period) {
     select(CREATED_AT = 1)
 
   # ロードしたツイート情報の前処理
-  tws_cpy$CREATED_AT <- as.character(tws_cpy$CREATED_AT) %>%
+  tws$CREATED_AT <- as.character(tws$CREATED_AT) %>%
     substr(1, 10) %>%
     ymd()
-  tweets_per_day <- tws_cpy %>%
+  tweets_per_day <- tws %>%
     select(CREATED_AT) %>%
     group_by() %>%
     count(CREATED_AT) %>%
@@ -52,6 +50,7 @@ tweet_freq <- function(user, period) {
     replace_na(list(FREQ = 0))
 
   # 総ツイート数・総日数・平均ツイート数を求める
+  # TODO 他にもユーザーが見たいと思うようなメトリクス・統計量を算出する
   n_days <- nrow(tweets_per_day_imputed)
   n_tweets <- sum(tweets_per_day_imputed$FREQ)
   mean_tweets_per_day <- mean(tweets_per_day_imputed$FREQ)
@@ -65,10 +64,10 @@ tweet_freq <- function(user, period) {
     select(FREQ) %>%
     dplyr::filter(FREQ == 0) %>%
     nrow()
-  # 上記で求めた総ツイート数などのメトリクスをリストに詰める（returnでこれら値を返すために）
+  # 上記で求めた総ツイート数などのメトリクスをリストに詰める（returnしてこれら値を返すために）
   metrics <- list(n_days, n_tweets, mean_tweets_per_day, gt_one_tws, zero_tws)
 
-  # グラフに表示させる文字を作成
+  # グラフにラベルなどを作成
   if (identical(period, "1年")) {
     xlab_min <- min(tweets_per_day_imputed$CREATED_AT)
     xlab_max <- max(tweets_per_day_imputed$CREATED_AT)
@@ -95,7 +94,7 @@ tweet_freq <- function(user, period) {
       )
   }
 
-  # プロットから値を取り出す
+  # 上で作成したグラフからRechart用に必要な値を取り出す
   ggb <- ggplot_build(gg)
   breaks <- pluck(ggb, "plot", "data", "CREATED_AT")
   freqs <- pluck(ggb, "plot", "data", "FREQ")

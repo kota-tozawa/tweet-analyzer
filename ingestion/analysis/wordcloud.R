@@ -10,9 +10,9 @@ library(tidytext)
 library(purrr)
 
 # Rオブジェクトとして保存したツイート情報をロード
-setwd("./output/raw")
+setwd("./output/raw/rdata")
 load(filename)
-setwd("../../")
+setwd("../../../")
 
 # 日本語フォントを用意
 family_sans <- getFont()

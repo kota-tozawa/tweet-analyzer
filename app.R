@@ -2,7 +2,7 @@ server <- function(input, output, session) {
   lineGraphData <- reactive({
     req(input$user)
     req(input$period)
-    # TODO .Rdata ファイルがなければ自動で取得するようにする．また最新の情報を任意で取得できるようにする
+    # TODO .Rdata ファイルがなければ自動で取得するようにする．また最新のツイートデータを任意で取得できるようにする
     # download_tweets(input$user)
     tweetFreq <- tweet_freq(input$user, period = input$period)
     breaks = pluck(tweetFreq, 1)
@@ -22,6 +22,7 @@ server <- function(input, output, session) {
 ui <- function() {
   htmlTemplate("public/index.html")
 }
+
 # ./dist/配下のmain.jsにバンドルする
 if (dir.exists("dist")) {
   addResourcePath("static", "dist")

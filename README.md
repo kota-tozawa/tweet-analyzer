@@ -10,7 +10,7 @@
 ## dev実行
 1. Shinyアプリを起動
 ```bash
-$ npm start
+$ npm start --silent
 ```
 2. webpack-dev-serverを立ち上げる
 ```bash
@@ -24,7 +24,7 @@ $ npm run build
 ```
 2. Shinyアプリを起動
 ```bash
-$ npm start
+$ npm start --silent
 ```
 3. [http://localhost:3000](http://localhost:3000)をブラウザで開く
 ## 開発環境

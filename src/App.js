@@ -3,6 +3,7 @@ import { hot } from 'react-hot-loader'
 import { Container, Row, Col, Card, CardBody, Input, Button } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+import { Options } from './common/constants'
 import UserInput from './components/input/UserInput'
 import PeriodInput from './components/input/PeriodInput'
 import LineGraph from './components/tweetFrequency/LineGraph'
@@ -49,13 +50,6 @@ class App extends Component {
 
   render() {
     const { user, period, lineGraphData } = this.state
-    const options = [
-      { key: '', name: '' },
-      { key: '1month', name: '1か月' },
-      { key: '1year', name: '1年' },
-      { key: 'longest', name: '表示可能な最長期間' },
-    ]
-    // const options = ['', '1month', '1year', 'longest']
     return (
       <Container fluid>
         <h2 className="mt-3">ツイート頻度の推移</h2>
@@ -67,7 +61,7 @@ class App extends Component {
                 <UserInput value={user} onChange={this.handleUserChange} />
                 <PeriodInput
                   value={period}
-                  options={options}
+                  options={Options}
                   onChange={this.handlePeriodChange}
                 />
                 {/* TODO ボタンを右端に表示 */}

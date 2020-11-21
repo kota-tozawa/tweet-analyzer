@@ -1,3 +1,6 @@
+library(shiny)
+library(purrr)
+
 server <- function(input, output, session) {
   lineGraphData <- reactive({
     req(input$user)

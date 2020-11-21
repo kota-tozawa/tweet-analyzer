@@ -15,7 +15,8 @@ load(filename)
 setwd("../../../")
 
 # 日本語フォントを用意
-family_sans <- getFont()
+tmp <- get_standard_font()
+sans <- tmp[1]
 
 # ツイートから記号・数値を取り除く
 txts <- tws %>%

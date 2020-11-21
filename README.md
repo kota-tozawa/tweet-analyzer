@@ -89,16 +89,17 @@ hogehoge@fugafuga ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
 ```
 #### JavaScriptのパッケージをインストールする
 ```bash
-$ npm run install
+$ npm install
 ```
 
 ## 開発していくなかで適宜行うべきこと
-### 新たに導入したRのパッケージを`renv.lock`に記録する
+### `renv.lock`の更新（R）
 ```R
 > renv::snapshot()
 ```
 ### コードの静的解析・整形
-#### Rのコードを静的解析する（下記を実行して得られる解析結果を見て，手でコードを整形する）
+#### Rのコードを静的解析する
+下記を実行して得られる解析結果を見て，手でコードを整形する
 ```R
 > lintr::lint_dir(path = "ingestion")
 ```

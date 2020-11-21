@@ -1,4 +1,10 @@
 {
-    "editor.formatOnSave": true,
-    "javascript.updateImportsOnFileMove.enabled": "always",
+  // ファイル保存時に自動で整形
+  "editor.formatOnSave": true,
+  // インポートパス自動更新
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  // インデント関連の設定
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
 }

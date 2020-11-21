@@ -7,7 +7,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 module.exports = {
   mode: isDevelopment ? 'development' : 'production',
   entry: {
-    main: './src/index.js',
+    main: './src/index.jsx',
   },
   output: {
     publicPath: '/static/',

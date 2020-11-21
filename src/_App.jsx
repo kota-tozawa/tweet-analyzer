@@ -13,7 +13,7 @@ class App extends Component {
     super(props);
     this.state = {
       user: '',
-      period: '',
+      period: '1か月',
       lineGraphData: null,
     };
     this.handleUserChange = this.handleUserChange.bind(this);

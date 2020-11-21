@@ -56,7 +56,7 @@ class LineGraph extends Component {
           <Line
             type="monotone"
             dataKey="freq"
-            stroke="#8884d8"
+            stroke="#F08080"
             activeDot={{ r: 8 }}
           />
         </LineChart>

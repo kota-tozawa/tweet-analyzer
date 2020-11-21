@@ -7,8 +7,8 @@ library(ggwordcloud)
 library(readr)
 library(stopwords)
 library(tidytext)
-library(purrr)
 
+# ツイート内容からワードクラウド作成
 # Rオブジェクトとして保存したツイート情報をロード
 setwd("./output/raw/rdata")
 load(filename)
@@ -17,7 +17,6 @@ setwd("../../../")
 # 日本語フォントを用意
 family_sans <- getFont()
 
-# ツイートのワードクラウド作成
 # ツイートから記号・数値を取り除く
 txts <- tws %>%
   select(text) %>%

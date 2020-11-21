@@ -10,7 +10,7 @@ const PeriodInput = ({ value, options, onChange }) => (
       onChange={(e) => onChange(e.target.value)}
     >
       {options.map((option) => (
-        <option key={option.key}>{option.name}</option>
+        <option key={option.key}>{option.label}</option>
       ))}
     </Input>
   </div>

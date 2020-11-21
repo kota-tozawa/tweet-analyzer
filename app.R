@@ -3,7 +3,7 @@ server <- function(input, output, session) {
     req(input$user)
     req(input$period)
     # TODO .Rdata ファイルがなければ自動で取得するようにする（ツイートがとって来れなければエラーを返す）．また最新のツイートデータを任意で取得できるようにする
-    # download_tweets(input$user)
+    # download_user_tweets(input$user)
     tweetFreq <- tweet_freq(input$user, period = input$period)
     breaks = pluck(tweetFreq, 1)
     freqs = pluck(tweetFreq, 2)

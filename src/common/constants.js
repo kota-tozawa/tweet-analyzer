@@ -1,6 +1,5 @@
 export const Options = [
-  { key: '', name: '' },
-  { key: '1month', name: '1か月' },
-  { key: '1year', name: '1年' },
-  { key: 'longest', name: '表示可能な最長期間' },
+  { key: '1month', label: '1か月' },
+  { key: '1year', label: '1年' },
+  { key: 'longest', label: '表示可能な最長期間' },
 ];

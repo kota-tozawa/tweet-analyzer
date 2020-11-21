@@ -1,5 +1,9 @@
 const path = require('path');
+
+// TODO webpackのプラグインや設定に関してもっとよく調べる
+// hot module replacement を有効にするためのプラグイン
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+// コンパイル時にdist配下にhtmlファイルも出力してくれるプラグイン．吐かれたhtmlをそのままpublic配下に置いて使える
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -27,6 +31,7 @@ module.exports = {
     ],
   },
   plugins: [
+    // dev実行時にのみHMRがほしい
     isDevelopment && new ReactRefreshPlugin(),
     new HtmlWebpackPlugin({
       filename: './index.html',

@@ -7,7 +7,7 @@ library(purrr)
 
 # ツイート頻度（回数）の時系列グラフ（折れ線グラフ）を作成
 # 引数にはuser（Twitterユーザー名）とperiod（期間）を入れる
-# TODO 引数として入力可能な期間（period）が，「表示可能な最長期間」，「1年」，「1ヶ月」の3パターンのみ
+# TODO 引数として入力可能な期間（period）が，「longest（表示可能な最長期間）」，「1year（1年）」，「1month（1か月）」の3パターンのみ
 tweet_freq <- function(user, period) {
   # Rオブジェクトとして保存したツイート情報をロード
   filename <- paste0(user, ".Rdata")
@@ -16,17 +16,7 @@ tweet_freq <- function(user, period) {
   setwd("../../../")
 
   # 表示対象期間を設定
-  if (identical(period, "表示可能な最長期間")) {
-    init_date <- min(tws$CREATED_AT) %>%
-      substr(1, 10) %>%
-      as.Date()
-  } else if (identical(period, "1年")) {
-    init_date <- Sys.Date() - months(12) + 1
-  } else if (identical(period, "1か月")) {
-    init_date <- Sys.Date() - months(1) + 1
-  } else {
-    stop("入力可能な期間（period）：\"表示可能な最長期間\", \"1年\", \"1か月\"のいずれか")
-  }
+  init_date <- calc_init_date(tws, period)
   end_date <- as.Date(Sys.Date(), format = "%Y/%m/%d")
   all_dates <- seq.Date(init_date, end_date, by = "days")
   all_dates_df <- all_dates %>%
@@ -68,7 +58,7 @@ tweet_freq <- function(user, period) {
   metrics <- list(n_days, n_tweets, mean_tweets_per_day, gt_one_tws, zero_tws)
 
   # グラフにラベルなどを作成
-  if (identical(period, "1年")) {
+  if (period %in% c("1year", "1年")) {
     xlab_min <- min(tweets_per_day_imputed$CREATED_AT)
     xlab_max <- max(tweets_per_day_imputed$CREATED_AT)
     xlabels <- seq.Date(xlab_min, xlab_max, by = "months") %>%
@@ -77,7 +67,7 @@ tweet_freq <- function(user, period) {
       substr(1, 7) %>%
       paste0("-01") %>%
       as.Date()
-  } else if (identical(period, "1か月")) {
+  } else if (period %in% c("1month", "1か月")) {
     xlabels <- all_dates
   }
 
@@ -86,7 +76,7 @@ tweet_freq <- function(user, period) {
     ggplot(aes(x = CREATED_AT, y = FREQ)) +
     geom_line(size = 0.2)
 
-  if (identical(period, "1年") || identical(period, "1か月")) {
+  if (period %in% c("1year", "1month", "1年", "1か月")) {
     gg <- gg +
       scale_x_continuous(labels = xlabels, breaks = xlabels) +
       theme(

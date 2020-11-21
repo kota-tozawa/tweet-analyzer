@@ -6,5 +6,5 @@ require(stats)
 require(grDevices)
 
 source("ingestion/common/utils/functions.R")
-source("ingestion/download-tweets.R")
+source("ingestion/batch/download-user-tweets.R")
 source("ingestion/analysis/tweet-frequency.R")

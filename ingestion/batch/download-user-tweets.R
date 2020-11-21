@@ -3,7 +3,7 @@ library(dplyr)
 library(rtweet)
 
 # Twitter APiからツイート情報取得
-download_tweets <- function(user) {
+download_user_tweets <- function(user) {
   auth <- "ingestion/common/consts/auth.json" %>%
     read_json(simplifyVector = TRUE)
 

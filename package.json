@@ -7,7 +7,7 @@
     "start": "Rscript main.R",
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "webpack-dev-server --hot --open",
-    "lint-fix": "./node_modules/.bin/eslint --fix --ext .js ./src/"
+    "lint-fix": "./node_modules/.bin/eslint --fix --ext .js --ext .jsx ./src/"
   },
   "repository": {
     "type": "git",

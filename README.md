@@ -1,11 +1,19 @@
 # tweet-analyzer
 ## 概要
 特定のユーザーのツイートを取得し，テキストアナリティクス・自然言語処理の手法で分析し，ダッシュボードに表示するアプリケーション．\
-フロントエンドはReact（JavaScript）で，バックエンドはShinyサーバー（R）を用いて実装．
+フロントエンドは主にReact（JavaScript）で，バックエンドはShiny（R）を用いて実装．
 
 ## 目的
 あるユーザーがどのようにTwitterを利用しているのかをいろいろな側面から可視化すること．\
 自分が普段どのようにTwitterを使っているのかを振り返るためのツールを作ってみようかなというモチベで作り始めた．
+
+## なぜReactとShiny？
+よりリッチな機能を備えたダッシュボードを簡単に作るため．\
+Shinyの枠組みでReactを使えるようにする`{reactR}`パッケージを用いた実装も考えたが，がっつりReact使いたいなと思い，Reactの環境を一から作った．\
+この組み合わせでの実装方法などを紹介しているブログ記事などはあまり多くなかったが，下記GitHubリポジトリは非常に参考になった．\
+https://github.com/glin/shiny-react-example
+振り返ってみると，最初になんとなくRで実装し始めたからShiny＆Reactという選択に落ち着いたが，もし最初にPythonで書き始めていたら，\
+Flask＆Reactとかで作ることにしていたかも？
 
 ## dev実行
 1. Shinyアプリを起動
@@ -16,7 +24,7 @@ $ npm start --silent
 ```bash
 $ npm run dev
 ```
-3. [http://localhost:4000](http://localhost:4000)をブラウザで開く
+3. [http://localhost:4000](http://localhost:4000)をブラウザで開く（自動で開かれない場合）
 ## prd実行
 1. Reactアプリをビルド
 ```bash

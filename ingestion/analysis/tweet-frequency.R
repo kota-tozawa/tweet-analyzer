@@ -7,7 +7,7 @@ library(purrr)
 
 # ツイート頻度（回数）の時系列グラフ（折れ線グラフ）を作成
 # 引数にはuser（Twitterユーザー名）とperiod（期間）を入れる
-# TODO 引数として入力可能な期間（period）が、「表示可能な最長期間」、「1年」、「1ヶ月」の3パターンのみ
+# TODO 引数として入力可能な期間（period）が，「表示可能な最長期間」，「1年」，「1ヶ月」の3パターンのみ
 tweet_freq <- function(user, period) {
   # Rオブジェクトとして保存したツイート情報をロード
   filename <- paste0(user, ".Rdata")

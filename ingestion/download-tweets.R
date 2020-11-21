@@ -19,7 +19,7 @@ download_tweets <- function(user) {
 
   # ユーザーのツイート（リツイート含む）を取得
   tws <- get_timeline(user, n = 3200)
-  # 見易さのため、カラム名を大文字に
+  # 見易さのため，カラム名を大文字に
   names(tws) <- toupper(names(tws))
 
   # 上で取得したツイート情報を保存（何度もAPIにリクエストを送らないため，一時的に保存）

@@ -2,7 +2,7 @@ server <- function(input, output, session) {
   lineGraphData <- reactive({
     req(input$user)
     req(input$period)
-    # TODO .Rdata ファイルがなければ自動で取得するようにする．また最新のツイートデータを任意で取得できるようにする
+    # TODO .Rdata ファイルがなければ自動で取得するようにする（ツイートがとって来れなければエラーを返す）．また最新のツイートデータを任意で取得できるようにする
     # download_tweets(input$user)
     tweetFreq <- tweet_freq(input$user, period = input$period)
     breaks = pluck(tweetFreq, 1)

@@ -1,55 +1,54 @@
-import React, { Component } from 'react'
-import { hot } from 'react-hot-loader'
-import { Container, Row, Col, Card, CardBody, Input, Button } from 'reactstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { Component } from 'react';
+import { Container, Row, Col, Card, CardBody, Input, Button } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Options } from './common/constants'
-import UserInput from './components/input/UserInput'
-import PeriodInput from './components/input/PeriodInput'
-import LineGraph from './components/tweetFrequency/LineGraph'
+import { Options } from './common/constants';
+import UserInput from './components/input/UserInput';
+import PeriodInput from './components/input/PeriodInput';
+import LineGraph from './components/tweetFrequency/LineGraph';
 
 // TODO 関数コンポーネントに書き換える
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       user: '',
       period: '',
       lineGraphData: null,
-    }
-    this.handleUserChange = this.handleUserChange.bind(this)
-    this.handlePeriodChange = this.handlePeriodChange.bind(this)
+    };
+    this.handleUserChange = this.handleUserChange.bind(this);
+    this.handlePeriodChange = this.handlePeriodChange.bind(this);
   }
 
   componentDidMount() {
     window.$(document).on('shiny:connected', () => {
-      this.setInputValues()
-    })
+      this.setInputValues();
+    });
 
     window.Shiny.addCustomMessageHandler('lineGraphData', (lineGraphData) =>
       this.setState({ lineGraphData })
-    )
+    );
   }
 
   componentDidUpdate() {
-    this.setInputValues()
+    this.setInputValues();
   }
 
   setInputValues() {
-    window.Shiny.onInputChange('user', this.state.user)
-    window.Shiny.onInputChange('period', this.state.period)
+    window.Shiny.onInputChange('user', this.state.user);
+    window.Shiny.onInputChange('period', this.state.period);
   }
 
   handleUserChange(value) {
-    this.setState({ user: value })
+    this.setState({ user: value });
   }
 
   handlePeriodChange(value) {
-    this.setState({ period: value })
+    this.setState({ period: value });
   }
 
   render() {
-    const { user, period, lineGraphData } = this.state
+    const { user, period, lineGraphData } = this.state;
     return (
       <Container fluid>
         <h2 className="mt-3">ツイート頻度の推移</h2>
@@ -76,8 +75,8 @@ class App extends Component {
           </Col>
         </Row>
       </Container>
-    )
+    );
   }
 }
 
-export default hot(module)(App)
+export default App;

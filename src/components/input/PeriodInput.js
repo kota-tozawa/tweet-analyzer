@@ -1,5 +1,5 @@
-import React from 'react'
-import { Label, Input } from 'reactstrap'
+import React from 'react';
+import { Label, Input } from 'reactstrap';
 
 const PeriodInput = ({ value, options, onChange }) => (
   <div>
@@ -14,6 +14,6 @@ const PeriodInput = ({ value, options, onChange }) => (
       ))}
     </Input>
   </div>
-)
+);
 
-export default PeriodInput
+export default PeriodInput;

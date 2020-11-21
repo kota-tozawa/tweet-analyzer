@@ -1,5 +1,5 @@
-import React from 'react'
-import { Label, Input } from 'reactstrap'
+import React from 'react';
+import { Label, Input } from 'reactstrap';
 
 const UserInput = ({ value, onChange }) => (
   <div>
@@ -10,6 +10,6 @@ const UserInput = ({ value, onChange }) => (
       onChange={(e) => onChange(e.target.value)}
     />
   </div>
-)
+);
 
-export default UserInput
+export default UserInput;

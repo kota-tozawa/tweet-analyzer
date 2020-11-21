@@ -19,7 +19,7 @@
             "error",
             {
                 "singleQuote": true,
-                "semi": false
+                "semi": true
             }
         ],
         "yoda": 0,

@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   ResponsiveContainer,
   LineChart,
@@ -11,40 +11,40 @@ import {
   Label,
   Legend,
   Tooltip,
-} from 'recharts'
+} from 'recharts';
 
 class LineGraph extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       activeIndex: -1,
-    }
-    this.handleMouseOver = this.handleMouseOver.bind(this)
-    this.handleMouseLeave = this.handleMouseLeave.bind(this)
+    };
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
   handleMouseOver(data, index) {
-    this.setState({ activeIndex: index })
+    this.setState({ activeIndex: index });
   }
 
   handleMouseLeave() {
-    this.setState({ activeIndex: -1 })
+    this.setState({ activeIndex: -1 });
   }
 
   renderTooltipWithLabel(props) {
-    const label = props.payload[0] && props.payload[0].payload.label
-    const newProps = { ...props, content: null }
-    return <Tooltip {...newProps} label={label} />
+    const label = props.payload[0] && props.payload[0].payload.label;
+    const newProps = { ...props, content: null };
+    return <Tooltip {...newProps} label={label} />;
   }
 
   render() {
-    const { breaks, freqs, ticks, xAxisLabel, yAxisLabel } = this.props
+    const { breaks, freqs, ticks, xAxisLabel, yAxisLabel } = this.props;
 
     const data = freqs.map((f, i) => ({
       period: breaks[i],
       freq: f,
       label: `(${breaks[i]}: ${f}回]`,
-    }))
+    }));
 
     return (
       <ResponsiveContainer width="100%" height={400}>
@@ -61,7 +61,7 @@ class LineGraph extends Component {
           />
         </LineChart>
       </ResponsiveContainer>
-    )
+    );
   }
 }
 
@@ -71,11 +71,11 @@ LineGraph.propTypes = {
   ticks: PropTypes.arrayOf(PropTypes.string).isRequired,
   xAxisLabel: PropTypes.string,
   yAxisLabel: PropTypes.string,
-}
+};
 
 LineGraph.defaultProps = {
   xAxisLabel: '期間',
   yAxisLabel: 'ツイート頻度',
-}
+};
 
-export default LineGraph
+export default LineGraph;

@@ -12,10 +12,8 @@
 Shinyの枠組みでReactを使えるようにする`{reactR}`パッケージを用いた実装も考えたが，がっつりReact使いたいなと思い，Reactの環境を一から作った．\
 この組み合わせでの実装方法などを紹介しているブログ記事などはあまり多くなかったが，下記GitHubリポジトリは非常に参考になった．\
 https://github.com/glin/shiny-react-example
-振り返ってみると，最初になんとなくRで実装し始めたからShiny＆Reactという選択に落ち着いたが，もし最初にPythonで書き始めていたら，\
-Flask＆Reactとかで作ることにしていたかも？
 
-## dev実行
+## Development
 1. Shinyアプリを起動
 ```bash
 $ npm start --silent
@@ -25,7 +23,7 @@ $ npm start --silent
 $ npm run dev
 ```
 3. [http://localhost:4000](http://localhost:4000)をブラウザで開く（自動で開かれない場合）
-## prd実行
+## Production
 1. Reactアプリをビルド
 ```bash
 $ npm run build

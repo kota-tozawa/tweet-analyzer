@@ -5,8 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "Rscript main.R",
-    "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "webpack-dev-server --hot --open",
     "lint-fix": "./node_modules/.bin/eslint --fix --ext .js ./src/"
   },
   "repository": {
@@ -20,12 +20,16 @@
   },
   "homepage": "https://github.com/kota-tozawa/tweet-analyzer#readme",
   "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.2",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
+    "html-webpack-plugin": "^5.0.0-alpha.14",
     "prettier": "2.1.2",
+    "react-refresh": "^0.9.0",
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
@@ -41,7 +45,6 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
-    "react-hot-loader": "^4.13.0",
     "reactstrap": "^8.7.1",
     "recharts": "^1.8.5",
     "style-loader": "^2.0.0",

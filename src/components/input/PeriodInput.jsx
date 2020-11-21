@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Label, Input } from 'reactstrap';
 
 const PeriodInput = ({ value, options, onChange }) => (
@@ -15,5 +16,11 @@ const PeriodInput = ({ value, options, onChange }) => (
     </Input>
   </div>
 );
+
+PeriodInput.propTypes = {
+  value: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default PeriodInput;

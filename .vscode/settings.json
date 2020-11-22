@@ -1,6 +1,8 @@
 {
   // ファイル保存時に自動で整形
-  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
   // インポートパス自動更新
   "javascript.updateImportsOnFileMove.enabled": "always",
   // インデント関連の設定

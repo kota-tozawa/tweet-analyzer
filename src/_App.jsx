@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Options } from './common/constants';
 import UserInput from './components/input/UserInput';
-import PeriodInput from './components/input/PeriodInput';
+import NtweetsInput from './components/input/NtweetsInput';
 import LineGraph from './components/tweetFrequency/LineGraph';
 
 // TODO 関数コンポーネントに書き換える
@@ -13,11 +13,11 @@ class App extends Component {
     super(props);
     this.state = {
       user: '',
-      period: '1か月',
+      ntweets: 400,
       lineGraphData: null,
     };
     this.handleUserChange = this.handleUserChange.bind(this);
-    this.handlePeriodChange = this.handlePeriodChange.bind(this);
+    this.handleNtweetsChange = this.handleNtweetsChange.bind(this);
   }
 
   componentDidMount() {
@@ -36,19 +36,19 @@ class App extends Component {
 
   setInputValues() {
     window.Shiny.onInputChange('user', this.state.user);
-    window.Shiny.onInputChange('period', this.state.period);
+    window.Shiny.onInputChange('ntweets', this.state.ntweets);
   }
 
   handleUserChange(value) {
     this.setState({ user: value });
   }
 
-  handlePeriodChange(value) {
-    this.setState({ period: value });
+  handleNtweetsChange(value) {
+    this.setState({ ntweets: value });
   }
 
   render() {
-    const { user, period, lineGraphData } = this.state;
+    const { user, ntweets, lineGraphData } = this.state;
     return (
       <Container fluid>
         <h2 className="mt-3">ツイート頻度の推移</h2>
@@ -58,10 +58,10 @@ class App extends Component {
               <CardBody>
                 <h3 className="mt-3">パラメーターを入力</h3>
                 <UserInput value={user} onChange={this.handleUserChange} />
-                <PeriodInput
-                  value={period}
+                <NtweetsInput
+                  value={ntweets}
                   options={Options}
-                  onChange={this.handlePeriodChange}
+                  onChange={this.handleNtweetsChange}
                 />
                 {/* TODO ボタンを右端に表示 */}
                 <Button type="submit">OK</Button>

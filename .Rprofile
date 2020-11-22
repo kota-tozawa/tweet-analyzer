@@ -8,4 +8,4 @@ require(fontregisterer)
 
 source("ingestion/common/utils/functions.R")
 source("ingestion/batch/download-user-tweets.R")
-source("ingestion/analysis/tweet-frequency.R")
+source("ingestion/visualize/visualize-tweet-freq.R")

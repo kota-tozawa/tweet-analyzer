@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Label, Input } from 'reactstrap'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Label, Input } from 'reactstrap';
 
 const UserInput = ({ value, onChange }) => (
   <div>
@@ -11,11 +11,11 @@ const UserInput = ({ value, onChange }) => (
       onChange={(e) => onChange(e.target.value)}
     />
   </div>
-)
+);
 
 UserInput.propTypes = {
   value: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
-}
-export default UserInput
+};
+
+export default UserInput;

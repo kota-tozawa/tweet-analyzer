@@ -1,12 +1,18 @@
+library(shiny)
+library(purrr)
+
 server <- function(input, output, session) {
   lineGraphData <- reactive({
     req(input$user)
-    req(input$period)
-    # TODO .Rdata ファイルがなければ自動で取得するようにする。また最新の情報を任意で取得できるようにする
-    # get_tweets(input$user)
-    tweetFreq <- tweet_freq(input$user, period = input$period)
-    breaks = pluck(tweetFreq, 1)
-    freqs = pluck(tweetFreq, 2)
+    req(input$ntweets)
+
+    # TODO 入力がsubmitされるたびにTwitter APIにアクセスしてしまう
+    # download_user_tweets(input$user, n_tweets = input$ntweets)
+
+    tweetFreqTimeSeries <- visualize_tweet_freq_time_series(input$user)
+    breaks <- pluck(tweetFreqTimeSeries, 1)
+    freqs <- pluck(tweetFreqTimeSeries, 2)
+
     list(
       breaks = breaks,
       freqs = freqs,
@@ -22,6 +28,7 @@ server <- function(input, output, session) {
 ui <- function() {
   htmlTemplate("public/index.html")
 }
+
 # ./dist/配下のmain.jsにバンドルする
 if (dir.exists("dist")) {
   addResourcePath("static", "dist")

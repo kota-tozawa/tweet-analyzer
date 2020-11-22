@@ -23,6 +23,7 @@ $ npm start --silent
 $ npm run dev
 ```
 3. [http://localhost:4000](http://localhost:4000)をブラウザで開く（自動で開かれない場合）
+
 ## Production
 1. Reactアプリをビルド
 ```bash
@@ -33,6 +34,7 @@ $ npm run build
 $ npm start --silent
 ```
 3. [http://localhost:3000](http://localhost:3000)をブラウザで開く
+
 ## 開発環境
 RとJavaScriptを書いたり動かしたりするのに適したエディタを用いる．（RStudio，VSCodeなど）\
 RStudioに関して，ローカルのPCにインストールしてもよいし，Dockerコンテナ上で起動して開発を行ってもよい．\
@@ -55,6 +57,7 @@ $ git clone https://github.com/kota-tozawa/tweet-analyzer.git
 $ cd tweet-analyzer
 ```
 5. 「環境構築後にやること」を行う
+
 ### 実行中のコンテナの状態を保存し，次作業するときに以前の状態からはじめる方法
 ```bash
 hogehoge@fugafuga ~$ docker ps
@@ -81,29 +84,49 @@ hogehoge@fugafuga ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
 ```
 
 ## 環境構築後にやること
+
 ### 開発に必要なパッケージをインストール
+
 #### Rのパッケージをインストールする
 ```R
 > install.packages("renv")
 > renv::restore()
 ```
+
 #### JavaScriptのパッケージをインストールする
 ```bash
 $ npm install
 ```
 
 ## 開発していくなかで適宜行うべきこと
+
 ### `renv.lock`の更新（R）
 ```R
 > renv::snapshot()
 ```
+
 ### コードの静的解析・整形
+
 #### Rのコードを静的解析する
 下記を実行して得られる解析結果を見て，手でコードを整形する
 ```R
 > lintr::lint_dir(path = "ingestion")
+> lintr::lint_dir(path = "tests")
+> lintr::lint("app.R")
 ```
+
 #### JavaScriptのコードを静的解析及び自動整形する
 ```bash
 $ npm run lint-fix
 ```
+
+### テスト
+
+#### R
+- ユニットテスト
+{testthat}パッケージを用いて行う．
+```R
+> testthat::test_dir("./tests/testthat")
+```
+
+#### JavaScript（React）

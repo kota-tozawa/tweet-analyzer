@@ -7,7 +7,10 @@
     "start": "Rscript main.R",
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "webpack-dev-server --mode development --hot --open",
-    "lint-fix": "./node_modules/.bin/eslint --fix --ext .js --ext .jsx ./src/"
+    "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx ./src/",
+    "lint-fix": "./node_modules/.bin/eslint --fix --ext .js --ext .jsx ./src/",
+    "lint-text": "./node_modules/.bin/textlint README.md",
+    "text-fix": "./node_modules/.bin/textlint --fix README.md"
   },
   "repository": {
     "type": "git",
@@ -30,6 +33,9 @@
     "html-webpack-plugin": "^5.0.0-alpha.14",
     "prettier": "2.1.2",
     "react-refresh": "^0.9.0",
+    "textlint": "^11.7.6",
+    "textlint-rule-preset-ja-spacing": "^2.0.2",
+    "textlint-rule-preset-ja-technical-writing": "^4.0.1",
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {

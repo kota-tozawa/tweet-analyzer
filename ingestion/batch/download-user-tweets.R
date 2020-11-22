@@ -2,7 +2,7 @@
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param n_tweets numeric | character 取得するツイートの数（最大3200まで）
-#' \code{download_user_tweets} Twitter API にリクエストを送り，特定のユーザーのツイートデータ（RT含む）を取得し，.Rdataとして保存する
+#' \code{download_user_tweets} Twitter API にリクエストを送り、特定のユーザーのツイートデータ（RT含む）を取得し、.Rdataとして保存する
 #' @return 戻り値無し
 #' @examples
 #' download_user_tweets("Twitter", n_tweets = 1600)
@@ -32,10 +32,10 @@ download_user_tweets <- function(user, n_tweets) {
   # 指定したユーザーのツイートを取得
   tws <- get_timeline(user, n = n)
 
-  # 見易さのため，カラム名を大文字に
+  # 見易さのため、カラム名を大文字に
   names(tws) <- toupper(names(tws))
 
-  # 上で取得したツイート情報を保存（何度もAPIにリクエストを送らないため，一時的に保存）
+  # 上で取得したツイート情報を保存（何度もAPIにリクエストを送らないため、一時的に保存）
   filename <- paste0("./output/raw/rdata/", user, ".Rdata")
   save(tws, file = filename)
 }

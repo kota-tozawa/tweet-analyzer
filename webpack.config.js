@@ -3,7 +3,7 @@ const path = require('path');
 // TODO webpackのプラグインや設定に関してもっとよく調べる
 // HMRを有効にするためのプラグイン
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-// コンパイル時にdist配下にhtmlファイルも出力してくれるプラグイン．吐かれたhtmlをそのままpublic配下に置いて使える
+// コンパイル時にdist配下にhtmlファイルも出力してくれるプラグイン。吐かれたhtmlをそのままpublic配下に置いて使える
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -15,7 +15,7 @@ module.exports = {
   },
   output: {
     // HMR RuntimeがUpdateChunk JSとManifest JSONを取得するリクエストのパスを指定する
-    // Webpack Dev Serverに対しては，Bundle JS，UpdateChunk JS，Manifest JSを公開するパスを指定する
+    // Webpack Dev Serverに対しては、Bundle JS、UpdateChunk JS、Manifest JSを公開するパスを指定する
     publicPath: '/static/',
   },
   module: {

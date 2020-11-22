@@ -10,9 +10,8 @@ library(tidytext)
 
 # ツイート内容からワードクラウド作成
 # Rオブジェクトとして保存したツイート情報をロード
-setwd("./output/raw/rdata")
-load(filename)
-setwd("../../../")
+raw_file <- paste0("./output/raw/rdata/", user, ".Rdata")
+load(raw_file)
 
 # 日本語フォントを用意
 tmp <- get_standard_font()
@@ -27,17 +26,13 @@ txts <- tws %>%
   )
 
 # すべてのツイートを1つのテキストファイルに保存
-setwd("./output/texts/tweets/")
-textfile <- paste0("tweets-", user, ".txt")
+tweet_txt <- paste0("./output/texts/tweets/", user, ".txt")
 txts %>%
   pull() %>%
-  write(textfile)
-setwd("../../../")
+  write(tweet_txt)
 
 # 上で作成したテキストファイルを対象に形態素解析を実行
-setwd("./output/texts/tweets/")
-txt_df <- docDF(textfile, type = 1)
-setwd("../../../")
+txt_df <- docDF(tweet_txt, type = 1)
 
 # 品詞大分類とその細分類を組み合わせてフィルターにかける
 txt_df <- txt_df %>%
@@ -75,7 +70,6 @@ txt_df_refined %>%
   theme_minimal()
 
 # ワードクラウドを保存
-setwd("./output/images/wordcloud/")
-wordcloud_png <- paste0("tweet-time-series-", user, ".png")
-ggsave(filename = wordcloud_png, plot = last_plot())
-setwd("../../../")
+wordcloud_img <- paste0("./output/images/wordcloud/", user, ".png")
+ggsave(filename = wordcloud_img, plot = last_plot())
+

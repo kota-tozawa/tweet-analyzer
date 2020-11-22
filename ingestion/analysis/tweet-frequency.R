@@ -10,10 +10,8 @@ library(purrr)
 # TODO 引数として入力可能な期間（period）が，「longest（表示可能な最長期間）」，「1year（1年）」，「1month（1か月）」の3パターンのみ
 tweet_freq <- function(user, period) {
   # Rオブジェクトとして保存したツイート情報をロード
-  filename <- paste0(user, ".Rdata")
-  setwd("./output/raw/rdata")
+  filepath <- paste0("./output/raw/rdata/", user, ".Rdata")
   load(filename)
-  setwd("../../../")
 
   # 表示対象期間を設定
   init_date <- calc_init_date(tws, period)

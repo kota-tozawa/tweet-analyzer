@@ -15,7 +15,7 @@ module.exports = {
   },
   output: {
     // HMR RuntimeがUpdateChunk JSとManifest JSONを取得するリクエストのパスを指定する
-    // Webpack Dev Serverに対しては，Bundle JS、UpdateChunk JS、Manifest JSを公開するパスを指定する
+    // Webpack Dev Serverに対しては，Bundle JS，UpdateChunk JS，Manifest JSを公開するパスを指定する
     publicPath: '/static/',
   },
   module: {

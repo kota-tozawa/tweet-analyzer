@@ -15,9 +15,9 @@ server <- function(input, output, session) {
       download_user_tweets(input$user, n_tweets = input$ntweets)
     }
 
-    tweetFreqTimeSeries <- visualize_tweet_freq_time_series(input$user)
-    breaks <- pluck(tweetFreqTimeSeries, 1)
-    freqs <- pluck(tweetFreqTimeSeries, 2)
+    tweet_freq_time_series <- visualize_tweet_freq_time_series(input$user)
+    breaks <- pluck(tweet_freq_time_series, 1)
+    freqs <- pluck(tweet_freq_time_series, 2)
 
     list(
       breaks = breaks,

@@ -6,8 +6,14 @@ server <- function(input, output, session) {
     req(input$user)
     req(input$ntweets)
 
-    # TODO 入力がsubmitされるたびにTwitter APIにアクセスしてしまう
-    # download_user_tweets(input$user, n_tweets = input$ntweets)
+    # 入力されたユーザー名・件数でツイートを取得
+    # ただし、画面から入力が submit されるたびに Twitter API にアクセスしてしまうので、同じ数で既に取得している場合は取得をスキップ
+    # TODO 同じユーザー名・回数でもう一度ツイートを取得することを希望する場合、
+    # TODO 例えば、一週間ぶりに使うときに新しいデータに更新したい場合には、それができるようにする
+    download_flg <- !did_download_with_same_info(input$user, ntweets = input$ntweets)
+    if (download_flg) {
+      download_user_tweets(input$user, n_tweets = input$ntweets)
+    }
 
     tweetFreqTimeSeries <- visualize_tweet_freq_time_series(input$user)
     breaks <- pluck(tweetFreqTimeSeries, 1)

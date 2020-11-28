@@ -1,11 +1,36 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Card, CardBody, Input, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import {
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  Container,
+  makeStyles,
+  withStyles,
+  FormControl,
+} from '@material-ui/core';
+import { SendRounded } from '@material-ui/icons';
 import { Options } from './common/constants';
-import UserInput from './components/input/UserInput';
-import NtweetsInput from './components/input/NtweetsInput';
 import LineGraph from './components/tweetFrequency/LineGraph';
+
+const useStyles = makeStyles({
+  interval: {
+    marginTop: '16px',
+  },
+  paper: {
+    padding: '24px',
+  },
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  errorMessage: {
+    fontSize: '0.8rem',
+    color: '#F44036',
+    marginTop: '8px',
+  },
+});
 
 // TODO 関数コンポーネントに書き換える
 class App extends Component {
@@ -39,44 +64,62 @@ class App extends Component {
     window.Shiny.onInputChange('ntweets', this.state.ntweets);
   }
 
-  handleUserChange(value) {
+  handleUserChange(event) {
+    const value = event.target.value;
     this.setState({ user: value });
   }
 
-  handleNtweetsChange(value) {
+  handleNtweetsChange(event) {
+    const value = parseInt(event.target.value);
     this.setState({ ntweets: value });
   }
 
   render() {
+    const { classes } = this.props;
     const { user, ntweets, lineGraphData } = this.state;
     return (
-      <Container fluid>
-        <h2 className="mt-3">ツイート頻度の推移</h2>
-        <Row>
-          <Col sm="4">
-            <Card style={{ backgroundColor: '#f5f5f5' }}>
-              <CardBody>
-                <h3 className="mt-3">パラメーターを入力</h3>
-                <UserInput value={user} onChange={this.handleUserChange} />
-                <NtweetsInput
-                  value={ntweets}
-                  options={Options}
-                  onChange={this.handleNtweetsChange}
-                />
-                {/* TODO ボタンを右端に表示 */}
-                <Button type="submit">OK</Button>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col sm="8">
-            {lineGraphData && (
-              <LineGraph {...lineGraphData} xAxisLabel="年月" />
-            )}
-          </Col>
-        </Row>
+      <Container maxWidth="lg">
+        {/* <Paper className={classes.paper} elevation={3}> */}
+        <h3 className="mt-3">パラメーター入力</h3>
+        <FormControl margin="normal">
+          <TextField
+            required
+            id="user"
+            value={user}
+            placeholder="Twitterのユーザー名"
+            label="Twitterのユーザー名"
+            variant="outlined"
+            fullWidth
+            onChange={this.handleUserChange}
+          />
+          <Select
+            required
+            id="ntweets"
+            value={ntweets}
+            onChange={this.handleNtweetsChange}
+            fullWidth
+          >
+            {Options.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </Select>
+          <Button
+            type="submit"
+            className={classes.interval}
+            variant="contained"
+            color="primary"
+            endIcon={<SendRounded />}
+          >
+            Send
+          </Button>
+        </FormControl>
+        {lineGraphData && <LineGraph {...lineGraphData} xAxisLabel="年月" />}
+        {/* </Paper> */}
       </Container>
     );
   }
 }
 
-export default App;
+export default withStyles(useStyles)(App);

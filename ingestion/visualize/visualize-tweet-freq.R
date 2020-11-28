@@ -18,9 +18,9 @@ library(ggplot2)
 #' @return list(breaks, freqs, metrics)
 #' @examples
 #' visualize_tweet_freq_time_series("Twitter")
-visualize_tweet_freq_time_series <- function(user) {
+visualize_tweet_freq_time_series <- function(user, ntweets) {
   # Rオブジェクトとして保存したツイート情報をロード
-  filepath <- paste0("./output/raw/rdata/", user, ".Rdata")
+  filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
   load(filepath)
 
   # ロードしたツイート情報の前処理

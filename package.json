@@ -46,6 +46,7 @@
     "@material-ui/icons": "^4.9.1",
     "babel-loader": "^8.1.0",
     "bootstrap": "^4.5.3",
+    "clsx": "^1.1.1",
     "css-loader": "^5.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",

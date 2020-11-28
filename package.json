@@ -6,7 +6,7 @@
   "scripts": {
     "start": "Rscript main.R",
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "webpack-dev-server --mode development --hot --open",
+    "dev": "webpack-dev-server --hot --open",
     "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx ./src/",
     "lint-fix": "./node_modules/.bin/eslint --fix --ext .js --ext .jsx ./src/",
     "lint-text": "./node_modules/.bin/textlint README.md",

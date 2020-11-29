@@ -52,6 +52,7 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "reactstrap": "^8.7.1",
     "recharts": "^1.8.5",
     "style-loader": "^2.0.0",

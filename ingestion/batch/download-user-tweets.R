@@ -1,19 +1,19 @@
 #' Twitter APIからツイートデータ取得
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
-#' @param n_tweets numeric | character 取得するツイートの数（最大3200まで）
+#' @param ntweets numeric | character 取得するツイートの数（最大3200まで）
 #' \code{download_user_tweets} Twitter API にリクエストを送り、特定のユーザーのツイートデータ（RT含む）を取得し、.Rdataとして保存する
 #' @return 戻り値無し
 #' @examples
-#' download_user_tweets("Twitter", n_tweets = 1600)
-#' download_user_tweets("Twitter", n_tweets = "100")
+#' download_user_tweets("Twitter", ntweets = 1600)
+#' download_user_tweets("Twitter", ntweets = "100")
 
 library(jsonlite)
 library(dplyr)
 library(rtweet)
 
-download_user_tweets <- function(user, n_tweets) {
-  n <- as.numeric(n_tweets)
+download_user_tweets <- function(user, ntweets) {
+  n <- as.numeric(ntweets)
 
   # Twitter APIを叩くために必要なシークレットを読み込み
   auth <- "ingestion/common/consts/auth.json" %>%
@@ -36,6 +36,6 @@ download_user_tweets <- function(user, n_tweets) {
   names(tws) <- toupper(names(tws))
 
   # 上で取得したツイート情報を保存（何度もAPIにリクエストを送らないため、一時的に保存）
-  filename <- paste0("./output/raw/rdata/", user, "-", n_tweets, ".Rdata")
+  filename <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
   save(tws, file = filename)
 }

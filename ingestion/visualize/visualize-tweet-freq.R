@@ -6,6 +6,7 @@ library(ggplot2)
 #' ツイート頻度の時系列データ取得
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
+#' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか
 #' \code{visualize_tweet_freq_time_series} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、リストに詰めて返す
 #' breaks: 年月
 #' freqs: ツイート頻度
@@ -17,7 +18,8 @@ library(ggplot2)
 #' zero_tweets: 1回もツイートしなかった日
 #' @return list(breaks, freqs, metrics)
 #' @examples
-#' visualize_tweet_freq_time_series("Twitter")
+#' visualize_tweet_freq_time_series("Twitter", ntweets = 400)
+#' visualize_tweet_freq_time_series("Twitter", ntweets = "3200")
 visualize_tweet_freq_time_series <- function(user, ntweets) {
   # Rオブジェクトとして保存したツイート情報をロード
   filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")

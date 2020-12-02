@@ -1,5 +1,4 @@
-# 画面から入力が submit されるたびに Twitter API にアクセスしてしまうので、
-# 同じユーザー名・ツイート数で既に取得している場合は取得をスキップする関数
+# 過去に同じユーザー名・ツイート数で既にAPIからデータを取得しているかどうかを判定する関数
 did_download_with_same_info <- function(user, ntweets) {
   all_filenames <- list.files("output/raw/rdata/", pattern = "Rdata")
   all_filenames <- sub("\\.[^.]*", "", all_filenames)

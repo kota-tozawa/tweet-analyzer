@@ -8,7 +8,7 @@ library(readr)
 library(stopwords)
 library(tidytext)
 
-# ツイート内容からワードクラウド作成
+# ツイート内容からワードクラウドを作成し、画像として保存する
 # Rオブジェクトとして保存したツイート情報をロード
 raw_file <- paste0("./output/raw/rdata/", user, ".Rdata")
 load(raw_file)

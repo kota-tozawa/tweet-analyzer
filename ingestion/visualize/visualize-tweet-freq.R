@@ -3,7 +3,7 @@ library(tidyr)
 library(lubridate)
 library(ggplot2)
 
-#' ツイート頻度の時系列データ取得
+#' ツイート頻度の時系列データを抽出・加工する
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか

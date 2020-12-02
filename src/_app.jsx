@@ -17,6 +17,7 @@ import { MainListItems } from './components/molecules/ListItems';
 import Home from './components/pages/Home';
 import TweetFreq from './components/pages/TweetFreq';
 import WordCloud from './components/pages/WordCloud';
+import SentimentAnalysis from './components/pages/SentimentAnalysis';
 
 const drawerWidth = 240;
 
@@ -143,6 +144,11 @@ const App = () => {
             <Route path="/" component={Home} exact />
             <Route path="/tweet-freq" component={TweetFreq} exact />
             <Route path="/wordcloud" component={WordCloud} exact />
+            <Route
+              path="/sentiment-analysis"
+              component={SentimentAnalysis}
+              exact
+            />
           </Switch>
         </main>
       </BrowserRouter>

@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { Dashboard, ShowChart, Cloud } from '@material-ui/icons';
+import {
+  Dashboard,
+  ShowChart,
+  Cloud,
+  SentimentSatisfiedAlt,
+} from '@material-ui/icons';
 
 export const MainListItems = (
   <div>
@@ -22,6 +27,17 @@ export const MainListItems = (
         <Cloud />
       </ListItemIcon>
       <ListItemText primary="ワードクラウド" />
+    </ListItem>
+    <ListItem
+      key="SentimentAnalysis"
+      component={Link}
+      to="/sentiment-analysis"
+      button
+    >
+      <ListItemIcon>
+        <SentimentSatisfiedAlt />
+      </ListItemIcon>
+      <ListItemText primary="センチメント分析" />
     </ListItem>
   </div>
 );

@@ -16,7 +16,7 @@ download_user_tweets <- function(user, ntweets) {
   n <- as.numeric(ntweets)
 
   # Twitter APIを叩くために必要なシークレットを読み込み
-  auth <- "ingestion/common/consts/auth.json" %>%
+  auth <- "ingestion/batch/auth.json" %>%
     read_json(simplifyVector = TRUE)
 
   # Twitter APIアクセス用トークン取得

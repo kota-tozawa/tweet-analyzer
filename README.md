@@ -23,7 +23,7 @@ React 環境をスクラッチから自分で用意する方が、自由度の�
 1. Shiny アプリを起動
 
 ```zsh
-$ npm start --silent
+$ npm start --silent # もしくは npm start -s
 ```
 
 2. webpack-dev-server を立ち上げる
@@ -45,7 +45,7 @@ $ npm run build
 2. Shiny アプリを起動
 
 ```zsh
-$ npm start --silent
+$ npm start --silent # もしくは npm start -s
 ```
 
 3. [http://localhost:3000](http://localhost:3000)をブラウザで開く

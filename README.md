@@ -22,13 +22,13 @@ React 環境をスクラッチから自分で用意する方が、自由度の�
 
 1. Shiny アプリを起動
 
-```bash
+```zsh
 $ npm start --silent
 ```
 
 2. webpack-dev-server を立ち上げる
 
-```bash
+```zsh
 $ npm run dev
 ```
 
@@ -38,13 +38,13 @@ $ npm run dev
 
 1. React アプリをビルド
 
-```bash
+```zsh
 $ npm run build
 ```
 
 2. Shiny アプリを起動
 
-```bash
+```zsh
 $ npm start --silent
 ```
 
@@ -60,7 +60,7 @@ RStudio に関して、ローカルの PC にインストールしてもよい�
 
 1. Docker イメージ取得・コンテナ起動（怒られるのでとりあえずパスワードは設定しておく）
 
-```bash
+```zsh
 $ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere rocker/rstudio
 ```
 
@@ -74,7 +74,7 @@ Password: yourpasswordhere
 
 4. RStudio が立ち上がるので、プロジェクトをクローンしてくる
 
-```bash
+```zsh
 $ git clone https://github.com/kota-tozawa/tweet-analyzer.git
 $ cd tweet-analyzer
 ```
@@ -83,7 +83,7 @@ $ cd tweet-analyzer
 
 ### 実行中のコンテナの状態を保存し、次作業するときに以前の状態からはじめる方法
 
-```bash
+```zsh
 hogehoge@fugafuga ~$ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS                    NAMES
 da13575a8a55        rocker/rstudio      "/init"             About a minute ago   Up About a minute   0.0.0.0:8787->8787/tcp   interesting_williams
@@ -120,7 +120,7 @@ hogehoge@fugafuga ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
 
 #### JavaScript のパッケージをインストールする
 
-```bash
+```zsh
 $ npm install
 ```
 
@@ -156,7 +156,7 @@ dev 環境のみで使用するパッケージをインストールするとき�
 
 #### JavaScript のコードを静的解析及び自動整形する
 
-```bash
+```zsh
 $ npm run lint-fix
 ```
 
@@ -164,13 +164,13 @@ $ npm run lint-fix
 
 1. 下記を実行し、機械的に直せるところは直してもらう。
 
-```bash
+```zsh
 $ npm run text-fix
 ```
 
 2. 残った問題点については下記を実行して確認し、手で修正する。
 
-```bash
+```zsh
 $ npm run lint-text
 ```
 

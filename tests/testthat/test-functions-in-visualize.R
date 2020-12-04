@@ -1,5 +1,3 @@
-library(covr)
-
 context("Unit test: extract_dates()")
 
 test_that("正常", {

@@ -131,7 +131,7 @@ $ npm install
 #### R
 
 使うパッケージを変えたり、新しくインストールしたりしたときに行う。\
-できる限り CRAN からパッケージをインストールする。（`install_github("package-name")`より`install.packages("package-name")`）
+できる限り CRAN からパッケージをインストールする。（`install_github("package-name")`より`install.packages("package-name")`が望ましい）
 
 ```R
 > renv::snapshot()

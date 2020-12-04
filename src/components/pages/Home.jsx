@@ -8,7 +8,10 @@ const Home = () => {
         ツイートの頻度の時系列グラフ・度数分布表、ツイート内容のワードクラウドなどを可視化するダッシュボード。
       </Typography>
       <Typography paragraph>
-        <Link href="https://github.com/kota-tozawa/tweet-analyzer">
+        <Link
+          href="https://github.com/kota-tozawa/tweet-analyzer"
+          target="_blank"
+        >
           ソースコードを見る
         </Link>
       </Typography>

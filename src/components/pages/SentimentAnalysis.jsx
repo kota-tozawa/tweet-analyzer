@@ -6,7 +6,10 @@ const WordCloud = () => {
     <>
       <Typography paragraph>ツイート内容のセンチメント分析</Typography>
       <Typography paragraph>
-        <Link href="https://lionbridge.ai/ja/articles/sentiment-analysis-101/">
+        <Link
+          href="https://lionbridge.ai/ja/articles/sentiment-analysis-101/"
+          target="_blank"
+        >
           センチメント分析（感情分析）とは？
         </Link>
       </Typography>

@@ -100,6 +100,7 @@ const App = () => {
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
+        color="secondary"
       >
         <Toolbar>
           <IconButton

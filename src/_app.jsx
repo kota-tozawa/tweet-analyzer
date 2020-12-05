@@ -21,9 +21,6 @@ import SentimentAnalysis from './components/pages/SentimentAnalysis';
 
 const drawerWidth = 240;
 
-// TODO FCかもしくはCCに書き方を統一する
-// Appコンポーネントは関数コンポーネントじゃないと上手く表示がいかない...
-// 逆にTweatFreqコンポーネントはクラスコンポーネントで書かないと値が送られずグラフが描画されない...
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -100,7 +97,6 @@ const App = () => {
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
-        color="secondary"
       >
         <Toolbar>
           <IconButton

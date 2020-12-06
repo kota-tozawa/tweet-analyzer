@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import {
   ResponsiveContainer,
   LineChart,
@@ -7,75 +6,57 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  // TODO マウスオーバー時にラベルを表示させる
-  Label,
-  Legend,
   Tooltip,
+  Legend,
 } from 'recharts';
 
-class LineGraph extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeIndex: -1,
-    };
-    this.handleMouseOver = this.handleMouseOver.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
-  }
-
-  handleMouseOver(data, index) {
-    this.setState({ activeIndex: index });
-  }
-
-  handleMouseLeave() {
-    this.setState({ activeIndex: -1 });
-  }
-
-  renderTooltipWithLabel(props) {
-    const label = props.payload[0] && props.payload[0].payload.label;
-    const newProps = { ...props, content: null };
-    return <Tooltip {...newProps} label={label} />;
-  }
-
-  render() {
-    const { breaks, freqs, ticks, xAxisLabel, yAxisLabel } = this.props;
-
-    const data = freqs.map((f, i) => ({
-      period: breaks[i],
-      freq: f,
-      label: `(${breaks[i]}: ${f}回]`,
-    }));
-
-    return (
-      <ResponsiveContainer width="100%" height={400}>
-        <LineChart width={700} height={500} data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="period" interval="preserveStartEnd" />
-          <YAxis dataKey="freq" interval="preserveStartEnd" />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="freq"
-            stroke="#F08080"
-            activeDot={{ r: 8 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    );
-  }
-}
-
-LineGraph.propTypes = {
-  breaks: PropTypes.arrayOf(PropTypes.string).isRequired,
-  freqs: PropTypes.arrayOf(PropTypes.number).isRequired,
-  ticks: PropTypes.arrayOf(PropTypes.string).isRequired,
-  xAxisLabel: PropTypes.string,
-  yAxisLabel: PropTypes.string,
+// ticks については app.R を参照のこと
+const LineGraph = ({ breaks, freqs, ticks }) => {
+  const data = freqs.map((f, i) => ({
+    period: breaks[i],
+    freq: f,
+  }));
+  return (
+    <ResponsiveContainer width="100%" height={400}>
+      <LineChart
+        width={700}
+        height={500}
+        data={data}
+        margin={{
+          top: 30,
+          right: 30,
+          left: 20,
+          bottom: 20,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis
+          dataKey="period"
+          domain={['dataMin', 'dataMax']}
+          interval="preserveStartEnd"
+          label={{
+            value: '年月',
+            offset: -5,
+            position: 'insideBottomRight',
+          }}
+        />
+        <YAxis
+          dataKey="freq"
+          interval="preserveStartEnd"
+          label={{ value: 'ツイート頻度', angle: -90, position: 'insideLeft' }}
+        />
+        <Tooltip />
+        <Legend verticalAlign="bottom" />
+        <Line
+          type="monotone"
+          dataKey="freq"
+          name="ツイート頻度（実際の値）"
+          stroke="#F08080"
+          // グラフの白い点を無くす
+          // dot={false}
+        />
+      </LineChart>
+    </ResponsiveContainer>
+  );
 };
-
-LineGraph.defaultProps = {
-  xAxisLabel: '期間',
-  yAxisLabel: 'ツイート頻度',
-};
-
 export default LineGraph;

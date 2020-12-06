@@ -46,7 +46,13 @@ class TweetFreq extends Component {
         <Typography paragraph>
           {lineGraphData && lineGraphData['title']}
         </Typography>
-        {lineGraphData && <LineGraph {...lineGraphData} />}
+        {lineGraphData && (
+          <LineGraph
+            breaks={lineGraphData['breaks']}
+            freqs={lineGraphData['freqs']}
+            ticks={lineGraphData['ticks']}
+          />
+        )}
       </>
     );
   }

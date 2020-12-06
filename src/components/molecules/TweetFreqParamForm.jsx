@@ -36,8 +36,8 @@ const TweetFreqParamForm = () => {
   const classes = useStyles();
 
   const setInputValues = (values) => {
-    window.Shiny.onInputChange('user', values.user);
-    window.Shiny.onInputChange('ntweets', values.ntweets);
+    window.Shiny.setInputValue('user', values.user);
+    window.Shiny.setInputValue('ntweets', values.ntweets);
   };
 
   return (

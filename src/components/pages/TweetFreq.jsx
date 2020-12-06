@@ -31,8 +31,8 @@ class TweetFreq extends Component {
   }
 
   setInputValues() {
-    window.Shiny.onInputChange('user', this.state.user);
-    window.Shiny.onInputChange('ntweets', this.state.ntweets);
+    window.Shiny.setInputValue('user', this.state.user);
+    window.Shiny.setInputValue('ntweets', this.state.ntweets);
   }
 
   handleUserChange(e) {

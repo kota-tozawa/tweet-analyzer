@@ -49,6 +49,12 @@ server <- function(input, output, session) {
       words <- pluck(wordcloud, 1)
       freqs <- pluck(wordcloud, 2)
       title <- pluck(wordcloud, 3)
+
+      list(
+        words = words,
+        freqs = freqs,
+        title = title
+      )
     }
   })
 

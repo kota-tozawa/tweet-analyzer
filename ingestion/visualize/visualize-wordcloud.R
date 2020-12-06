@@ -54,7 +54,7 @@ visualize_wordcloud <- function(user, ntweets) {
   )
   ja_stop_words <- tmp %>%
     add_row(
-      TERM = c("ある", "する", "てる", "いる", "の", "いう", "しまう", "なる", "ん", "思う")
+      TERM = c("ある", "する", "てる", "いる", "の", "いう", "しまう", "なる", "ん", "思う", "ない")
     )
   en_stop_words <- stopwords("en", source = "stopwords-iso") %>%
     data.frame() %>%
@@ -65,10 +65,10 @@ visualize_wordcloud <- function(user, ntweets) {
   txt_df_refined <- txt_df %>%
     select(TERM, FREQ = 4) %>%
     arrange(FREQ) %>%
-    tail(125) %>%
+    tail(150) %>%
     anti_join(stop_words, by = "TERM")
   # 出現頻度が高い順に並べ替える
-  txt_df_refined <- txt_df_refined[order(txt_df_refined$FREQ, decreasing=T), ]
+  txt_df_refined <- txt_df_refined[order(txt_df_refined$FREQ, decreasing = TRUE), ]
   # 単語と出現頻度をそれぞれ別のリストに分ける
   words <- txt_df_refined$TERM
   freqs <- txt_df_refined$FREQ

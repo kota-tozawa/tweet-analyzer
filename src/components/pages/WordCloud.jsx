@@ -1,18 +1,47 @@
 import React, { Component } from 'react';
 import { Typography, Link } from '@material-ui/core';
+import UserAndNtweetsForm from '../molecules/UserAndNtweetsForm';
+import WordCloudViz from '../organisms/WordCloudViz';
 
+// TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
 class WordCloud extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: '',
       ntweets: 800,
-      listData: null,
+      dataProcessed: null,
       analysisType: 'wordcloud',
     };
+    this.handleUserChange = this.handleUserChange.bind(this);
+    this.handleNtweetsChange = this.handleNtweetsChange.bind(this);
+  }
+
+  // JSとRの間で、WebSocketでデータをやり取りする
+  componentDidMount() {
+    // JS to R
+    window.$(document).on('shiny:connected', () => {
+      this.setInputValues();
+    });
+
+    // R to JS
+    window.Shiny.addCustomMessageHandler('dataProcessed', (dataProcessed) =>
+      this.setState({ dataProcessed })
+    );
+  }
+
+  handleUserChange(e) {
+    const value = e.target.value;
+    this.setState({ user: value });
+  }
+
+  handleNtweetsChange(e) {
+    const value = e.target.value;
+    this.setState({ ntweets: value });
   }
 
   render() {
+    const { dataProcessed, analysisType } = this.state;
     return (
       <>
         <Typography paragraph>ツイート内容のワードクラウド</Typography>
@@ -24,6 +53,16 @@ class WordCloud extends Component {
             ワードクラウドとは？
           </Link>
         </Typography>
+        <UserAndNtweetsForm analysisType={analysisType} />
+        <Typography paragraph>
+          {dataProcessed && dataProcessed['title']}
+        </Typography>
+        {dataProcessed && (
+          <WordCloudViz
+            words={dataProcessed['words']}
+            freqs={dataProcessed['freqs']}
+          />
+        )}
       </>
     );
   }

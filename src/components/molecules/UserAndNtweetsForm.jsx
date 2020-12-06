@@ -32,7 +32,9 @@ const useStyles = makeStyles({
   },
 });
 
-const UserAndNtweetsForm = () => {
+// TODO proptypes による型チェック
+// TODO バリデーションをもっと作り込む
+const UserAndNtweetsForm = ({ analysisType }) => {
   const classes = useStyles();
 
   const setInputValues = (values) => {
@@ -46,7 +48,7 @@ const UserAndNtweetsForm = () => {
       initialValues={{
         user: '',
         ntweets: 400,
-        analysisType: 'tweetFreq',
+        analysisType: analysisType,
       }}
       validationSchema={Yup.object({
         user: Yup.string().required('必須項目です'),

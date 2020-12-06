@@ -41,11 +41,11 @@ class TweetFreq extends Component {
   }
 
   render() {
-    const { dataProcessed } = this.state;
+    const { dataProcessed, analysisType } = this.state;
     return (
       <>
         <Typography paragraph>ツイート頻度の時系列グラフ</Typography>
-        <UserAndNtweetsForm />
+        <UserAndNtweetsForm analysisType={analysisType} />
         <Typography paragraph>
           {dataProcessed && dataProcessed['title']}
         </Typography>

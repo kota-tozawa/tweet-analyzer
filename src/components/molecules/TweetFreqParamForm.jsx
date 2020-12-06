@@ -38,6 +38,7 @@ const TweetFreqParamForm = () => {
   const setInputValues = (values) => {
     window.Shiny.setInputValue('user', values.user);
     window.Shiny.setInputValue('ntweets', values.ntweets);
+    window.Shiny.setInputValue('analysisType', values.analysisType);
   };
 
   return (
@@ -45,6 +46,7 @@ const TweetFreqParamForm = () => {
       initialValues={{
         user: '',
         ntweets: 400,
+        analysisType: 'tweetFreq',
       }}
       validationSchema={Yup.object({
         user: Yup.string().required('必須項目です'),

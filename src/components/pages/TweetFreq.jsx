@@ -11,6 +11,7 @@ class TweetFreq extends Component {
       user: '',
       ntweets: 400,
       lineGraphData: null,
+      analysisType: 'tweetFreq',
     };
     this.handleUserChange = this.handleUserChange.bind(this);
     this.handleNtweetsChange = this.handleNtweetsChange.bind(this);
@@ -24,15 +25,6 @@ class TweetFreq extends Component {
     window.Shiny.addCustomMessageHandler('lineGraphData', (lineGraphData) =>
       this.setState({ lineGraphData })
     );
-  }
-
-  componentDidUpdate() {
-    this.setInputValues();
-  }
-
-  setInputValues() {
-    window.Shiny.setInputValue('user', this.state.user);
-    window.Shiny.setInputValue('ntweets', this.state.ntweets);
   }
 
   handleUserChange(e) {

@@ -10,13 +10,8 @@ library(ggplot2)
 #' \code{visualize_tweet_freq_time_series} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、リストに詰めて返す
 #' breaks: 年月
 #' freqs: ツイート頻度
-#' mertics: ツイート数合計や平均などの各種統計量・メトリクス（下記の5つ）が入ったリスト
-#' total_days: プロット期間内の総日数
-#' total_tweets: プロット期間内の総ツイート数
-#' meatotal_tweets_per_day: 1日当たり平均ツイート頻度
-#' gt_one_tws: 1回以上ツイートした日
-#' zero_tweets: 1回もツイートしなかった日
-#' @return list(breaks, freqs, metrics)
+#' title: 画面表示用グラフタイトル
+#' @return list(breaks, freqs, title)
 #' @examples
 #' visualize_tweet_freq_time_series("Twitter", ntweets = 400)
 #' visualize_tweet_freq_time_series("Twitter", ntweets = "3200")
@@ -53,7 +48,7 @@ visualize_tweet_freq_time_series <- function(user, ntweets) {
   # TODO 移動平均の時系列グラフ用データも用意する（7日間周期でやってみる？）
   breaks <- all_dates
   freqs <- tweets_per_day_imputed$FREQ
-  title <- paste0("@", user, "の", init_date, "から", end_date, "までのツイート頻度の推移")
+  title <- paste0("@", user, " の ", init_date, " から ", end_date, " までのツイート頻度の推移")
 
   return(list(breaks, freqs, title))
 }

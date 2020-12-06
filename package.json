@@ -6,7 +6,7 @@
   "scripts": {
     "start": "Rscript main.R",
     "build": "cross-env NODE_ENV=production webpack",
-    "dev": "webpack-dev-server --mode development --hot --open",
+    "dev": "webpack-dev-server --hot --open",
     "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx ./src/",
     "lint-fix": "./node_modules/.bin/eslint --fix --ext .js --ext .jsx ./src/",
     "lint-text": "./node_modules/.bin/textlint README.md",
@@ -45,16 +45,18 @@
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "babel-loader": "^8.1.0",
-    "bootstrap": "^4.5.3",
+    "clsx": "^1.1.1",
     "css-loader": "^5.0.1",
+    "formik": "^2.2.5",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
-    "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "reactstrap": "^8.7.1",
     "recharts": "^1.8.5",
     "style-loader": "^2.0.0",
     "webpack": "^5.4.0",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "yup": "^0.32.1"
   }
 }

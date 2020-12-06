@@ -4,7 +4,7 @@ library(purrr)
 server <- function(input, output, session) {
   lineGraphData <- reactive({
     # どの分析用のデータを用意すれば良いか判定
-    recent_tweets_flg <- req(input$analysisType) == "recentTweets"
+    recent_tweet_list_flg <- req(input$analysisType) == "recentTweetList"
     tweet_freq_flg <- req(input$analysisType) == "tweetFreq"
     wordcloud_flg <- req(input$analysisType) == "wordcloud"
     sentiment_analysis_flg <- req(input$analysisType) == "sentimentAnalysis"

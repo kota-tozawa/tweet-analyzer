@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import {
-  Dashboard,
+  Home,
+  Twitter,
   ShowChart,
   Cloud,
   SentimentSatisfiedAlt,
@@ -12,9 +13,20 @@ export const MainListItems = (
   <div>
     <ListItem key="Home" component={Link} to="/" button>
       <ListItemIcon>
-        <Dashboard />
+        <Home />
       </ListItemIcon>
       <ListItemText primary="ホーム画面" />
+    </ListItem>
+    <ListItem
+      key="RecentTweetList"
+      component={Link}
+      to="/recent-tweet-list"
+      button
+    >
+      <ListItemIcon>
+        <Twitter />
+      </ListItemIcon>
+      <ListItemText primary="最近のツイート一覧" />
     </ListItem>
     <ListItem key="TweetFreq" component={Link} to="/tweet-freq" button>
       <ListItemIcon>

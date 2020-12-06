@@ -17,11 +17,13 @@ server <- function(input, output, session) {
     tweet_freq_time_series <- visualize_tweet_freq_time_series(user, ntweets = ntweets)
     breaks <- pluck(tweet_freq_time_series, 1)
     freqs <- pluck(tweet_freq_time_series, 2)
+    title <- pluck(tweet_freq_time_series, 3)
 
     list(
       breaks = breaks,
       freqs = freqs,
-      ticks = pretty(breaks)
+      ticks = pretty(breaks),
+      title = title
     )
   })
 

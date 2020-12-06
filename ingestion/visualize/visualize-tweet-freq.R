@@ -53,8 +53,9 @@ visualize_tweet_freq_time_series <- function(user, ntweets) {
   # TODO 移動平均の時系列グラフ用データも用意する（7日間周期でやってみる？）
   breaks <- all_dates
   freqs <- tweets_per_day_imputed$FREQ
+  title <- paste0("@", user, "の", init_date, "から", end_date, "までのツイート頻度の推移")
 
-  return(list(breaks, freqs))
+  return(list(breaks, freqs, title))
 }
 
 # TODO 度数分布表のヒストグラムをRechartsで出すためのデータを用意する関数を作る

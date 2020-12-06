@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ParameterForm = () => {
+const TweetFreqParamForm = () => {
   const classes = useStyles();
 
   const setInputValues = (values) => {
@@ -112,4 +112,4 @@ const ParameterForm = () => {
   );
 };
 
-export default ParameterForm;
+export default TweetFreqParamForm;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Typography } from '@material-ui/core';
-import TweetFreqParamForm from '../molecules/TweetFreqParamForm';
+import UserAndNtweetsForm from '../molecules/UserAndNtweetsForm';
 import LineGraph from '../organisms/LineGraph';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
@@ -45,7 +45,7 @@ class TweetFreq extends Component {
     return (
       <>
         <Typography paragraph>ツイート頻度の時系列グラフ</Typography>
-        <TweetFreqParamForm />
+        <UserAndNtweetsForm />
         <Typography paragraph>
           {lineGraphData && lineGraphData['title']}
         </Typography>

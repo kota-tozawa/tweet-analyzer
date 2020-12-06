@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TweetFreqParamForm = () => {
+const UserAndNtweetsForm = () => {
   const classes = useStyles();
 
   const setInputValues = (values) => {
@@ -61,7 +61,7 @@ const TweetFreqParamForm = () => {
           <Paper className={classes.paper} elevation={3}>
             <Form>
               <Typography className={classes.interval}>
-                Twitterユーザー名
+                Twitterユーザー名（先頭の@は抜きで入力してください）
               </Typography>
               <Field
                 name="user"
@@ -114,4 +114,4 @@ const TweetFreqParamForm = () => {
   );
 };
 
-export default TweetFreqParamForm;
+export default UserAndNtweetsForm;

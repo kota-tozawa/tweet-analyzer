@@ -17,11 +17,14 @@ class TweetFreq extends Component {
     this.handleNtweetsChange = this.handleNtweetsChange.bind(this);
   }
 
+  // JSとRの間で、WebSocketでデータをやり取りする
   componentDidMount() {
+    // JS to R
     window.$(document).on('shiny:connected', () => {
       this.setInputValues();
     });
 
+    // R to JS
     window.Shiny.addCustomMessageHandler('lineGraphData', (lineGraphData) =>
       this.setState({ lineGraphData })
     );

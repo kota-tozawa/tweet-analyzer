@@ -79,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// TODO ホーム画面（/）以外でリロードすると、Not Found になる
 const App = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);

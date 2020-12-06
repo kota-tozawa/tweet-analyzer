@@ -1,4 +1,4 @@
-# developmentモードでshinyアプリを起動する
+# developmentモードで Shiny アプリを起動する
 
 options(shiny.port = 3000)
 options(shiny.launch.browser = FALSE)

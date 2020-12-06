@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import {
-  Typography,
-  TextField,
-  FormControl,
-  Select,
-  MenuItem,
-  Button,
-} from '@material-ui/core';
-import { SendRounded } from '@material-ui/icons';
-import { Options } from '../atoms/constants';
+import { Typography } from '@material-ui/core';
+import ParameterForm from '../molecules/ParameterForm';
 import LineGraph from '../organisms/LineGraph';
 
-// TODO shinyサーバーへの値の送信が「send」ボタンを押す前に行われてしまう。フォームバリデーション追加などで対応？
+// TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
 class TweetFreq extends Component {
   constructor(props) {
     super(props);
@@ -58,39 +50,7 @@ class TweetFreq extends Component {
     return (
       <>
         <Typography paragraph>ツイート頻度の時系列グラフ</Typography>
-        <FormControl margin="normal">
-          <TextField
-            required
-            id="user"
-            value={user}
-            placeholder="Twitterのユーザー名"
-            label="Twitterのユーザー名"
-            variant="outlined"
-            fullWidth
-            onChange={this.handleUserChange}
-          />
-          <Select
-            required
-            id="ntweets"
-            value={ntweets}
-            onChange={this.handleNtweetsChange}
-            fullWidth
-          >
-            {Options.map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </Select>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            endIcon={<SendRounded />}
-          >
-            Send
-          </Button>
-        </FormControl>
+        <ParameterForm />
         {lineGraphData && <LineGraph {...lineGraphData} xAxisLabel="年月" />}
       </>
     );

@@ -2,7 +2,7 @@ library(shiny)
 library(purrr)
 
 server <- function(input, output, session) {
-  lineGraphData <- reactive({
+  dataProcessed <- reactive({
     # どの分析用のデータを用意すれば良いか判定
     recent_tweet_list_flg <- req(input$analysisType) == "recentTweetList"
     tweet_freq_flg <- req(input$analysisType) == "tweetFreq"
@@ -35,13 +35,25 @@ server <- function(input, output, session) {
         ticks = pretty(breaks),
         title = title
       )
+    } else if (wordcloud_flg) {
+      # ワードクラウド用のデータを用意
+      req(input$user) -> user
+      req(input$ntweets) -> ntweets
+
+      download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
+      if (download_flg) {
+        download_user_tweets(user, ntweets = ntweets)
+      }
+
+      wordcloud <- visualize_wordcloud(user, ntweets = ntweets)
+      words <- pluck(wordcloud, 1)
+      freqs <- pluck(wordcloud, 2)
+      title <- pluck(wordcloud, 3)
     }
-    # ワードクラウド用のデータを用意
-    # if (wordcloud_flg) {
   })
 
   observe({
-    session$sendCustomMessage("lineGraphData", lineGraphData())
+    session$sendCustomMessage("dataProcessed", dataProcessed())
   })
 }
 

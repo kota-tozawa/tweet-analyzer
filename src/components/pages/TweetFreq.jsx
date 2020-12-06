@@ -10,7 +10,7 @@ class TweetFreq extends Component {
     this.state = {
       user: '',
       ntweets: 400,
-      lineGraphData: null,
+      dataProcessed: null,
       analysisType: 'tweetFreq',
     };
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -25,8 +25,8 @@ class TweetFreq extends Component {
     });
 
     // R to JS
-    window.Shiny.addCustomMessageHandler('lineGraphData', (lineGraphData) =>
-      this.setState({ lineGraphData })
+    window.Shiny.addCustomMessageHandler('dataProcessed', (dataProcessed) =>
+      this.setState({ dataProcessed })
     );
   }
 
@@ -41,19 +41,19 @@ class TweetFreq extends Component {
   }
 
   render() {
-    const { lineGraphData } = this.state;
+    const { dataProcessed } = this.state;
     return (
       <>
         <Typography paragraph>ツイート頻度の時系列グラフ</Typography>
         <UserAndNtweetsForm />
         <Typography paragraph>
-          {lineGraphData && lineGraphData['title']}
+          {dataProcessed && dataProcessed['title']}
         </Typography>
-        {lineGraphData && (
+        {dataProcessed && (
           <LineGraph
-            breaks={lineGraphData['breaks']}
-            freqs={lineGraphData['freqs']}
-            ticks={lineGraphData['ticks']}
+            breaks={dataProcessed['breaks']}
+            freqs={dataProcessed['freqs']}
+            ticks={dataProcessed['ticks']}
           />
         )}
       </>

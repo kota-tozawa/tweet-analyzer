@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { SendRounded } from '@material-ui/icons';
-import { Options } from '../atoms/constants';
+import { NtweetOptions } from '../atoms/constants';
 
 const useStyles = makeStyles({
   interval: {
@@ -54,6 +54,7 @@ const UserAndNtweetsForm = ({ analysisType }) => {
         user: Yup.string().required('必須項目です'),
       })}
       onSubmit={(values, { setSubmitting }) => {
+        // JS to R
         setInputValues(values);
         setSubmitting(false);
       }}
@@ -82,7 +83,7 @@ const UserAndNtweetsForm = ({ analysisType }) => {
                 )}
               </ErrorMessage>
               <Typography className={classes.interval}>
-                取得するツイート数
+                取得するツイート数（最新のツイートから何個前のツイートまで分析対象とするか）
               </Typography>
               <Field
                 name="ntweets"
@@ -91,7 +92,7 @@ const UserAndNtweetsForm = ({ analysisType }) => {
                 variant="outlined"
                 fullWidth
               >
-                {Options.map((option) => (
+                {NtweetOptions.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>

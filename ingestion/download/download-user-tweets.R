@@ -13,10 +13,8 @@ library(dplyr)
 library(rtweet)
 
 download_user_tweets <- function(user, ntweets) {
-  n <- as.numeric(ntweets)
-
   # Twitter APIを叩くために必要なシークレットを読み込み
-  auth <- "ingestion/batch/auth.json" %>%
+  auth <- "ingestion/download/auth.json" %>%
     read_json(simplifyVector = TRUE)
 
   # Twitter APIアクセス用トークン取得
@@ -30,7 +28,7 @@ download_user_tweets <- function(user, ntweets) {
   )
 
   # 指定したユーザーのツイートを取得
-  tws <- get_timeline(user, n = n)
+  tws <- get_timeline(user, n = ntweets)
 
   # 見易さのため、カラム名を大文字に
   names(tws) <- toupper(names(tws))

@@ -1,1 +1,1 @@
-export const Options = [200, 400, 800, 1600, 3200];
+export const NtweetOptions = [200, 400, 800, 1600, 3200];

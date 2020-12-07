@@ -8,7 +8,7 @@ library(ggplot2)
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか
 #' \code{visualize_tweet_freq_time_series} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、リストに詰めて返す
-#' breaks: 年月
+#' breaks: 年月日
 #' freqs: ツイート頻度
 #' title: 画面表示用グラフタイトル
 #' @return list(breaks, freqs, title)

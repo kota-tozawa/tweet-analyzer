@@ -12,9 +12,9 @@ import {
 
 // ticks については app.R を参照のこと
 const LineGraph = ({ breaks, freqs, ticks }) => {
-  const data = freqs.map((f, i) => ({
+  const data = freqs.map((freq, i) => ({
     period: breaks[i],
-    freq: f,
+    freq: freq,
   }));
   return (
     <ResponsiveContainer width="100%" height={400}>
@@ -35,7 +35,7 @@ const LineGraph = ({ breaks, freqs, ticks }) => {
           domain={['dataMin', 'dataMax']}
           interval="preserveStartEnd"
           label={{
-            value: '年月',
+            value: '年月日',
             offset: -5,
             position: 'insideBottomRight',
           }}

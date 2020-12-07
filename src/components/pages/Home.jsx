@@ -2,6 +2,10 @@ import React from 'react';
 import { Typography, Link } from '@material-ui/core';
 
 const Home = () => {
+  const notes =
+    'ご利用にあたっての留意事項：\n' +
+    '• 分析対象のツイートには、ユーザーがリツイートしたツイートも含まれます。\n' +
+    '• 取得するツイートの量によっては、グラフを表示するのに時間がかかります。';
   return (
     <>
       <Typography paragraph>
@@ -14,6 +18,11 @@ const Home = () => {
         >
           ソースコードを見る
         </Link>
+      </Typography>
+      <Typography component={'span'}>
+        {notes.split('\n').map((t, i) => {
+          return <pre key={i}>{t}</pre>;
+        })}
       </Typography>
     </>
   );

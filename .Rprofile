@@ -1,13 +1,15 @@
 source("renv/activate.R")
 
-require(tidyverse)
-require(systemfonts)
-require(stats)
-require(grDevices)
-require(fontregisterer)
+# fontregisterer 用に書いたが、使ってないのでコメントアウト
+# require(tidyverse)
+# require(systemfonts)
+# require(stats)
+# require(grDevices)
+# require(fontregisterer)
 
+source("ingestion/visualize/constants.R")
 source("ingestion/visualize/functions.R")
 source("ingestion/functions-for-server.R")
-source("ingestion/batch/download-user-tweets.R")
+source("ingestion/download/download-user-tweets.R")
 source("ingestion/visualize/visualize-tweet-freq.R")
 source("ingestion/visualize/visualize-wordcloud.R")

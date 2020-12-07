@@ -20,9 +20,9 @@ const options = {
 };
 
 const WordCloudViz = ({ words, freqs }) => {
-  const data = freqs.map((f, i) => ({
+  const data = freqs.map((freq, i) => ({
     text: words[i],
-    value: f,
+    value: freq,
   }));
   return (
     <div style={{ height: 800, width: 1200 }}>

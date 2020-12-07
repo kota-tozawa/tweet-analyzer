@@ -19,11 +19,6 @@ class WordCloud extends Component {
 
   // JSとRの間で、WebSocketでデータをやり取りする
   componentDidMount() {
-    // JS to R
-    window.$(document).on('shiny:connected', () => {
-      this.setInputValues();
-    });
-
     // R to JS
     window.Shiny.addCustomMessageHandler('dataProcessed', (dataProcessed) =>
       this.setState({ dataProcessed })

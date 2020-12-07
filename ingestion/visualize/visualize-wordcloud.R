@@ -7,14 +7,14 @@ library(stopwords)
 #' 重要な・意味のある頻出単語とその頻度をツイートテキストから抽出する
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか
-#' \code{visualize_tweet_freq_time_series} download_user_tweets()で得たツイートテキストから、react-wordcloudで可視化するために必要な値を取り出して加工し、リストに詰めて返す
-#' breaks: 年月
+#' \code{visualize_wordcloud} download_user_tweets()で得たツイートテキストから、react-wordcloudで可視化するために必要な値を取り出して加工し、リストに詰めて返す
+#' breaks: 年月日
 #' freqs: ツイート頻度
 #' title: 画面表示用タイトル
 #' @return list(breaks, freqs, title)
 #' @examples
-#' visualize_tweet_freq_time_series("Twitter", ntweets = 400)
-#' visualize_tweet_freq_time_series("Twitter", ntweets = "3200")
+#' visualize_wordcloud("Twitter", ntweets = 400)
+#' visualize_wordcloud("Twitter", ntweets = "3200")
 visualize_wordcloud <- function(user, ntweets) {
   # Rオブジェクトとして保存したツイート情報をロード
   filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
@@ -53,22 +53,19 @@ visualize_wordcloud <- function(user, ntweets) {
     col_names = "TERM"
   )
   ja_stop_words <- tmp %>%
-    add_row(
-      TERM = c("ある", "する", "てる", "いる", "の", "いう", "しまう", "なる", "ん", "思う", "ない")
-    )
+    add_row(TERM = JA_CUSTOM_STOP_WORD_LIST)
   en_stop_words <- stopwords("en", source = "stopwords-iso") %>%
     data.frame() %>%
-    select(TERM = 1)
+    select(TERM = 1) %>%
+    add_row(TERM = EN_CUSTOM_STOP_WORD_LIST)
   stop_words <- rbind(ja_stop_words, en_stop_words)
 
-  # データ作成（頻出単語とその出現頻度の組み合わせ）
+  # データ作成（頻出150単語とその出現頻度の組み合わせ）
   txt_df_refined <- txt_df %>%
     select(TERM, FREQ = 4) %>%
-    arrange(FREQ) %>%
-    tail(150) %>%
+    arrange(desc(FREQ)) %>%
+    head(150) %>%
     anti_join(stop_words, by = "TERM")
-  # 出現頻度が高い順に並べ替える
-  txt_df_refined <- txt_df_refined[order(txt_df_refined$FREQ, decreasing = TRUE), ]
   # 単語と出現頻度をそれぞれ別のリストに分ける
   words <- txt_df_refined$TERM
   freqs <- txt_df_refined$FREQ

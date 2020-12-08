@@ -2,10 +2,20 @@
   "filters": {},
   "rules": {
     "preset-ja-spacing": {
+      "no-doubled-joshi": {
+         "strict": false,
+         "allow": ["か"]
+      },
       "ja-space-between-half-and-full-width": {
-        "space": "always"
+        "space": "always",
+        "exceptPunctuation": true
+      },
+      "ja-space-around-code": {
+        "before": true,
+        "after": true
       }
     },
-    "preset-ja-technical-writing": true
+    "preset-ja-technical-writing": true,
+    "ja-technical-writing/sentence-length": false
   }
 }

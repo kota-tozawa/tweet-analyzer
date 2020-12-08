@@ -15,7 +15,7 @@
 理由の 1 つは、リッチな機能を備えたダッシュボードを簡単に作るため。\
 2 つ目は、ちょうど React を勉強したいと思っていて、テキストマイニング・NLP 関係は R で書きたいと思ったから。\
 よって、自然に React と Shiny を組み合わせて使う発想に至った。\
-Shiny の枠組みで React を使えるようにする`{reactR}`パッケージを用いた実装も考えたが、\
+Shiny の枠組みで React を使えるようにする `{reactR}` パッケージを用いた実装も考えたが、\
 React 環境をスクラッチから自分で用意する方が、自由度の高い実装が可能だと考えた。
 
 ## Development
@@ -52,7 +52,8 @@ $ npm start --silent # もしくは npm start -s
 
 ## 開発環境
 
-R と JavaScript を書いたり動かしたりするのに適したエディタを用いる。（RStudio、VSCode など）\
+R と JavaScript を書いたり動かしたりするのに適したエディタを用いる。（eg: RStudio、VSCode）
+いれておくと良い VSCode 拡張機能に関しては .vscode/README.md 参照。\
 RStudio に関して、ローカルの PC にインストールしてもよいし、Docker コンテナ上で起動してもよい。\
 下記には Docker を用いて RStudio をインストールする方法を記す。
 
@@ -131,7 +132,7 @@ $ npm install
 #### R
 
 使うパッケージを変えたり、新しくインストールしたりしたときに行う。\
-できる限り CRAN からパッケージをインストールする。（`install_github("package-name")`より`install.packages("package-name")`が望ましい）
+できる限り CRAN からパッケージをインストールする。（`install_github("package-name")`より `install.packages("package-name")` が望ましい）
 
 ```R
 > renv::snapshot()

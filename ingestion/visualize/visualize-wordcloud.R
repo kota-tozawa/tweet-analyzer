@@ -8,10 +8,10 @@ library(stopwords)
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか
 #' \code{visualize_wordcloud} download_user_tweets()で得たツイートテキストから、react-wordcloudで可視化するために必要な値を取り出して加工し、リストに詰めて返す
-#' breaks: 年月日
-#' freqs: ツイート頻度
+#' words: 単語のリスト
+#' freqs: 単語の頻度
 #' title: 画面表示用タイトル
-#' @return list(breaks, freqs, title)
+#' @return list(words, freqs, title)
 #' @examples
 #' visualize_wordcloud("Twitter", ntweets = 400)
 #' visualize_wordcloud("Twitter", ntweets = "3200")

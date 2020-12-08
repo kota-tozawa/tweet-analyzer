@@ -44,3 +44,6 @@ vignettes/*.pdf
 # js
 node_modules/
 dist/
+
+# aws
+credentials.json

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Link } from '@material-ui/core';
 
-const WordCloud = () => {
+const SentimentAnalysis = () => {
   return (
     <>
       <Typography paragraph>ツイート内容のセンチメント分析</Typography>
@@ -17,4 +17,4 @@ const WordCloud = () => {
   );
 };
 
-export default WordCloud;
+export default SentimentAnalysis;

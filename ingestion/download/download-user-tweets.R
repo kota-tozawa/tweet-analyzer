@@ -1,3 +1,6 @@
+library(dplyr)
+library(rtweet)
+
 #' Twitter APIからツイートデータ取得
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
@@ -7,11 +10,6 @@
 #' @examples
 #' download_user_tweets("Twitter", ntweets = 1600)
 #' download_user_tweets("Twitter", ntweets = "100")
-
-library(jsonlite)
-library(dplyr)
-library(rtweet)
-
 download_user_tweets <- function(user, ntweets) {
   # Twitter APIアクセス用のトークンを生成するためのシークレットを環境変数から読み込む
   app <- Sys.getenv("APP")

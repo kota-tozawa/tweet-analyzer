@@ -20,7 +20,7 @@ React 環境をスクラッチから自分で用意する方が、自由度の�
 
 ## 注意事項
 
-Twitter API と AWS SDk 用のシークレットを事前に用意しないと動かない。
+Twitter API と AWS SDK 用のシークレットを事前に用意しないと動かない。
 
 ## Development
 
@@ -56,7 +56,7 @@ $ npm start --silent # もしくは npm start -s
 
 ## 開発環境
 
-R と JavaScript を書いたり動かしたりするのに適したエディタを用いる。（eg: RStudio、VSCode）
+R と JavaScript を書いたり動かしたりするのに適したエディタを用いる。（eg: RStudio、VSCode）\
 いれておくと良い VSCode 拡張機能に関しては .vscode/README.md 参照。\
 RStudio に関して、ローカルの PC にインストールしてもよいし、Docker コンテナ上で起動してもよい。\
 下記には Docker を用いて RStudio をインストールする方法を記す。

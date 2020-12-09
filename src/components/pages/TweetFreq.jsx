@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Typography } from '@material-ui/core';
-import UserAndNtweetsForm from '../molecules/UserAndNtweetsForm';
+import UserAndNtweetsForm from '../organisms/UserAndNtweetsForm';
 import LineGraph from '../organisms/LineGraph';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。

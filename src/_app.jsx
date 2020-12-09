@@ -13,7 +13,7 @@ import {
   List,
 } from '@material-ui/core';
 import { Menu, ChevronLeft } from '@material-ui/icons';
-import { MainListItems } from './components/molecules/ListItems';
+import { MainListItems } from './components/organisms/ListItems';
 import Home from './components/pages/Home';
 import RecentTweetList from './components/pages/RecentTweetList';
 import TweetFreq from './components/pages/TweetFreq';

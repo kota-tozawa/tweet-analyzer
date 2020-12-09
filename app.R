@@ -6,7 +6,6 @@ server <- function(input, output, session) {
     # どの分析用のデータを用意すれば良いか判定
     req(input$analysisType) -> analysis_type
 
-    recent_tweet_list_flg <- analysis_type == "recentTweetList"
     tweet_freq_flg <- analysis_type == "tweetFreq"
     wordcloud_flg <- analysis_type == "wordcloud"
     sentiment_analysis_flg <- analysis_type == "sentimentAnalysis"
@@ -24,10 +23,10 @@ server <- function(input, output, session) {
         download_user_tweets(user, ntweets = ntweets)
       }
 
-      tweet_freq_time_series <- tweet_freq_time_series(user, ntweets = ntweets)
-      breaks <- pluck(tweet_freq_time_series, 1)
-      freqs <- pluck(tweet_freq_time_series, 2)
-      title <- pluck(tweet_freq_time_series, 3)
+      tweet_freq_time_series_result <- tweet_freq_time_series(user, ntweets = ntweets)
+      breaks <- pluck(tweet_freq_time_series_result, 1)
+      freqs <- pluck(tweet_freq_time_series_result, 2)
+      title <- pluck(tweet_freq_time_series_result, 3)
 
       list(
         breaks = breaks,
@@ -47,14 +46,32 @@ server <- function(input, output, session) {
         download_user_tweets(user, ntweets = ntweets)
       }
 
-      wordcloud <- wordcloud(user, ntweets = ntweets)
-      words <- pluck(wordcloud, 1)
-      freqs <- pluck(wordcloud, 2)
-      title <- pluck(wordcloud, 3)
+      wordcloud_result <- wordcloud(user, ntweets = ntweets)
+      words <- pluck(wordcloud_result, 1)
+      freqs <- pluck(wordcloud_result, 2)
+      title <- pluck(wordcloud_result, 3)
 
       list(
         words = words,
         freqs = freqs,
+        title = title
+      )
+    } else if (sentiment_analysis_flg) {
+      # センチメント分析用のデータを用意
+      req(input$user) -> user
+      req(input$ntweets) -> ntweets
+
+      download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
+      if (download_flg) {
+        download_user_tweets(user, ntweets = ntweets)
+      }
+
+      sentiment_analysis_result <- sentiment_analysis(user, ntweets = ntweets)
+      lines <- pluck(sentiment_analysis_result, 1)
+      title <- pluck(sentiment_analysis_result, 2)
+
+      list(
+        lines = lines,
         title = title
       )
     }

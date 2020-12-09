@@ -27,6 +27,7 @@ download_user_tweets <- function(user, ntweets) {
     access_secret = access_secret
   )
 
+  # TODO 変数名 tws をデータフレームであることを明示するため tws_df に変更
   # 指定したユーザーのツイートを取得
   tws <- get_timeline(user, n = ntweets)
 

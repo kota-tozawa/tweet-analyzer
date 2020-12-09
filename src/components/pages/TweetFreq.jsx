@@ -8,13 +8,9 @@ class TweetFreq extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: '',
-      ntweets: 400,
       dataIngested: null,
       analysisType: 'tweetFreq',
     };
-    this.handleUserChange = this.handleUserChange.bind(this);
-    this.handleNtweetsChange = this.handleNtweetsChange.bind(this);
   }
 
   // JSとRの間で、WebSocketでデータをやり取りする
@@ -23,16 +19,6 @@ class TweetFreq extends Component {
     window.Shiny.addCustomMessageHandler('dataIngested', (dataIngested) =>
       this.setState({ dataIngested })
     );
-  }
-
-  handleUserChange(e) {
-    const value = e.target.value;
-    this.setState({ user: value });
-  }
-
-  handleNtweetsChange(e) {
-    const value = e.target.value;
-    this.setState({ ntweets: value });
   }
 
   render() {

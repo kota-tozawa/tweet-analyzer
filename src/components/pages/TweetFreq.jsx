@@ -10,7 +10,7 @@ class TweetFreq extends Component {
     this.state = {
       user: '',
       ntweets: 400,
-      dataProcessed: null,
+      dataIngested: null,
       analysisType: 'tweetFreq',
     };
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -20,8 +20,8 @@ class TweetFreq extends Component {
   // JSとRの間で、WebSocketでデータをやり取りする
   componentDidMount() {
     // R to JS
-    window.Shiny.addCustomMessageHandler('dataProcessed', (dataProcessed) =>
-      this.setState({ dataProcessed })
+    window.Shiny.addCustomMessageHandler('dataIngested', (dataIngested) =>
+      this.setState({ dataIngested })
     );
   }
 
@@ -36,19 +36,19 @@ class TweetFreq extends Component {
   }
 
   render() {
-    const { dataProcessed, analysisType } = this.state;
+    const { dataIngested, analysisType } = this.state;
     return (
       <>
         <Typography paragraph>ツイート頻度の時系列グラフ</Typography>
         <UserAndNtweetsForm analysisType={analysisType} />
         <Typography paragraph>
-          {dataProcessed && dataProcessed['title']}
+          {dataIngested && dataIngested['title']}
         </Typography>
-        {dataProcessed && (
+        {dataIngested && (
           <LineGraph
-            breaks={dataProcessed['breaks']}
-            freqs={dataProcessed['freqs']}
-            ticks={dataProcessed['ticks']}
+            breaks={dataIngested['breaks']}
+            freqs={dataIngested['freqs']}
+            ticks={dataIngested['ticks']}
           />
         )}
       </>

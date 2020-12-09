@@ -10,7 +10,7 @@ class WordCloud extends Component {
     this.state = {
       user: '',
       ntweets: 800,
-      dataProcessed: null,
+      dataIngested: null,
       analysisType: 'wordcloud',
     };
     this.handleUserChange = this.handleUserChange.bind(this);
@@ -20,8 +20,8 @@ class WordCloud extends Component {
   // JSとRの間で、WebSocketでデータをやり取りする
   componentDidMount() {
     // R to JS
-    window.Shiny.addCustomMessageHandler('dataProcessed', (dataProcessed) =>
-      this.setState({ dataProcessed })
+    window.Shiny.addCustomMessageHandler('dataIngested', (dataIngested) =>
+      this.setState({ dataIngested })
     );
   }
 
@@ -36,7 +36,7 @@ class WordCloud extends Component {
   }
 
   render() {
-    const { dataProcessed, analysisType } = this.state;
+    const { dataIngested, analysisType } = this.state;
     return (
       <>
         <Typography paragraph>ツイート内容のワードクラウド</Typography>
@@ -50,12 +50,12 @@ class WordCloud extends Component {
         </Typography>
         <UserAndNtweetsForm analysisType={analysisType} />
         <Typography paragraph>
-          {dataProcessed && dataProcessed['title']}
+          {dataIngested && dataIngested['title']}
         </Typography>
-        {dataProcessed && (
+        {dataIngested && (
           <WordCloudViz
-            words={dataProcessed['words']}
-            freqs={dataProcessed['freqs']}
+            words={dataIngested['words']}
+            freqs={dataIngested['freqs']}
           />
         )}
       </>

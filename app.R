@@ -2,7 +2,7 @@ library(shiny)
 library(purrr)
 
 server <- function(input, output, session) {
-  dataProcessed <- reactive({
+  dataIngested <- reactive({
     # どの分析用のデータを用意すれば良いか判定
     recent_tweet_list_flg <- req(input$analysisType) == "recentTweetList"
     tweet_freq_flg <- req(input$analysisType) == "tweetFreq"
@@ -22,7 +22,7 @@ server <- function(input, output, session) {
         download_user_tweets(user, ntweets = ntweets)
       }
 
-      tweet_freq_time_series <- visualize_tweet_freq_time_series(user, ntweets = ntweets)
+      tweet_freq_time_series <- tweet_freq_time_series(user, ntweets = ntweets)
       breaks <- pluck(tweet_freq_time_series, 1)
       freqs <- pluck(tweet_freq_time_series, 2)
       title <- pluck(tweet_freq_time_series, 3)
@@ -45,7 +45,7 @@ server <- function(input, output, session) {
         download_user_tweets(user, ntweets = ntweets)
       }
 
-      wordcloud <- visualize_wordcloud(user, ntweets = ntweets)
+      wordcloud <- wordcloud(user, ntweets = ntweets)
       words <- pluck(wordcloud, 1)
       freqs <- pluck(wordcloud, 2)
       title <- pluck(wordcloud, 3)
@@ -59,7 +59,7 @@ server <- function(input, output, session) {
   })
 
   observe({
-    session$sendCustomMessage("dataProcessed", dataProcessed())
+    session$sendCustomMessage("dataIngested", dataIngested())
   })
 }
 

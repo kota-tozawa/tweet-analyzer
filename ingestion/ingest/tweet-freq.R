@@ -7,15 +7,15 @@ library(ggplot2)
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか
-#' \code{visualize_tweet_freq_time_series} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、リストに詰めて返す
+#' \code{tweet_freq_time_series} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、リストに詰めて返す
 #' breaks: 年月日
 #' freqs: ツイート頻度
 #' title: 画面表示用グラフタイトル
 #' @return list(breaks, freqs, title)
 #' @examples
-#' visualize_tweet_freq_time_series("Twitter", ntweets = 400)
-#' visualize_tweet_freq_time_series("Twitter", ntweets = "3200")
-visualize_tweet_freq_time_series <- function(user, ntweets) {
+#' tweet_freq_time_series("Twitter", ntweets = 400)
+#' tweet_freq_time_series("Twitter", ntweets = "3200")
+tweet_freq_time_series <- function(user, ntweets) {
   # Rオブジェクトとして保存したツイート情報をロード
   filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
   load(filepath)
@@ -54,4 +54,7 @@ visualize_tweet_freq_time_series <- function(user, ntweets) {
 }
 
 # TODO 度数分布表のヒストグラムをRechartsで出すためのデータを用意する関数を作る
-# visualize_tweet_freq_histogram <- function(user) {}
+# tweet_freq_histogram <- function(user) {}
+
+# TODO ツイート頻度の時系列を分析し、得られた結果を返す
+# 自己相関係数、偏自己相関係数、定常過程かどうかなど時系列データの観察を行い、その結果を返す。

@@ -4,10 +4,12 @@ library(purrr)
 server <- function(input, output, session) {
   dataIngested <- reactive({
     # どの分析用のデータを用意すれば良いか判定
-    recent_tweet_list_flg <- req(input$analysisType) == "recentTweetList"
-    tweet_freq_flg <- req(input$analysisType) == "tweetFreq"
-    wordcloud_flg <- req(input$analysisType) == "wordcloud"
-    sentiment_analysis_flg <- req(input$analysisType) == "sentimentAnalysis"
+    req(input$analysisType) -> analysis_type
+
+    recent_tweet_list_flg <- analysis_type == "recentTweetList"
+    tweet_freq_flg <- analysis_type == "tweetFreq"
+    wordcloud_flg <- analysis_type == "wordcloud"
+    sentiment_analysis_flg <- analysis_type == "sentimentAnalysis"
 
     # 時系列グラフ用のデータを用意
     if (tweet_freq_flg) {

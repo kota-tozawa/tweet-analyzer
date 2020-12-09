@@ -12,7 +12,7 @@ test_that("エラー（不正な引数）", {
 })
 
 test_that("エラー（引数がNULL）", {
-  err_msg <- "必要な引数のうちのいずれか、または全てが渡されていません。"
+  err_msg <- NULL_ARGS_ERR
   expect_error(extract_dates(NULL), err_msg)
 })
 
@@ -31,6 +31,6 @@ test_that("エラー（不正な引数）", {
 })
 
 test_that("エラー（引数がNULL）", {
-  err_msg <- "必要な引数のうちのいずれか、または全てが渡されていません。"
+  err_msg <- NULL_ARGS_ERR
   expect_error(combine_tws_into_txt(NULL, user = user, ntweets = ntweets), err_msg)
 })

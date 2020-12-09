@@ -1,1 +1,1 @@
-// TODO chart.js を用いてやる。
+// TODO Chart.js と Recharts.js、どっち使う？

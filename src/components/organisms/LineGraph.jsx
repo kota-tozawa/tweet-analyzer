@@ -1,3 +1,4 @@
+// 折れ線グラフは Recharts.js の方が見た目がきれいだと判断したため Recharts.js を用いる。
 import React from 'react';
 import {
   ResponsiveContainer,

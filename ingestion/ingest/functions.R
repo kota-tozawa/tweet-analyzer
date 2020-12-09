@@ -1,5 +1,8 @@
 # 取得したツイートデータから最も古いツイートの日付と最も新しいツイートの日付を取り出す関数
 extract_dates <- function(tws) {
+  if (is.null(tws)) {
+    stop(INSUFFICIENT_ARGS_ERR)
+  }
   init_date <- min(tws$CREATED_AT)
   end_date <- max(tws$CREATED_AT)
 
@@ -8,6 +11,10 @@ extract_dates <- function(tws) {
 
 # ツイートをまとめてひとつのテキストファイルにし、そのテキストファイルへのパスを返す関数
 combine_tws_into_txt <- function(tws, user, ntweets) {
+  if (is.null(tws) || is.null(user) || is.null(ntweets)) {
+    stop(INSUFFICIENT_ARGS_ERR)
+  }
+
   txts <- tws %>%
     select(TEXT) %>%
     mutate(

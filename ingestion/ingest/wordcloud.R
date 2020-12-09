@@ -20,22 +20,8 @@ wordcloud <- function(user, ntweets) {
   filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
   load(filepath)
 
-  # ツイートからワードクラウドに不必要な文字列を取り除く
-  txts <- tws %>%
-    select(TEXT) %>%
-    mutate(
-      # 正規表現によりURLを取り除く
-      TEXT = str_remove_all(TEXT, "https?://[\\w/:%#\\$&\\?\\(\\)~\\.=\\+\\-]+"),
-      # Unicode文字プロパティにより絵文字などを取り除く
-      # p{So}: 記号類    p{Cn}: 未定義
-      TEXT = str_remove_all(TEXT, "\\p{So}|\\p{Cn}")
-    )
-
-  # ツイートを1つのテキストファイルに保存
-  text_filepath <- paste0("./output/texts/tweets/", user, "-", ntweets, ".txt")
-  txts %>%
-    pull() %>%
-    write(text_filepath)
+  # ツイートをまとめてひとつのテキストファイルにする
+  text_filepath <- combine_tws_into_txt(tws, user = user, ntweets = ntweets)
 
   # 上で作成したテキストファイルを対象に形態素解析を実行
   txt_df <- docDF(text_filepath, type = 1)
@@ -66,6 +52,7 @@ wordcloud <- function(user, ntweets) {
     arrange(desc(FREQ)) %>%
     head(150) %>%
     anti_join(stop_words, by = "TERM")
+
   # 単語と出現頻度をそれぞれ別のリストに分ける
   words <- txt_df_refined$TERM
   freqs <- txt_df_refined$FREQ

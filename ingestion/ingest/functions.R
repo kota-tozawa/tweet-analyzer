@@ -5,3 +5,28 @@ extract_dates <- function(tws) {
 
   return(c(init_date, end_date))
 }
+
+# ツイートをまとめてひとつのテキストファイルにし、そのテキストファイルへのパスを返す関数
+combine_tws_into_txt <- function(tws, user, ntweets) {
+  txts <- tws %>%
+    select(TEXT) %>%
+    mutate(
+      # 正規表現によりURLを取り除く
+      TEXT = str_remove_all(TEXT, "https?://[\\w/:%#\\$&\\?\\(\\)~\\.=\\+\\-]+"),
+      # Unicode文字プロパティにより絵文字などを取り除く
+      # p{So}: 記号類    p{Cn}: 未定義
+      TEXT = str_remove_all(TEXT, "\\p{So}|\\p{Cn}")
+    ) %>%
+    # TEXTが空のレコードを削除する
+    dplyr::filter(TEXT != "")
+
+  # ツイートを1つのテキストファイルに保存
+  text_filepath <- paste0("./output/texts/tweets/", user, "-", ntweets, ".txt")
+  txts %>%
+    pull() %>%
+    # 改行を削除する
+    str_remove_all("\n") %>%
+    write(text_filepath)
+
+  return(text_filepath)
+}

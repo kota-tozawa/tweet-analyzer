@@ -128,7 +128,7 @@ MeCab、mecab-ipadic のインストールと同時に[mecab-ipadic-NEologd](htt
 （**Note**：通常の日本語テキストの形態素解析には mecab-ipadic があれば十分だが、分析対象がツイートということもあり、\
 新語・固有表現に強い mecab-ipadic-NEologd のような辞書を使用することが、手元のマシンのメモリに余裕があるのなら望ましい。）
 
-これらツール（mecab、mecab-ipadic、mecab-ipadic-NEologd）のインストール手順は、下記を参考に実施。（**NOTE**：下記手順は macOS 用）：\
+これらツール（mecab、mecab-ipadic、mecab-ipadic-NEologd）のインストール手順は、下記を参考に実施。（**Note**：下記手順は macOS 用）：\
 https://qiita.com/berry-clione/items/b3a537962c84244a2a09
 
 簡単な手順（打ち込むコマンド）を下記に示す。

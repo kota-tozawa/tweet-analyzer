@@ -23,6 +23,9 @@ wordcloud <- function(user, ntweets) {
   # ツイートをまとめてひとつのテキストファイルにする
   text_filepath <- combine_tws_into_txt(tws, user = user, ntweets = ntweets)
 
+  # ガベージコレクションを実行しメモリを開放
+  gc();gc()
+
   # 上で作成したテキストファイルを対象に形態素解析を実行
   txt_df <- docDF(text_filepath, type = 1)
 

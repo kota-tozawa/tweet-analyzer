@@ -1,14 +1,7 @@
 {
-  "extends": [
-    "prettier",
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["prettier", "eslint:recommended", "plugin:react/recommended"],
   "parser": "babel-eslint",
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "plugins": ["react", "prettier"],
   "env": {
     "browser": true,
     "es6": true,
@@ -24,7 +17,7 @@
     ],
     "yoda": 0,
     "react/no-children-prop": 0,
-    "react/prop-types": 0,
+    "react/prop-types": ["error"],
     "react/react-in-jsx-scope": 0,
     "no-unused-vars": 0,
     "no-irregular-whitespace": 1

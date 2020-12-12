@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import {
@@ -116,6 +117,10 @@ const UserAndNtweetsForm = ({ analysisType }) => {
       )}
     </Formik>
   );
+};
+
+UserAndNtweetsForm.propTypes = {
+  analysisType: PropTypes.string.isRequired,
 };
 
 export default UserAndNtweetsForm;

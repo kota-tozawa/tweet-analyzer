@@ -10,6 +10,7 @@ import {
   Legend,
   Label,
 } from 'recharts';
+import PropTypes from 'prop-types';
 import { theme } from '../atoms/theme';
 
 const labels = [
@@ -129,4 +130,11 @@ const SentimentAnalysisViz = ({ breaks, scores, lengths }) => {
     </ResponsiveContainer>
   );
 };
+
+SentimentAnalysisViz.propTypes = {
+  breaks: PropTypes.arrayOf(PropTypes.string).isRequired,
+  scores: PropTypes.arrayOf(PropTypes.number).isRequired,
+  lengths: PropTypes.arrayOf(PropTypes.number).isRequired,
+};
+
 export default SentimentAnalysisViz;

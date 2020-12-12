@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactWordcloud from 'react-wordcloud';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
@@ -29,6 +30,11 @@ const WordCloudViz = ({ words, freqs }) => {
       <ReactWordcloud options={options} words={data} maxWords={100} />
     </div>
   );
+};
+
+WordCloudViz.propTypes = {
+  words: PropTypes.arrayOf(PropTypes.string).isRequired,
+  freqs: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default WordCloudViz;

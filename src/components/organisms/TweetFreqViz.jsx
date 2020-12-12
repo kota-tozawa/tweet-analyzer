@@ -1,5 +1,6 @@
 // 折れ線グラフは Recharts.js の方が見た目がきれいだと判断したため Recharts.js を用いる。
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   ResponsiveContainer,
   LineChart,
@@ -61,4 +62,11 @@ const TweetFreqViz = ({ breaks, freqs, ticks }) => {
     </ResponsiveContainer>
   );
 };
+
+TweetFreqViz.propTypes = {
+  breaks: PropTypes.arrayOf(PropTypes.string).isRequired,
+  freqs: PropTypes.arrayOf(PropTypes.number).isRequired,
+  ticks: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
 export default TweetFreqViz;

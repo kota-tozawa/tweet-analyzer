@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactWordcloud from 'react-wordcloud';
-import { palette } from '../atoms/colors';
+import * as Colors from '../atoms/colors';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
 
 const options = {
   colors: [
-    palette.darkRed,
-    palette.red,
-    palette.strawberryPink,
-    palette.pink,
-    palette.skyBlue,
-    palette.emeraldBlue,
+    Colors.darkRed,
+    Colors.red,
+    Colors.strawberryPink,
+    Colors.pink,
+    Colors.skyBlue,
+    Colors.emeraldBlue,
   ],
   enableTooltip: true,
   deterministic: false,

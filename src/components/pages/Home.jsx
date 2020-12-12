@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <Typography paragraph>
-        ツイートの頻度の時系列グラフ・度数分布表、ツイート内容のワードクラウドなどを可視化するダッシュボード。
+        ツイートの頻度の時系列プロット・度数分布表、ツイート内容のワードクラウドなどを可視化するダッシュボード。
       </Typography>
       <Typography paragraph>
         <Link

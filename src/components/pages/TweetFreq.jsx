@@ -25,7 +25,7 @@ class TweetFreq extends Component {
     const { dataIngested, analysisType } = this.state;
     return (
       <>
-        <Typography paragraph>ツイート頻度の時系列グラフ</Typography>
+        <Typography paragraph>ツイート頻度の時系列プロット</Typography>
         <UserAndNtweetsForm analysisType={analysisType} />
         <Typography paragraph>
           {dataIngested && dataIngested['title']}

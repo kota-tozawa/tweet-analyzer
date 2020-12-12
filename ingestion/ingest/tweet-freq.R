@@ -42,8 +42,8 @@ tweet_freq_time_series <- function(user, ntweets) {
     full_join(tweets_per_day, by = "CREATED_AT") %>%
     replace_na(list(FREQ = 0))
 
-  # Rechartsで作る時系列グラフ用データを用意
-  # TODO 移動平均の時系列グラフ用データも用意する（7日間周期でやってみる？）
+  # Rechartsで作る時系列プロット用データを用意
+  # TODO 移動平均の時系列プロット用データも用意する（7日間周期でやってみる？）
   breaks <- all_dates
   freqs <- tweets_per_day_imputed$FREQ
   title <- paste0("@", user, " の ", init_date, " から ", end_date, " までのツイート頻度の推移")

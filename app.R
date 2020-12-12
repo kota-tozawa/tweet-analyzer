@@ -10,7 +10,7 @@ server <- function(input, output, session) {
     wordcloud_flg <- analysis_type == "wordcloud"
     sentiment_analysis_flg <- analysis_type == "sentimentAnalysis"
 
-    # 時系列グラフ用のデータを用意
+    # 時系列プロット用のデータを用意
     if (tweet_freq_flg) {
       req(input$user) -> user
       req(input$ntweets) -> ntweets

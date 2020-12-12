@@ -13,9 +13,8 @@ import {
   List,
 } from '@material-ui/core';
 import { Menu, ChevronLeft } from '@material-ui/icons';
-import { MainListItems } from './components/molecules/ListItems';
+import { MainListItems } from './components/organisms/ListItems';
 import Home from './components/pages/Home';
-import RecentTweetList from './components/pages/RecentTweetList';
 import TweetFreq from './components/pages/TweetFreq';
 import WordCloud from './components/pages/WordCloud';
 import SentimentAnalysis from './components/pages/SentimentAnalysis';
@@ -141,11 +140,6 @@ const App = () => {
           <div className={classes.drawerHeader} />
           <Switch>
             <Route path="/" component={Home} exact />
-            <Route
-              path="/recent-tweet-list"
-              component={RecentTweetList}
-              exact
-            />
             <Route path="/tweet-freq" component={TweetFreq} exact />
             <Route path="/wordcloud" component={WordCloud} exact />
             <Route

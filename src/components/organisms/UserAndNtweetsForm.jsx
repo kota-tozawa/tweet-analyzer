@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import {
@@ -12,7 +13,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { SendRounded } from '@material-ui/icons';
-import { Options } from '../atoms/constants';
 
 const useStyles = makeStyles({
   interval: {
@@ -32,7 +32,11 @@ const useStyles = makeStyles({
   },
 });
 
-const TweetFreqParamForm = () => {
+const ntweetOptions = [200, 400, 800, 1600, 3200];
+
+// TODO proptypes による型チェック
+// TODO バリデーションをもっと作り込む
+const UserAndNtweetsForm = ({ analysisType }) => {
   const classes = useStyles();
 
   const setInputValues = (values) => {
@@ -46,12 +50,13 @@ const TweetFreqParamForm = () => {
       initialValues={{
         user: '',
         ntweets: 400,
-        analysisType: 'tweetFreq',
+        analysisType: analysisType,
       }}
       validationSchema={Yup.object({
         user: Yup.string().required('必須項目です'),
       })}
       onSubmit={(values, { setSubmitting }) => {
+        // JS to R
         setInputValues(values);
         setSubmitting(false);
       }}
@@ -61,7 +66,7 @@ const TweetFreqParamForm = () => {
           <Paper className={classes.paper} elevation={3}>
             <Form>
               <Typography className={classes.interval}>
-                Twitterユーザー名
+                Twitterユーザー名（先頭の@は抜きで入力してください）
               </Typography>
               <Field
                 name="user"
@@ -80,7 +85,7 @@ const TweetFreqParamForm = () => {
                 )}
               </ErrorMessage>
               <Typography className={classes.interval}>
-                取得するツイート数
+                取得するツイート数（最新のツイートから何個前のツイートまで分析対象とするか）
               </Typography>
               <Field
                 name="ntweets"
@@ -89,7 +94,7 @@ const TweetFreqParamForm = () => {
                 variant="outlined"
                 fullWidth
               >
-                {Options.map((option) => (
+                {ntweetOptions.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -114,4 +119,8 @@ const TweetFreqParamForm = () => {
   );
 };
 
-export default TweetFreqParamForm;
+UserAndNtweetsForm.propTypes = {
+  analysisType: PropTypes.string.isRequired,
+};
+
+export default UserAndNtweetsForm;

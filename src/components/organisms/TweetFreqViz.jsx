@@ -1,4 +1,6 @@
+// 折れ線グラフは Recharts.js の方が見た目がきれいだと判断したため Recharts.js を用いる。
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   ResponsiveContainer,
   LineChart,
@@ -9,12 +11,13 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
+import { theme } from '../atoms/theme';
 
 // ticks については app.R を参照のこと
-const LineGraph = ({ breaks, freqs, ticks }) => {
-  const data = freqs.map((f, i) => ({
+const TweetFreqViz = ({ breaks, freqs, ticks }) => {
+  const data = freqs.map((freq, i) => ({
     period: breaks[i],
-    freq: f,
+    freq: freq,
   }));
   return (
     <ResponsiveContainer width="100%" height={400}>
@@ -35,7 +38,7 @@ const LineGraph = ({ breaks, freqs, ticks }) => {
           domain={['dataMin', 'dataMax']}
           interval="preserveStartEnd"
           label={{
-            value: '年月',
+            value: '年月日',
             offset: -5,
             position: 'insideBottomRight',
           }}
@@ -51,7 +54,7 @@ const LineGraph = ({ breaks, freqs, ticks }) => {
           type="monotone"
           dataKey="freq"
           name="ツイート頻度（実際の値）"
-          stroke="#F08080"
+          stroke={theme.palette.primary.main}
           // グラフの白い点を無くす
           // dot={false}
         />
@@ -59,4 +62,11 @@ const LineGraph = ({ breaks, freqs, ticks }) => {
     </ResponsiveContainer>
   );
 };
-export default LineGraph;
+
+TweetFreqViz.propTypes = {
+  breaks: PropTypes.arrayOf(PropTypes.string).isRequired,
+  freqs: PropTypes.arrayOf(PropTypes.number).isRequired,
+  ticks: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+export default TweetFreqViz;

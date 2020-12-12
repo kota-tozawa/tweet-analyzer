@@ -1,4 +1,5 @@
 const path = require('path');
+const PUBLICPATH = '/static/';
 
 // TODO webpackのプラグインや設定に関してもっとよく調べる
 // HMRを有効にするためのプラグイン
@@ -16,7 +17,7 @@ module.exports = {
   output: {
     // HMR RuntimeがUpdateChunk JSとManifest JSONを取得するリクエストのパスを指定する
     // Webpack Dev Serverに対しては、Bundle JS、UpdateChunk JS、Manifest JSを公開するパスを指定する
-    publicPath: '/static/',
+    publicPath: PUBLICPATH,
   },
   module: {
     rules: [
@@ -42,9 +43,13 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  // TODO ルート以外の場所でリロードすると404エラーになる
   devServer: {
     hot: true,
     port: 4000,
+    historyApiFallback: {
+      rewrites: [{ from: /^\/*$/, to: PUBLICPATH }],
+    },
     proxy: {
       '/': {
         target: 'http://localhost:3000',

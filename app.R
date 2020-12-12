@@ -2,14 +2,15 @@ library(shiny)
 library(purrr)
 
 server <- function(input, output, session) {
-  lineGraphData <- reactive({
+  dataIngested <- reactive({
     # どの分析用のデータを用意すれば良いか判定
-    recent_tweet_list_flg <- req(input$analysisType) == "recentTweetList"
-    tweet_freq_flg <- req(input$analysisType) == "tweetFreq"
-    wordcloud_flg <- req(input$analysisType) == "wordcloud"
-    sentiment_analysis_flg <- req(input$analysisType) == "sentimentAnalysis"
+    req(input$analysisType) -> analysis_type
 
-    # 時系列グラフ用のデータを用意
+    tweet_freq_flg <- analysis_type == "tweetFreq"
+    wordcloud_flg <- analysis_type == "wordcloud"
+    sentiment_analysis_flg <- analysis_type == "sentimentAnalysis"
+
+    # 時系列プロット用のデータを用意
     if (tweet_freq_flg) {
       req(input$user) -> user
       req(input$ntweets) -> ntweets
@@ -22,10 +23,10 @@ server <- function(input, output, session) {
         download_user_tweets(user, ntweets = ntweets)
       }
 
-      tweet_freq_time_series <- visualize_tweet_freq_time_series(user, ntweets = ntweets)
-      breaks <- pluck(tweet_freq_time_series, 1)
-      freqs <- pluck(tweet_freq_time_series, 2)
-      title <- pluck(tweet_freq_time_series, 3)
+      tweet_freq_time_series_result <- tweet_freq_time_series(user, ntweets = ntweets)
+      breaks <- pluck(tweet_freq_time_series_result, 1)
+      freqs <- pluck(tweet_freq_time_series_result, 2)
+      title <- pluck(tweet_freq_time_series_result, 3)
 
       list(
         breaks = breaks,
@@ -35,13 +36,53 @@ server <- function(input, output, session) {
         ticks = pretty(breaks),
         title = title
       )
+    } else if (wordcloud_flg) {
+      # ワードクラウド用のデータを用意
+      req(input$user) -> user
+      req(input$ntweets) -> ntweets
+
+      download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
+      if (download_flg) {
+        download_user_tweets(user, ntweets = ntweets)
+      }
+
+      wordcloud_result <- wordcloud(user, ntweets = ntweets)
+      words <- pluck(wordcloud_result, 1)
+      freqs <- pluck(wordcloud_result, 2)
+      title <- pluck(wordcloud_result, 3)
+
+      list(
+        words = words,
+        freqs = freqs,
+        title = title
+      )
+    } else if (sentiment_analysis_flg) {
+      # センチメント分析用のデータを用意
+      req(input$user) -> user
+      req(input$ntweets) -> ntweets
+
+      download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
+      if (download_flg) {
+        download_user_tweets(user, ntweets = ntweets)
+      }
+
+      sentiment_analysis_result <- sentiment_analysis(user, ntweets = ntweets)
+      breaks <- pluck(sentiment_analysis_result, 1)
+      scores <- pluck(sentiment_analysis_result, 2)
+      lengths <- pluck(sentiment_analysis_result, 3)
+      title <- pluck(sentiment_analysis_result, 4)
+
+      list(
+        breaks = breaks,
+        scores = scores,
+        lengths = lengths,
+        title = title
+      )
     }
-    # ワードクラウド用のデータを用意
-    # if (wordcloud_flg) {
   })
 
   observe({
-    session$sendCustomMessage("lineGraphData", lineGraphData())
+    session$sendCustomMessage("dataIngested", dataIngested())
   })
 }
 

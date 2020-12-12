@@ -17,17 +17,6 @@ export const MainListItems = (
       </ListItemIcon>
       <ListItemText primary="ホーム画面" />
     </ListItem>
-    <ListItem
-      key="RecentTweetList"
-      component={Link}
-      to="/recent-tweet-list"
-      button
-    >
-      <ListItemIcon>
-        <Twitter />
-      </ListItemIcon>
-      <ListItemText primary="最近のツイート一覧" />
-    </ListItem>
     <ListItem key="TweetFreq" component={Link} to="/tweet-freq" button>
       <ListItemIcon>
         <ShowChart />

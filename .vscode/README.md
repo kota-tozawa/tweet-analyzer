@@ -8,3 +8,5 @@
   https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.r
 - vscode-textlint \
   https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint
+- Markdown All in One \
+  https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one

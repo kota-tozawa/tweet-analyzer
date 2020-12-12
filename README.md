@@ -15,8 +15,12 @@
 理由の 1 つは、リッチな機能を備えたダッシュボードを簡単に作るため。\
 2 つ目は、ちょうど React を勉強したいと思っていて、テキストマイニング・NLP 関係は R で書きたいと思ったから。\
 よって、自然に React と Shiny を組み合わせて使う発想に至った。\
-Shiny の枠組みで React を使えるようにする`{reactR}`パッケージを用いた実装も考えたが、\
+Shiny の枠組みで React を使えるようにする `{reactR}` パッケージを用いた実装も考えたが、\
 React 環境をスクラッチから自分で用意する方が、自由度の高い実装が可能だと考えた。
+
+## 注意事項
+
+Twitter API 用のシークレットを事前に用意しないと動かない。
 
 ## Development
 
@@ -52,7 +56,9 @@ $ npm start --silent # もしくは npm start -s
 
 ## 開発環境
 
-R と JavaScript を書いたり動かしたりするのに適したエディタを用いる。（RStudio、VSCode など）\
+R と JavaScript を書いたり動かしたりするのに適した IDE を用いる。\
+R のコードをいじるときは RStudio を使い、JavaScript（React）のコードをいじるときは VSCode を使うのがおすすめ。\
+いれておくと良い VSCode 拡張機能に関しては .vscode/README.md 参照。\
 RStudio に関して、ローカルの PC にインストールしてもよいし、Docker コンテナ上で起動してもよい。\
 下記には Docker を用いて RStudio をインストールする方法を記す。
 
@@ -113,6 +119,32 @@ hogehoge@fugafuga ~$ docker run -p 8787:8787 -e PASSWORD=yourpasswordhere foobar
 
 #### R のパッケージをインストールする
 
+下記コマンドを実行する前に、まず [MeCab（形態素解析器）](https://taku910.github.io/mecab/) と mecab-ipadic（わかち書き辞書）をインストールする。\
+これがないと RMeCab パッケージのインストールに失敗する。\
+
+##### もしお手元のマシンのメモリに余裕があれば START
+
+MeCab、mecab-ipadic のインストールと同時に[mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd) というわかち書き辞書もインストールしておく。\
+（**Note**：通常の日本語テキストの形態素解析には mecab-ipadic があれば十分だが、分析対象がツイートということもあり、\
+新語・固有表現に強い mecab-ipadic-NEologd のような辞書を使用することが、手元のマシンのメモリに余裕があるのなら望ましい。）
+
+これらツール（mecab、mecab-ipadic、mecab-ipadic-NEologd）のインストール手順は、下記を参考に実施。（**Note**：下記手順は macOS 用）：\
+https://qiita.com/berry-clione/items/b3a537962c84244a2a09
+
+簡単な手順（打ち込むコマンド）を下記に示す。
+
+```zsh
+$ brew install mecab mecab-ipadic
+$ git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
+$ cd mecab-ipadic-neologd
+$ ./bin/install-mecab-ipadic-neologd -n -a # 「-a」オプションで全ての辞書をインストール。
+$ sudo vi /usr/local/etc/mecabrc # /usr/local/etc/mecabrc を加える変更内容は上記手順を参照のこと。もしメモリがたりなく分析が上手くいかないようなら、ここに加えた変更を戻す。
+```
+
+##### もしお手元のマシンのメモリに余裕があれば END
+
+MeCab 関連のツールをインストール完了後、下記を実行。
+
 ```R
 > install.packages("renv")
 > renv::restore()
@@ -130,8 +162,8 @@ $ npm install
 
 #### R
 
-使うパッケージを変えたり、新しくインストールしたりしたときに行う。\
-できる限り CRAN からパッケージをインストールする。（`install_github("package-name")`より`install.packages("package-name")`が望ましい）
+新しくパッケージをインストールしたときに行う。\
+できる限り CRAN からパッケージをインストールする。（`install.packages("package-name")` でインストールすることが望ましい）
 
 ```R
 > renv::snapshot()
@@ -139,7 +171,7 @@ $ npm install
 
 #### JavaScript
 
-`npm install <package-name>`時に package-lock.json と package-lock.json が自動で生成されるため、特に何もしなくて良い。\
+`npm install <package-name>`時に package.json と package-lock.json が自動で生成されるため、特に何もしなくて良い。\
 dev 環境のみで使用するパッケージをインストールするときは、`--save-dev`オプションをつける。
 
 ### コードと文章の静的解析・整形
@@ -179,7 +211,7 @@ $ npm run lint-text
 #### R
 
 - ユニットテスト \
-  {testthat}パッケージを用いて行う。
+  `{testthat}`パッケージを用いて行う。
 
 ```R
 > testthat::test_dir("./tests/testthat")
@@ -187,4 +219,4 @@ $ npm run lint-text
 
 #### JavaScript（React）
 
-Jest + enzyme でそのうち書く予定。
+Jest + enzyme などでそのうち書く予定。

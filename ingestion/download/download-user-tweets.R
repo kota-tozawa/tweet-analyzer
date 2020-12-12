@@ -1,3 +1,6 @@
+library(dplyr)
+library(rtweet)
+
 #' Twitter APIからツイートデータ取得
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
@@ -7,30 +10,26 @@
 #' @examples
 #' download_user_tweets("Twitter", ntweets = 1600)
 #' download_user_tweets("Twitter", ntweets = "100")
-
-library(jsonlite)
-library(dplyr)
-library(rtweet)
-
 download_user_tweets <- function(user, ntweets) {
-  n <- as.numeric(ntweets)
+  # Twitter APIアクセス用のトークンを生成するためのシークレットを環境変数から読み込む
+  app <- Sys.getenv("APP")
+  consumer_key <- Sys.getenv("CONSUMER_KEY")
+  consumer_secret <- Sys.getenv("CONSUMER_SECRET")
+  access_token <- Sys.getenv("ACCESS_TOKEN")
+  access_secret <- Sys.getenv("ACCESS_SECRET")
 
-  # Twitter APIを叩くために必要なシークレットを読み込み
-  auth <- "ingestion/batch/auth.json" %>%
-    read_json(simplifyVector = TRUE)
-
-  # Twitter APIアクセス用トークン取得
-  # TODO トークンが正しくない値の場合に起きる例外をキャッチしてログで表示
+  # トークン生成
   token <- create_token(
-    app = auth$APP,
-    consumer_key = auth$CONSUMER_KEY,
-    consumer_secret = auth$CONSUMER_SECRET,
-    access_token = auth$ACCESS_TOKEN,
-    access_secret = auth$ACCESS_SECRET
+    app = app,
+    consumer_key = consumer_key,
+    consumer_secret = consumer_secret,
+    access_token = access_token,
+    access_secret = access_secret
   )
 
+  # TODO 変数名 tws をデータフレームであることを明示するため tws_df に変更
   # 指定したユーザーのツイートを取得
-  tws <- get_timeline(user, n = n)
+  tws <- get_timeline(user, n = ntweets)
 
   # 見易さのため、カラム名を大文字に
   names(tws) <- toupper(names(tws))

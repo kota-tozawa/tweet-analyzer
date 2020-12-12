@@ -10,10 +10,21 @@ import {
   Legend,
   Label,
 } from 'recharts';
+import { theme } from '../atoms/theme';
 
 const labels = [
-  { key: 'score', name: '感情極性値', color: '#F08080', yAxisId: 'left' },
-  { key: 'length', name: '文長', color: '#80CEE1', yAxisId: 'right' },
+  {
+    key: 'score',
+    name: '感情極性値',
+    color: theme.palette.primary.main,
+    yAxisId: 'left',
+  },
+  {
+    key: 'length',
+    name: '文長',
+    color: theme.palette.secondary.main,
+    yAxisId: 'right',
+  },
 ];
 
 const SentimentAnalysisViz = ({ breaks, scores, lengths }) => {
@@ -27,6 +38,7 @@ const SentimentAnalysisViz = ({ breaks, scores, lengths }) => {
     )
   );
 
+  // グラフの線を toggleable にする
   const handleLegendMouseEnter = (e) => {
     if (!lineProps[e.dataKey]) {
       setLineProps({ ...lineProps, hover: e.dataKey });

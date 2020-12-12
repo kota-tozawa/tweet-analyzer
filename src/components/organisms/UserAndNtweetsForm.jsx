@@ -12,7 +12,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { SendRounded } from '@material-ui/icons';
-import { NtweetOptions } from '../atoms/constants';
 
 const useStyles = makeStyles({
   interval: {
@@ -31,6 +30,8 @@ const useStyles = makeStyles({
     marginTop: '8px',
   },
 });
+
+const ntweetOptions = [200, 400, 800, 1600, 3200];
 
 // TODO proptypes による型チェック
 // TODO バリデーションをもっと作り込む
@@ -92,7 +93,7 @@ const UserAndNtweetsForm = ({ analysisType }) => {
                 variant="outlined"
                 fullWidth
               >
-                {NtweetOptions.map((option) => (
+                {ntweetOptions.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>

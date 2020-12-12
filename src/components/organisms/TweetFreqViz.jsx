@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
+import { theme } from '../atoms/theme';
 
 // ticks については app.R を参照のこと
 const TweetFreqViz = ({ breaks, freqs, ticks }) => {
@@ -52,7 +53,7 @@ const TweetFreqViz = ({ breaks, freqs, ticks }) => {
           type="monotone"
           dataKey="freq"
           name="ツイート頻度（実際の値）"
-          stroke="#F08080"
+          stroke={theme.palette.primary.main}
           // グラフの白い点を無くす
           // dot={false}
         />

@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ntweetOptions = [200, 400, 800, 1600, 3200];
+const ntweetOptions = [50, 100, 200, 400, 800, 1600, 3200];
 
 // TODO proptypes による型チェック
 // TODO バリデーションをもっと作り込む
@@ -49,7 +49,7 @@ const UserAndNtweetsForm = ({ analysisType }) => {
     <Formik
       initialValues={{
         user: '',
-        ntweets: 400,
+        ntweets: 200,
         analysisType: analysisType,
       }}
       validationSchema={Yup.object({

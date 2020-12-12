@@ -23,7 +23,9 @@ class SentimentAnalysis extends Component {
 
   render() {
     const { dataIngested, analysisType } = this.state;
-    const description = '感情極性値は、低いほどネガティブであることを表す';
+    const descriptions =
+      '感情極性値は、低いほどネガティブであることを表す。\n' +
+      'グラフ上部の凡例横にある「-o-」をクリックすると、線をトグルできる。';
     return (
       <>
         <Typography paragraph>ツイート内容のセンチメント分析</Typography>
@@ -40,7 +42,10 @@ class SentimentAnalysis extends Component {
           {dataIngested && dataIngested['title']}
         </Typography>
         <Typography component={'span'}>
-          <pre>{dataIngested && description}</pre>
+          {dataIngested &&
+            descriptions.split('\n').map((t, i) => {
+              return <pre key={i}>{t}</pre>;
+            })}
         </Typography>
         {dataIngested && (
           <SentimentAnalysisViz

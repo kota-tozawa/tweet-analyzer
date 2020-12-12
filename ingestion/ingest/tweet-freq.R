@@ -21,10 +21,8 @@ tweet_freq_time_series <- function(user, ntweets) {
   load(filepath)
 
   # ロードしたツイート情報の前処理
-  # CREATED_ATをyyyy-mm-dd形式のcharacterに変換
-  tws$CREATED_AT <- as.character(tws$CREATED_AT) %>%
-    substr(1, 10) %>%
-    ymd()
+  # ツイート投稿日時をツイート投稿日に変換
+  tws <- to_ymd(tws)
   # 日々のツイート頻度を計算
   tweets_per_day <- tws %>%
     select(CREATED_AT) %>%

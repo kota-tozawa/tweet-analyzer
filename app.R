@@ -67,11 +67,15 @@ server <- function(input, output, session) {
       }
 
       sentiment_analysis_result <- sentiment_analysis(user, ntweets = ntweets)
-      lines <- pluck(sentiment_analysis_result, 1)
-      title <- pluck(sentiment_analysis_result, 2)
+      breaks <- pluck(sentiment_analysis_result, 1)
+      scores <- pluck(sentiment_analysis_result, 2)
+      lengths <- pluck(sentiment_analysis_result, 3)
+      title <- pluck(sentiment_analysis_result, 4)
 
       list(
-        lines = lines,
+        breaks = breaks,
+        scores = scores,
+        lengths = lengths,
         title = title
       )
     }

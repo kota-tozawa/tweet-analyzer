@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 
 // ticks については app.R を参照のこと
-const LineGraph = ({ breaks, freqs, ticks }) => {
+const TweetFreqViz = ({ breaks, freqs, ticks }) => {
   const data = freqs.map((freq, i) => ({
     period: breaks[i],
     freq: freq,
@@ -60,4 +60,4 @@ const LineGraph = ({ breaks, freqs, ticks }) => {
     </ResponsiveContainer>
   );
 };
-export default LineGraph;
+export default TweetFreqViz;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Typography } from '@material-ui/core';
 import UserAndNtweetsForm from '../organisms/UserAndNtweetsForm';
-import LineGraph from '../organisms/LineGraph';
+import TweetFreqViz from '../organisms/TweetFreqViz';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
 class TweetFreq extends Component {
@@ -31,7 +31,7 @@ class TweetFreq extends Component {
           {dataIngested && dataIngested['title']}
         </Typography>
         {dataIngested && (
-          <LineGraph
+          <TweetFreqViz
             breaks={dataIngested['breaks']}
             freqs={dataIngested['freqs']}
             ticks={dataIngested['ticks']}

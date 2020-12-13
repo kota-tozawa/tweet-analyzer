@@ -7,8 +7,8 @@ library(stopwords)
 #' 重要な・意味のある頻出単語とその頻度をツイートテキストから抽出する
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか
-#' \code{wordcloud} download_user_tweets()で得たツイートテキストから、react-wordcloudで可視化するために必要な値を取り出して加工し、ベクトルにして返す
-#' words: 単語のベクトル
+#' \code{wordcloud} download_user_tweets()で得たツイートテキストから、react-wordcloudで可視化するために必要な値を取り出して加工し、リストにして返す
+#' words: 単語のリスト
 #' freqs: 単語の頻度
 #' title: 画面表示用タイトル
 #' @return list(words, freqs, title)
@@ -56,7 +56,7 @@ wordcloud <- function(user, ntweets) {
     head(150) %>%
     anti_join(stop_words, by = "TERM")
 
-  # 単語と出現頻度をそれぞれ別のベクトルに分ける
+  # 単語と出現頻度をそれぞれ別のリストに分ける
   words <- txt_df_refined$TERM
   freqs <- txt_df_refined$FREQ
   title <- paste0("@", user, " の", "ツイート文中の頻出語から生成されたワードクラウド")

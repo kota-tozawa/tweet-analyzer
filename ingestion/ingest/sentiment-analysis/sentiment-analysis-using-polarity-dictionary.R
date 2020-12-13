@@ -9,10 +9,10 @@ library(purrr)
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか
-#' \code{sentiment_polarity_analysis} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、ベクトルにして返す
+#' \code{sentiment_polarity_analysis} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、リストにして返す
 #' breaks: 年月日
-#' emotional_scores: 感情極性値のベクトル
-#' sentence_lengths: 文長のベクトル
+#' emotional_scores: 感情極性値のリスト
+#' sentence_lengths: 文長のリスト
 #' title: 画面表示用グラフタイトル
 #' @return list(breaks, emotional_scores, tweet_lengths, title)
 #' @examples
@@ -70,7 +70,7 @@ sentiment_polarity_analysis <- function(user, ntweets) {
   ems <- ems %>%
     left_join(txts, by = c("ID" = "CREATED_AT"))
 
-  # React で可視化するためにツイート投稿日、極性値、ツイート文長を別々のベクトルにする
+  # React で可視化するためにツイート投稿日、極性値、ツイート文長を別々のリストにする
   breaks <- ems$ID
   emotional_scores <- ems$EM
   sentence_lengths <- ems$LENGTH

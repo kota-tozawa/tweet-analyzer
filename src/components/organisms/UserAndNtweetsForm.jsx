@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import {
   Button,
@@ -13,6 +12,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { SendRounded } from '@material-ui/icons';
+import { validationSchema } from '../molecules/validationSchema';
 
 const useStyles = makeStyles({
   interval: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 
 const ntweetOptions = [50, 100, 200, 400, 800, 1600, 3200];
 
-// TODO バリデーションをもっと作り込む
+// TODO 画面側だけでなく Shiny サーバーの方もエラーハンドリングするようにする
 const UserAndNtweetsForm = ({ analysisType }) => {
   const classes = useStyles();
 
@@ -48,12 +48,10 @@ const UserAndNtweetsForm = ({ analysisType }) => {
     <Formik
       initialValues={{
         user: '',
-        ntweets: 200,
+        ntweets: 400,
         analysisType: analysisType,
       }}
-      validationSchema={Yup.object({
-        user: Yup.string().required('必須項目です'),
-      })}
+      validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         // JS to R
         setInputValues(values);
@@ -106,6 +104,8 @@ const UserAndNtweetsForm = ({ analysisType }) => {
                   variant="contained"
                   color="primary"
                   endIcon={<SendRounded />}
+                  // エラーが表示されている間はボタンを押せなくする
+                  disabled={errors.user}
                 >
                   Send
                 </Button>

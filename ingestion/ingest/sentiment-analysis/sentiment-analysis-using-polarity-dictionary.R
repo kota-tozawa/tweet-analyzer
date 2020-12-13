@@ -9,16 +9,16 @@ library(purrr)
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか
-#' \code{sentiment_analysis} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、ベクトルにして返す
+#' \code{sentiment_polarity_analysis} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、ベクトルにして返す
 #' breaks: 年月日
 #' emotional_scores: 感情極性値のベクトル
 #' sentence_lengths: 文長のベクトル
 #' title: 画面表示用グラフタイトル
 #' @return list(breaks, emotional_scores, tweet_lengths, title)
 #' @examples
-#' sentiment_analysis("Twitter", ntweets = 400)
-#' sentiment_analysis("Twitter", ntweets = "3200")
-sentiment_analysis <- function(user, ntweets) {
+#' sentiment_polarity_analysis("Twitter", ntweets = 400)
+#' sentiment_polarity_analysis("Twitter", ntweets = "3200")
+sentiment_polarity_analysis <- function(user, ntweets) {
   # 辞書の準備
   # 東京工業大学の高村先生が公開されている語感情極性対応表を利用する
   # 極性値が低いほどネガティブ

@@ -11,10 +11,10 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import { theme } from '../atoms/theme';
+import { theme } from '../../atoms/theme';
 
 // ticks については app.R を参照のこと
-const TweetFreqViz = ({ breaks, freqs, ticks }) => {
+const TweetFreqTimeSeriesViz = ({ breaks, freqs, ticks }) => {
   const data = freqs.map((freq, i) => ({
     period: breaks[i],
     freq: freq,
@@ -55,18 +55,16 @@ const TweetFreqViz = ({ breaks, freqs, ticks }) => {
           dataKey="freq"
           name="ツイート頻度（実際の値）"
           stroke={theme.palette.primary.main}
-          // グラフの白い点を無くす
-          // dot={false}
         />
       </LineChart>
     </ResponsiveContainer>
   );
 };
 
-TweetFreqViz.propTypes = {
+TweetFreqTimeSeriesViz.propTypes = {
   breaks: PropTypes.arrayOf(PropTypes.string).isRequired,
   freqs: PropTypes.arrayOf(PropTypes.number).isRequired,
   ticks: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default TweetFreqViz;
+export default TweetFreqTimeSeriesViz;

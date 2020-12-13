@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Typography, Link } from '@material-ui/core';
 import UserAndNtweetsForm from '../organisms/UserAndNtweetsForm';
-import SentimentAnalysisViz from '../organisms/SentimentAnalysisViz';
+import SentimentPolarityAnalysisViz from '../organisms/SentimentAnalysisViz/SentimentAnalysisUsingPolarityDictionaryViz';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
 class SentimentAnalysis extends Component {
@@ -48,7 +48,7 @@ class SentimentAnalysis extends Component {
             })}
         </Typography>
         {dataIngested && (
-          <SentimentAnalysisViz
+          <SentimentPolarityAnalysisViz
             breaks={dataIngested['breaks']}
             scores={dataIngested['scores']}
             lengths={dataIngested['lengths']}

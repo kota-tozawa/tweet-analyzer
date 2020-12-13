@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactWordcloud from 'react-wordcloud';
-import * as Colors from '../atoms/colors';
+import * as Colors from '../../atoms/colors';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
 

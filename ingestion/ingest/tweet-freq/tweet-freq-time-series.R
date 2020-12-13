@@ -50,9 +50,3 @@ tweet_freq_time_series <- function(user, ntweets) {
 
   return(list(breaks, freqs, title))
 }
-
-# TODO 度数分布表のヒストグラムをRechartsで出すためのデータを用意する関数を作る
-# tweet_freq_histogram <- function(user) {}
-
-# TODO ツイート頻度の時系列を分析し、得られた結果を返す
-# 自己相関係数、偏自己相関係数、定常過程かどうかなど時系列データの観察を行い、その結果を返す。

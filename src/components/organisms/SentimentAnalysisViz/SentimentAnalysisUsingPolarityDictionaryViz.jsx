@@ -11,7 +11,7 @@ import {
   Label,
 } from 'recharts';
 import PropTypes from 'prop-types';
-import { theme } from '../atoms/theme';
+import { theme } from '../../atoms/theme';
 
 const labels = [
   {
@@ -28,7 +28,7 @@ const labels = [
   },
 ];
 
-const SentimentAnalysisViz = ({ breaks, scores, lengths }) => {
+const SentimentPolarityAnalysisViz = ({ breaks, scores, lengths }) => {
   const [lineProps, setLineProps] = useState(
     labels.reduce(
       (a, { key }) => {
@@ -131,10 +131,10 @@ const SentimentAnalysisViz = ({ breaks, scores, lengths }) => {
   );
 };
 
-SentimentAnalysisViz.propTypes = {
+SentimentPolarityAnalysisViz.propTypes = {
   breaks: PropTypes.arrayOf(PropTypes.string).isRequired,
   scores: PropTypes.arrayOf(PropTypes.number).isRequired,
   lengths: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
-export default SentimentAnalysisViz;
+export default SentimentPolarityAnalysisViz;

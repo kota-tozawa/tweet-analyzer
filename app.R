@@ -66,11 +66,11 @@ server <- function(input, output, session) {
         download_user_tweets(user, ntweets = ntweets)
       }
 
-      sentiment_analysis_result <- sentiment_analysis(user, ntweets = ntweets)
-      breaks <- pluck(sentiment_analysis_result, 1)
-      scores <- pluck(sentiment_analysis_result, 2)
-      lengths <- pluck(sentiment_analysis_result, 3)
-      title <- pluck(sentiment_analysis_result, 4)
+      sentiment_polarity_analysis_result <- sentiment_polarity_analysis(user, ntweets = ntweets)
+      breaks <- pluck(sentiment_polarity_analysis_result, 1)
+      scores <- pluck(sentiment_polarity_analysis_result, 2)
+      lengths <- pluck(sentiment_polarity_analysis_result, 3)
+      title <- pluck(sentiment_polarity_analysis_result, 4)
 
       list(
         breaks = breaks,

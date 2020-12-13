@@ -43,6 +43,11 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
   // TODO ルート以外の場所でリロードすると404エラーになる
   devServer: {
     hot: true,

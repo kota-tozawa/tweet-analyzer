@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { SendRounded } from '@material-ui/icons';
-import { validationSchema } from '../molecules/validationSchema';
+import { validationSchema } from '../../molecules/validationSchema';
 
 const useStyles = makeStyles({
   interval: {
@@ -32,10 +32,8 @@ const useStyles = makeStyles({
   },
 });
 
-const ntweetOptions = [50, 100, 200, 400, 800, 1600, 3200];
-
 // TODO 画面側だけでなく Shiny サーバーの方もエラーハンドリングするようにする
-const UserAndNtweetsForm = ({ analysisType }) => {
+const UserAndNtweetsForm = ({ analysisType, options }) => {
   const classes = useStyles();
 
   const setInputValues = (values) => {
@@ -82,7 +80,7 @@ const UserAndNtweetsForm = ({ analysisType }) => {
                 )}
               </ErrorMessage>
               <Typography className={classes.interval}>
-                取得するツイート数（最新のツイートから何個前のツイートまで分析対象とするか）
+                取得するツイート数
               </Typography>
               <Field
                 name="ntweets"
@@ -91,7 +89,7 @@ const UserAndNtweetsForm = ({ analysisType }) => {
                 variant="outlined"
                 fullWidth
               >
-                {ntweetOptions.map((option) => (
+                {options.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -120,6 +118,7 @@ const UserAndNtweetsForm = ({ analysisType }) => {
 
 UserAndNtweetsForm.propTypes = {
   analysisType: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default UserAndNtweetsForm;

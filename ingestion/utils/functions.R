@@ -85,7 +85,8 @@ rmecabc <- function(id, sentence) {
 
 # CREATED_AT（ツイート投稿日時）を yyyy-mm-dd 形式に変換
 to_ymd <- function(tws) {
-  tws$CREATED_AT <- as.character(tws$CREATED_AT) %>%
+  tws$CREATED_AT <- tws$CREATED_AT %>%
+    as.character() %>%
     substr(1, 10) %>%
     ymd()
 

@@ -14,9 +14,9 @@ library(dplyr)
 #' sentiment_analysis_with_comprehend("Twitter", ntweets = 50)
 #' sentiment_analysis_with_comprehend("Twitter", ntweets = "100")
 sentiment_analysis_with_comprehend <- function(user, ntweets) {
-  # Rオブジェクトとして保存したツイート情報をロード
-  filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
-  load(filepath)
+  # Rオブジェクトとして保存したツイートデータをロード
+  path <- path_to_tweet_data(user, ntweets)
+  load(path)
 
   # 個々のツイートテキストのリストを抽出
   txts <- create_tweet_texts_dataframe(tws)

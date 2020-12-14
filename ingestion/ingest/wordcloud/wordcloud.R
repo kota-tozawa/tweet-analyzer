@@ -16,18 +16,18 @@ library(stopwords)
 #' wordcloud("Twitter", ntweets = 400)
 #' wordcloud("Twitter", ntweets = "3200")
 wordcloud <- function(user, ntweets) {
-  # Rオブジェクトとして保存したツイート情報をロード
-  filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
-  load(filepath)
+  # Rオブジェクトとして保存したツイートデータをロード
+  path <- path_to_tweet_data(user, ntweets)
+  load(path)
 
   # ツイートをまとめてひとつのテキストファイルにする
-  text_filepath <- combine_tws_into_txt(tws, user = user, ntweets = ntweets)
+  textfile_path <- combine_tws_into_txt(tws, user = user, ntweets = ntweets)
 
   # ガベージコレクションを実行しメモリを開放
   gc();gc()
 
   # 上で作成したテキストファイルを対象に形態素解析を実行
-  txt_df <- docDF(text_filepath, type = 1)
+  txt_df <- docDF(textfile_path, type = 1)
 
   # 品詞大分類とその細分類を組み合わせてフィルターにかける
   txt_df <- txt_df %>%

@@ -4,10 +4,18 @@ did_download_with_same_info <- function(user, ntweets) {
   # 拡張子を除く
   all_filenames <- sub("\\.[^.]*", "", all_filenames)
 
-  # 想定されるファイル名（拡張子 .Rdata 抜き）
+  # 想定されるファイル名
   assumed_file_name <- paste0(user, "-", ntweets)
 
   return(assumed_file_name %in% all_filenames)
+}
+
+
+# Twitter API から取得したツイートデータをロードする関数
+path_to_tweet_data <- function(user, ntweets) {
+  path <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
+
+  return(path)
 }
 
 
@@ -90,12 +98,14 @@ to_ymd <- function(tws) {
   return(tws)
 }
 
+
 # CREATED_AT（ツイート投稿日時）を yyyy-mm-dd hh:mm:ss 形式の character に変換
 to_str_ymdhms <- function(tws) {
   tws$CREATED_AT <- tws$CREATED_AT %>% as.character()
 
   return(tws)
 }
+
 
 # 1つのリストを一定の長さの複数のリストに分け、分割されたリストを1つのリストに詰めて返す関数
 split_list <- function(list, len) {

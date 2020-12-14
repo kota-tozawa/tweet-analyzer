@@ -33,9 +33,9 @@ sentiment_polarity_analysis <- function(user, ntweets) {
     summarize(SCORE = mean(V4)) %>%
     select(TERM = V1, SCORE)
 
-  # Rオブジェクトとして保存したツイート情報をロード
-  filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
-  load(filepath)
+  # Rオブジェクトとして保存したツイートデータをロード
+  path <- path_to_tweet_data(user, ntweets)
+  load(path)
 
   # ツイートの並び順を古い順にする（感情極性値の時系列変化を可視化するため）
   tws <- tws %>% arrange(CREATED_AT)

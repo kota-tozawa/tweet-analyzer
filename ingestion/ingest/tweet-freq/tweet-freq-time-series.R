@@ -16,9 +16,9 @@ library(ggplot2)
 #' tweet_freq_time_series("Twitter", ntweets = 400)
 #' tweet_freq_time_series("Twitter", ntweets = "3200")
 tweet_freq_time_series <- function(user, ntweets) {
-  # Rオブジェクトとして保存したツイート情報をロード
-  filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
-  load(filepath)
+  # Rオブジェクトとして保存したツイートデータをロード
+  path <- path_to_tweet_data(user, ntweets)
+  load(path)
 
   # ロードしたツイート情報の前処理
   # ツイート投稿日時をツイート投稿日に変換

@@ -100,3 +100,8 @@ to_str_ymdhms <- function(tws) {
 
   return(tws)
 }
+
+# 1つのリストを一定の長さの複数のリストに分け、分割されたリストを1つのリストに詰めて返す関数
+split_list <- function(list, len) {
+  return(split(list, ceiling(seq_along(list) / len)))
+}

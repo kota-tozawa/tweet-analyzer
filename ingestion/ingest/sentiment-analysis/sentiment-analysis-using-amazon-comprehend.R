@@ -18,9 +18,12 @@ sentiment_analysis_with_comprehend <- function(user, ntweets) {
   filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
   load(filepath)
 
-  # 個々のツイート内容のテキストをデータフレームにまとめる
+  # 個々のツイートテキストのリストを抽出
   txts <- create_tweet_texts_dataframe(tws)
   lines <- txts$TEXT
+
+  # batch_detect_sentiment() で処理するために、上記で抽出したリストを、複数の長さ25のリストに分解する
+  lines_list <- split_list(lines, 25)
 
   # Amazon Comprehend サービスを呼び出す
   svc <- comprehend()
@@ -33,15 +36,16 @@ sentiment_analysis_with_comprehend <- function(user, ntweets) {
   # センチメントは、算出されたセンチメントスコアに応じて以下の4種類のいずれかに判定される：
   # POSITIVE（肯定的）, NEGATIVE（否定的）, NEUTRAL（中立的）, MIXED（肯定と否定の混在）
   determined_sentiment_list <- list()
-  for (line in lines) {
-    # TODO batch_detect_sentiment() という API もあるが、25件までしか処理できない。しかし、リストを長さ25でいくつかに分割して前述の API を使うという手もある？
-    # もしそっちの方が処理が早く済みそうなら、実装を変える。
-    result <- svc$detect_sentiment(Text = line, LanguageCode = "ja")
-    determined_sentiment <- result[[1]]
-    determined_sentiment_list <- append(determined_sentiment_list, determined_sentiment)
+  for (lines in lines_list) {
+    result <- svc$batch_detect_sentiment(TextList = lines, LanguageCode = "ja")
+    result_list <- pluck(result, "ResultList")
+    for (result in result_list) {
+      determined_sentiment <- pluck(result, "Sentiment")
+      determined_sentiment_list <- append(determined_sentiment_list, determined_sentiment)
+    }
   }
 
-  # リストの階層を一段階上げてあげる
+  # リストの階層を一段階上げる
   determined_sentiment_list <- determined_sentiment_list %>% flatten_chr()
 
   # 画面表示用タイトル

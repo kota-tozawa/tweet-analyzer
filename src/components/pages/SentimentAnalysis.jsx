@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Typography, Link } from '@material-ui/core';
 import * as Consts from '../atoms/constants';
-import UserAndNtweetsForm from '../organisms/Forms/UserAndNtweetsForm';
+import FormForSentimentAnalysis from '../organisms/Forms/FormForSentimentAnalysis';
 import SentimentPolarityAnalysisViz from '../organisms/SentimentAnalysisViz/SentimentAnalysisUsingPolarityDictionaryViz';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
@@ -38,9 +38,10 @@ class SentimentAnalysis extends Component {
             センチメント分析（感情分析）とは？
           </Link>
         </Typography>
-        <UserAndNtweetsForm
+        <FormForSentimentAnalysis
           analysisType={analysisType}
           options={Consts.ntweetOptionsLong}
+          options2nd={Consts.ntweetOptionsShort}
         />
         <Typography paragraph>
           {dataIngested && dataIngested['title']}

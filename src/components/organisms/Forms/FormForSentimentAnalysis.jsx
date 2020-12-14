@@ -33,12 +33,13 @@ const useStyles = makeStyles({
 });
 
 // TODO 画面側だけでなく Shiny サーバーの方もエラーハンドリングするようにする
-const UserAndNtweetsForm = ({ analysisType, options }) => {
+const FormForSentimentAnalysis = ({ analysisType, options, options2nd }) => {
   const classes = useStyles();
 
   const setInputValues = (values) => {
     window.Shiny.setInputValue('user', values.user);
     window.Shiny.setInputValue('ntweets', values.ntweets);
+    window.Shiny.setInputValue('ntweets2nd', values.ntweets2nd);
     window.Shiny.setInputValue('analysisType', values.analysisType);
   };
 
@@ -47,6 +48,7 @@ const UserAndNtweetsForm = ({ analysisType, options }) => {
       initialValues={{
         user: '',
         ntweets: 400,
+        ntweets2nd: 200,
         analysisType: analysisType,
       }}
       validationSchema={validationSchema}
@@ -79,8 +81,10 @@ const UserAndNtweetsForm = ({ analysisType, options }) => {
                   </Typography>
                 )}
               </ErrorMessage>
-              <Typography className={classes.interval}>
-                取得するツイート数
+              <Typography component={'span'} className={classes.interval}>
+                <pre>
+                  取得するツイート数：感情極性対応表を用いた感情極性値時系列
+                </pre>
               </Typography>
               <Field
                 name="ntweets"
@@ -90,6 +94,22 @@ const UserAndNtweetsForm = ({ analysisType, options }) => {
                 fullWidth
               >
                 {options.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Field>
+              <Typography component={'span'} className={classes.interval}>
+                <pre>取得するツイート数：自然言語処理を用いた感情分類</pre>
+              </Typography>
+              <Field
+                name="ntweets2nd"
+                as={Select}
+                type="select"
+                variant="outlined"
+                fullWidth
+              >
+                {options2nd.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -116,9 +136,10 @@ const UserAndNtweetsForm = ({ analysisType, options }) => {
   );
 };
 
-UserAndNtweetsForm.propTypes = {
+FormForSentimentAnalysis.propTypes = {
   analysisType: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.number).isRequired,
+  options2nd: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
-export default UserAndNtweetsForm;
+export default FormForSentimentAnalysis;

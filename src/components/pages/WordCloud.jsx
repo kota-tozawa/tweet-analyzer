@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Typography, Link } from '@material-ui/core';
 import * as Consts from '../atoms/constants';
-import UserAndNtweetsForm from '../organisms/Forms/UserAndNtweetsForm';
+import BaseForm from '../organisms/Forms/BaseForm';
 import WordCloudViz from '../organisms/WordCloudViz/WordCloudViz';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
@@ -35,7 +35,7 @@ class WordCloud extends Component {
             ワードクラウドとは？
           </Link>
         </Typography>
-        <UserAndNtweetsForm
+        <BaseForm
           analysisType={analysisType}
           options={Consts.ntweetOptionsLong}
         />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Typography } from '@material-ui/core';
 import * as Consts from '../atoms/constants';
-import UserAndNtweetsForm from '../organisms/Forms/UserAndNtweetsForm';
+import BaseForm from '../organisms/Forms/BaseForm';
 import TweetFreqTimeSeriesViz from '../organisms/TweetFreqViz/TweetFreqTimeSeriesViz';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
@@ -27,7 +27,7 @@ class TweetFreq extends Component {
     return (
       <>
         <Typography paragraph>ツイート頻度の時系列プロット</Typography>
-        <UserAndNtweetsForm
+        <BaseForm
           analysisType={analysisType}
           options={Consts.ntweetOptionsLong}
         />

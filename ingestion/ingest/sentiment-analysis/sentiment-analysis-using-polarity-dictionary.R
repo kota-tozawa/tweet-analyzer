@@ -38,8 +38,7 @@ sentiment_polarity_analysis <- function(user, ntweets) {
   load(filepath)
 
   # ツイートの並び順を古い順にする（感情極性値の時系列変化を可視化するため）
-  tws <- tws %>%
-    arrange(CREATED_AT)
+  tws <- tws %>% arrange(CREATED_AT)
   tws <- to_str_ymdhms(tws)
 
   # 個々のツイート内容のテキストをデータフレームにまとめる
@@ -56,8 +55,7 @@ sentiment_polarity_analysis <- function(user, ntweets) {
   terms <- terms %>% left_join(dict)
 
   # IDごとにグルーピングし、極性値の合計を求める（極性値がないものは除く）
-  ems <- terms %>% group_by(ID) %>%
-    summarise(EM = sum(SCORE, na.rm = TRUE))
+  ems <- terms %>% group_by(ID) %>% summarise(EM = sum(SCORE, na.rm = TRUE))
 
   # 極性値の要約統計量を確認
   # ems %>% select(EM) %>% summary()
@@ -65,10 +63,8 @@ sentiment_polarity_analysis <- function(user, ntweets) {
   # ems %>% dplyr::filter(EM == min(EM)) %>% left_join(txts) %>% select(TEXT) %>% pull()
 
   # 個々のツイート文の長さを求める
-  txts <- txts %>%
-    mutate(LENGTH = nchar(TEXT))
-  ems <- ems %>%
-    left_join(txts, by = c("ID" = "CREATED_AT"))
+  txts <- txts %>% mutate(LENGTH = nchar(TEXT))
+  ems <- ems %>% left_join(txts, by = c("ID" = "CREATED_AT"))
 
   # React で可視化するためにツイート投稿日、極性値、ツイート文長を別々のリストにする
   breaks <- ems$ID

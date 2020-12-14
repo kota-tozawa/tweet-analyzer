@@ -41,8 +41,7 @@ wordcloud <- function(user, ntweets) {
     "http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt",
     col_names = "TERM"
   )
-  ja_stop_words <- tmp %>%
-    add_row(TERM = JA_CUSTOM_STOP_WORD_LIST)
+  ja_stop_words <- tmp %>% add_row(TERM = JA_CUSTOM_STOP_WORD_LIST)
   en_stop_words <- stopwords("en", source = "stopwords-iso") %>%
     data.frame() %>%
     select(TERM = 1) %>%

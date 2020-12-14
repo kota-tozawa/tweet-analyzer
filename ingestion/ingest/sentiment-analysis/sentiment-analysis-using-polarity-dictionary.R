@@ -40,7 +40,7 @@ sentiment_polarity_analysis <- function(user, ntweets) {
   # ツイートの並び順を古い順にする（感情極性値の時系列変化を可視化するため）
   tws <- tws %>%
     arrange(CREATED_AT)
-  tws <-to_str_ymdhms(tws)
+  tws <- to_str_ymdhms(tws)
 
   # 個々のツイート内容のテキストをデータフレームにまとめる
   txts <- create_tweet_texts_dataframe(tws)

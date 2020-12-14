@@ -64,21 +64,21 @@ combine_tws_into_txt <- function(tws, user, ntweets) {
   txts <- create_tweet_texts_dataframe(tws)
 
   # ツイートを1つのテキストファイルに保存
-  text_filepath <- paste0("./output/texts/tweets/", user, "-", ntweets, ".txt")
+  textfile_path <- paste0("./output/texts/tweets/", user, "-", ntweets, ".txt")
   txts %>%
     select(TEXT) %>%
     pull() %>%
     # 改行を削除する
     str_remove_all("\n") %>%
-    write(text_filepath)
+    write(textfile_path)
 
-  return(text_filepath)
+  return(textfile_path)
 }
 
 
 # 文ごとに形態素解析にかけて結果をデータフレームにする関数
-rmecabc <- function(id, sent) {
-  x <- unlist(RMeCabC(sent, 1))
+rmecabc <- function(id, sentence) {
+  x <- unlist(RMeCabC(sentence, 1))
   tibble(ID = id, TERM = x)
 }
 
@@ -94,7 +94,7 @@ to_ymd <- function(tws) {
 
 # CREATED_AT（ツイート投稿日時）を yyyy-mm-dd hh:mm:ss 形式の character に変換
 to_str_ymdhms <- function(tws) {
-  tws$CREATED_AT <- as.character(tws$CREATED_AT) %>%
+  tws$CREATED_AT <- tws$CREATED_AT %>%
     as.character()
 
   return(tws)

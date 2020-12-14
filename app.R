@@ -10,11 +10,12 @@ server <- function(input, output, session) {
     wordcloud_flg <- analysis_type == "wordcloud"
     sentiment_analysis_flg <- analysis_type == "sentimentAnalysis"
 
-    # 時系列プロット用のデータを用意
-    if (tweet_freq_flg) {
+    # 画面で入力された Twitter ユーザー名と取得するツイート数を変数に格納
       req(input$user) -> user
       req(input$ntweets) -> ntweets
 
+    # 時系列プロット用のデータを用意
+    if (tweet_freq_flg) {
       # 入力されたユーザー名・件数でツイートを取得
       # ただし、画面から入力が submit されるたびに Twitter API にアクセスしてしまうので、同じ数で既に取得している場合は取得をスキップ
       # TODO 同じユーザー名・回数でもう一度ツイートを取得することを希望する場合、例えば、一週間ぶりに使うときに新しいデータに更新したい場合には、それができるようにする
@@ -38,9 +39,6 @@ server <- function(input, output, session) {
       )
     } else if (wordcloud_flg) {
       # ワードクラウド用のデータを用意
-      req(input$user) -> user
-      req(input$ntweets) -> ntweets
-
       download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
       if (download_flg) {
         download_user_tweets(user, ntweets = ntweets)
@@ -58,9 +56,6 @@ server <- function(input, output, session) {
       )
     } else if (sentiment_analysis_flg) {
       # センチメント分析用のデータを用意
-      req(input$user) -> user
-      req(input$ntweets) -> ntweets
-
       download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
       if (download_flg) {
         download_user_tweets(user, ntweets = ntweets)

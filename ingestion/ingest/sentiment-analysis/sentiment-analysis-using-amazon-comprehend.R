@@ -2,7 +2,7 @@ library(paws)
 library(purrr)
 library(dplyr)
 
-#' ツイートの感情極性値時系列データを抽出・加工する
+#' Amazon Comprehend を利用してセンチメント分析を行い、その結果を整形して返す
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか
@@ -28,12 +28,14 @@ sentiment_analysis_with_comprehend <- function(user, ntweets) {
   # ガベージコレクション
   gc();gc()
 
-  # 文章からセンチメントを検出する API を呼び出す。
+  # 文章のセンチメント（感情）を検出する API を呼び出す。
   # その後、Amazon Comprehend の自然言語処理アルゴリズムにより判定された各ツイートテキストのセンチメントをリストに詰める。
   # センチメントは、算出されたセンチメントスコアに応じて以下の4種類のいずれかに判定される：
   # POSITIVE（肯定的）, NEGATIVE（否定的）, NEUTRAL（中立的）, MIXED（肯定と否定の混在）
   determined_sentiment_list <- list()
   for (line in lines) {
+    # TODO batch_detect_sentiment() という API もあるが、25件までしか処理できない。しかし、リストを長さ25でいくつかに分割して前述の API を使うという手もある？
+    # もしそっちの方が処理が早く済みそうなら、実装を変える。
     result <- svc$detect_sentiment(Text = line, LanguageCode = "ja")
     determined_sentiment <- result[[1]]
     determined_sentiment_list <- append(determined_sentiment_list, determined_sentiment)

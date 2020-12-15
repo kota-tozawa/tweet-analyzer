@@ -3,6 +3,7 @@ import { Typography, Link } from '@material-ui/core';
 import * as Consts from '../atoms/constants';
 import FormForSentimentAnalysis from '../organisms/Forms/FormForSentimentAnalysis';
 import SentimentPolarityAnalysisViz from '../organisms/SentimentAnalysisViz/SentimentAnalysisUsingPolarityDictionaryViz';
+import SentimentAnalysisWithComprehendViz from '../organisms/SentimentAnalysisViz/SentimentAnalysisUsingAmazonComprehendViz';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
 class SentimentAnalysis extends Component {
@@ -44,7 +45,7 @@ class SentimentAnalysis extends Component {
           options2nd={Consts.ntweetOptionsShort}
         />
         <Typography paragraph>
-          {dataIngested && dataIngested['title']}
+          {dataIngested && dataIngested['title_polarity']}
         </Typography>
         <Typography component={'span'}>
           {dataIngested &&
@@ -57,6 +58,14 @@ class SentimentAnalysis extends Component {
             breaks={dataIngested['breaks']}
             scores={dataIngested['scores']}
             lengths={dataIngested['lengths']}
+          />
+        )}
+        <Typography paragraph>
+          {dataIngested && dataIngested['title_comprehend']}
+        </Typography>
+        {dataIngested && (
+          <SentimentAnalysisWithComprehendViz
+            determinedSentimentList={dataIngested['determined_sentiment_list']}
           />
         )}
       </>

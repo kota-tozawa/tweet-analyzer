@@ -13,7 +13,7 @@ import {
   List,
 } from '@material-ui/core';
 import { Menu, ChevronLeft } from '@material-ui/icons';
-import { MainListItems } from './components/organisms/ListItems';
+import { ListItems } from './components/organisms/ListItems';
 import Home from './components/pages/Home';
 import TweetFreq from './components/pages/TweetFreq';
 import WordCloud from './components/pages/WordCloud';
@@ -130,7 +130,7 @@ const App = () => {
             </IconButton>
           </div>
           <Divider />
-          <List>{MainListItems}</List>
+          <List>{ListItems}</List>
         </Drawer>
         <main
           className={clsx(classes.content, {

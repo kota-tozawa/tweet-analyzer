@@ -8,7 +8,7 @@ import {
   SentimentSatisfiedAlt,
 } from '@material-ui/icons';
 
-export const MainListItems = (
+export const ListItems = (
   <>
     <ListItem key="Home" component={Link} to="/" button>
       <ListItemIcon>

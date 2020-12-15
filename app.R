@@ -56,22 +56,33 @@ server <- function(input, output, session) {
       )
     } else if (sentiment_analysis_flg) {
       # センチメント分析用のデータを用意
-      download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
-      if (download_flg) {
+      req(input$ntweets2nd) -> ntweets2nd
+
+      download_flg_ntweets <- !did_download_with_same_info(user, ntweets = ntweets)
+      download_flg_ntweets2nd <- !did_download_with_same_info(user, ntweets = ntweets2nd)
+      if (download_flg_ntweets) {
         download_user_tweets(user, ntweets = ntweets)
+      } else if (download_flg_ntweets2nd) {
+        download_user_tweets(user, ntweets = ntweets2nd)
       }
 
       sentiment_polarity_analysis_result <- sentiment_polarity_analysis(user, ntweets = ntweets)
       breaks <- pluck(sentiment_polarity_analysis_result, 1)
       scores <- pluck(sentiment_polarity_analysis_result, 2)
       lengths <- pluck(sentiment_polarity_analysis_result, 3)
-      title <- pluck(sentiment_polarity_analysis_result, 4)
+      title_polarity <- pluck(sentiment_polarity_analysis_result, 4)
+
+      sentiment_analysis_with_comprehend_result <- sentiment_analysis_with_comprehend(user, ntweets = ntweets2nd)
+      determined_sentiment_list <- pluck(sentiment_analysis_with_comprehend_result, 1)
+      title_comprehend <- pluck(sentiment_analysis_with_comprehend_result, 2)
 
       list(
         breaks = breaks,
         scores = scores,
         lengths = lengths,
-        title = title
+        title_polarity = title_polarity,
+        determined_sentiment_list = determined_sentiment_list,
+        title_comprehend = title_comprehend
       )
     }
   })

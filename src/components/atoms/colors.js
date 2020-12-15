@@ -1,6 +1,9 @@
-export const darkRed = '#880d1e';
-export const red = '#dd2d4a';
-export const strawberryPink = '#f26a8d';
-export const pink = '#f49cbb';
-export const skyBlue = '#cbeef3';
-export const emeraldBlue = '#9ddfd3';
+export const darkRed = '#880D1E';
+export const red = '#DD2D4A';
+export const strawberryPink = '#F26A8D';
+export const pink = '#F49CBB';
+export const blue = '#85C1E9';
+export const skyBlue = '#CBEEF3';
+export const emeraldBlue = '#9DDFD3';
+export const purple = '#C39BD3';
+export const green = '#82E0AA';

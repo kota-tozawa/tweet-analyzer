@@ -49,7 +49,7 @@ sentiment_analysis_with_comprehend <- function(user, ntweets) {
   determined_sentiment_list <- determined_sentiment_list %>% flatten_chr()
 
   # 画面表示用タイトル
-  title <- paste0("Amazon Comprehend で推定された @", user, " が投稿した", "各ツイートのセンチメント")
+  title <- paste0("Amazon Comprehend で推定された @", user, " が投稿した", "各ツイートのセンチメント内訳")
 
   return(list(determined_sentiment_list, title))
 }

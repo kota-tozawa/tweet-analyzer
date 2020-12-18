@@ -32,8 +32,8 @@ const SentimentAnalysisWithComprehend = ({ determinedSentimentList }) => {
   });
 
   const data = [
-    { sentiment: '肯定的', value: pos, color: Colors.red },
-    { sentiment: '否定的', value: neg, color: Colors.blue },
+    { sentiment: '肯定的', value: pos, color: Colors.blue },
+    { sentiment: '否定的', value: neg, color: Colors.red },
     { sentiment: '中立的', value: neut, color: Colors.green },
     { sentiment: '肯定と否定の混合', value: mixed, color: Colors.purple },
   ];

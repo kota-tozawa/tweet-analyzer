@@ -43,7 +43,7 @@ wordcloud <- function(user, ntweets) {
   )
   ja_stop_words <- tmp %>% add_row(TERM = JA_CUSTOM_STOP_WORD_LIST)
   en_stop_words <- stopwords("en", source = "stopwords-iso") %>%
-    data.frame() %>%
+    tibble() %>%
     select(TERM = 1) %>%
     add_row(TERM = EN_CUSTOM_STOP_WORD_LIST)
   stop_words <- rbind(ja_stop_words, en_stop_words)

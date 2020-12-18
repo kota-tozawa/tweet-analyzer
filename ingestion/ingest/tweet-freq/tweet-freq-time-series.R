@@ -34,7 +34,7 @@ tweet_freq_time_series <- function(user, ntweets) {
   init_date <- tmp[1]
   end_date <- tmp[2]
   all_dates <- seq.Date(init_date, end_date, by = "days")
-  all_dates_df <- all_dates %>% data.frame() %>% select(CREATED_AT = 1)
+  all_dates_df <- all_dates %>% tibble() %>% select(CREATED_AT = 1)
   # 欠損日のツイート数を0で補間
   tweets_per_day_imputed <- all_dates_df %>%
     full_join(tweets_per_day, by = "CREATED_AT") %>%

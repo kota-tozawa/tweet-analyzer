@@ -32,9 +32,6 @@ server <- function(input, output, session) {
       list(
         breaks = breaks,
         freqs = freqs,
-        # ticks は年月のデータとなる。使い道は今のところないがとりあえずJS側に渡すようにしている。
-        # e.g.: ["2020-01-01", "2020-02-01", "2020-03-01", ...]
-        ticks = pretty(breaks),
         title = title
       )
     } else if (wordcloud_flg) {

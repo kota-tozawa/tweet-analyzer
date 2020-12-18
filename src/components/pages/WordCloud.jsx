@@ -26,7 +26,7 @@ class WordCloud extends Component {
     const { dataIngested, analysisType } = this.state;
     return (
       <>
-        <Typography paragraph>ツイート内容のワードクラウド</Typography>
+        <h2>ツイート内容のワードクラウド</h2>
         <Typography paragraph>
           <Link
             href="https://ja.wikipedia.org/wiki/%E3%82%BF%E3%82%B0%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89"
@@ -39,8 +39,10 @@ class WordCloud extends Component {
           analysisType={analysisType}
           options={Consts.ntweetOptionsLong}
         />
-        <Typography paragraph>
-          {dataIngested && dataIngested['title']}
+        <h3>{dataIngested && dataIngested['title']}</h3>
+        <Typography>
+          {dataIngested &&
+            '注意：「取得するツイート数」が小さいとワードクラウドがきれいに描画されない場合があります。'}
         </Typography>
         {dataIngested && (
           <WordCloudViz

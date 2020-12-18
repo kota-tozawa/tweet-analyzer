@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Typography } from '@material-ui/core';
 import * as Consts from '../atoms/constants';
 import BaseForm from '../organisms/Forms/BaseForm';
 import TweetFreqTimeSeries from '../organisms/TweetFreqViz/TweetFreqTimeSeries';
@@ -26,19 +25,16 @@ class TweetFreq extends Component {
     const { dataIngested, analysisType } = this.state;
     return (
       <>
-        <Typography paragraph>ツイート頻度の時系列プロット</Typography>
+        <h2>ツイート頻度の時系列プロット</h2>
         <BaseForm
           analysisType={analysisType}
           options={Consts.ntweetOptionsLong}
         />
-        <Typography paragraph>
-          {dataIngested && dataIngested['title']}
-        </Typography>
+        <h3>{dataIngested && dataIngested['title']}</h3>
         {dataIngested && (
           <TweetFreqTimeSeries
             breaks={dataIngested['breaks']}
             freqs={dataIngested['freqs']}
-            ticks={dataIngested['ticks']}
           />
         )}
       </>

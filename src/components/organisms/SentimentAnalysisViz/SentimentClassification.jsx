@@ -12,7 +12,29 @@ import {
   Tooltip,
 } from 'recharts';
 import * as Colors from '../../atoms/colors';
-import CustomizedLabel from '../../molecules/CustomizedLabel';
+
+const CustomizedLabel = ({ x, y, fill, value }) => {
+  return (
+    // TODO ラベルの座標の位置が棒グラフのちょうど右あたりにくるように工夫する
+    <text
+      x={1540}
+      y={y + 47}
+      fill={fill}
+      dy={-6}
+      textAnchor="end"
+      fontSize={26}
+    >
+      {value}
+    </text>
+  );
+};
+
+CustomizedLabel.propTypes = {
+  x: PropTypes.number,
+  y: PropTypes.number,
+  fill: PropTypes.string,
+  value: PropTypes.number,
+};
 
 const SentimentClassification = ({ determinedSentimentList }) => {
   let pos = 0;
@@ -38,7 +60,7 @@ const SentimentClassification = ({ determinedSentimentList }) => {
     { sentiment: '肯定と否定の混合', value: mixed, color: Colors.purple },
   ];
 
-  // 多いセンチメント順に昇順ソート（グラフ上では降順）
+  // data['value'] で昇順ソート（グラフ上では降順）
   data.sort((a, b) => {
     return a.value > b.value ? -1 : a.value < b.value ? 1 : 0;
   });

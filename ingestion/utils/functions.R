@@ -31,7 +31,7 @@ extract_dates <- function(tws) {
 }
 
 
-# 個々のツイート内容のテキストと投稿日時をデータフレームにまとめる
+# 個々のツイート内容のテキストと投稿日時をデータフレームにまとめる関数
 create_tweet_texts_dataframe <- function(tws) {
   if (is.null(tws)) {
     stop(NULL_ARGS_ERR)
@@ -91,7 +91,7 @@ rmecabc <- function(id, sentence) {
 }
 
 
-# CREATED_AT（ツイート投稿日時）を yyyy-mm-dd 形式に変換
+# CREATED_AT（ツイート投稿日時）を yyyy-mm-dd 形式に変換する関数
 to_ymd <- function(tws) {
   tws$CREATED_AT <- tws$CREATED_AT %>% as.character() %>% substr(1, 10) %>% ymd()
 
@@ -99,7 +99,7 @@ to_ymd <- function(tws) {
 }
 
 
-# CREATED_AT（ツイート投稿日時）を yyyy-mm-dd hh:mm:ss 形式の character に変換
+# CREATED_AT（ツイート投稿日時）を yyyy-mm-dd hh:mm:ss 形式の character に変換する関数
 to_str_ymdhms <- function(tws) {
   tws$CREATED_AT <- tws$CREATED_AT %>% as.character()
 
@@ -110,4 +110,29 @@ to_str_ymdhms <- function(tws) {
 # 1つのリストを一定の長さの複数のリストに分け、分割されたリストを1つのリストに詰めて返す関数
 split_list <- function(list, len) {
   return(split(list, ceiling(seq_along(list) / len)))
+}
+
+
+# 欠損日のツイート数を0で補間する関数
+impute_tweets_per_day_with_zero <- function(tws) {
+  # ツイート投稿日時をツイート投稿日に変換
+  tws <- to_ymd(tws)
+  # 日々のツイート頻度を計算
+  tweets_per_day <- tws %>%
+    select(CREATED_AT) %>%
+    group_by() %>%
+    count(CREATED_AT) %>%
+    rename(FREQ = n)
+  # 欠損日のツイート数を0で補間する用のデータフレームを作成
+  tmp <- extract_dates(tws)
+  init_date <- tmp[1]
+  end_date <- tmp[2]
+  all_dates <- seq.Date(init_date, end_date, by = "days")
+  all_dates_df <- all_dates %>% tibble() %>% select(CREATED_AT = 1)
+  # 欠損日のツイート数を0で補間
+  tweets_per_day_imputed <- all_dates_df %>%
+    full_join(tweets_per_day, by = "CREATED_AT") %>%
+    replace_na(list(FREQ = 0))
+
+  return(tweets_per_day_imputed)
 }

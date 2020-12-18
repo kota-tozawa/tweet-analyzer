@@ -13,8 +13,7 @@ import {
 } from 'recharts';
 import { theme } from '../../atoms/theme';
 
-// ticks については app.R を参照のこと
-const TweetFreqTimeSeries = ({ breaks, freqs, ticks }) => {
+const TweetFreqTimeSeries = ({ breaks, freqs }) => {
   const data = freqs.map((freq, i) => ({
     period: breaks[i],
     freq: freq,
@@ -64,7 +63,6 @@ const TweetFreqTimeSeries = ({ breaks, freqs, ticks }) => {
 TweetFreqTimeSeries.propTypes = {
   breaks: PropTypes.arrayOf(PropTypes.string).isRequired,
   freqs: PropTypes.arrayOf(PropTypes.number).isRequired,
-  ticks: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TweetFreqTimeSeries;

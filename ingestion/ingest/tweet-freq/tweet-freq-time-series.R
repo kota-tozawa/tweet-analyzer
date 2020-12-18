@@ -21,28 +21,16 @@ tweet_freq_time_series <- function(user, ntweets) {
   load(path)
 
   # ロードしたツイート情報の前処理
-  # ツイート投稿日時をツイート投稿日に変換
-  tws <- to_ymd(tws)
-  # 日々のツイート頻度を計算
-  tweets_per_day <- tws %>%
-    select(CREATED_AT) %>%
-    group_by() %>%
-    count(CREATED_AT) %>%
-    rename(FREQ = n)
-  # 欠損日のツイート数を0で補間する用のデータフレームを作成
-  tmp <- extract_dates(tws)
+  tweets_per_day_imputed <- impute_tweets_per_day_with_zero(tws)
+
+  # 画面表示用の期間を抽出
+  tmp <- extract_dates(tweets_per_day_imputed)
   init_date <- tmp[1]
   end_date <- tmp[2]
-  all_dates <- seq.Date(init_date, end_date, by = "days")
-  all_dates_df <- all_dates %>% tibble() %>% select(CREATED_AT = 1)
-  # 欠損日のツイート数を0で補間
-  tweets_per_day_imputed <- all_dates_df %>%
-    full_join(tweets_per_day, by = "CREATED_AT") %>%
-    replace_na(list(FREQ = 0))
 
   # Rechartsで作る時系列プロット用データを用意
   # TODO 移動平均の時系列プロット用データも用意する（7日間周期でやってみる？）
-  breaks <- all_dates
+  breaks <- tweets_per_day_imputed$CREATED_AT
   freqs <- tweets_per_day_imputed$FREQ
   title <- paste0("@", user, " の ", init_date, " から ", end_date, " までのツイート頻度の推移")
 

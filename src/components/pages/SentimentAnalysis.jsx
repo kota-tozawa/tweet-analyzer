@@ -30,7 +30,7 @@ class SentimentAnalysis extends Component {
       'グラフ上部の凡例横にある「-o-」をクリックすると、線をトグルできる。';
     return (
       <>
-        <Typography paragraph>ツイート内容のセンチメント分析</Typography>
+        <h2>ツイート内容のセンチメント分析</h2>
         <Typography paragraph>
           <Link
             href="https://lionbridge.ai/ja/articles/sentiment-analysis-101/"
@@ -44,9 +44,7 @@ class SentimentAnalysis extends Component {
           options={Consts.ntweetOptionsLong}
           options2nd={Consts.ntweetOptionsShort}
         />
-        <Typography paragraph>
-          {dataIngested && dataIngested['title_polarity']}
-        </Typography>
+        <h3>{dataIngested && dataIngested['title_polarity']}</h3>
         <Typography component={'span'}>
           {dataIngested &&
             descriptions.split('\n').map((t, i) => {
@@ -60,9 +58,7 @@ class SentimentAnalysis extends Component {
             lengths={dataIngested['lengths']}
           />
         )}
-        <Typography paragraph>
-          {dataIngested && dataIngested['title_comprehend']}
-        </Typography>
+        <h3>{dataIngested && dataIngested['title_comprehend']}</h3>
         {dataIngested && (
           <SentimentClassificationViz
             determinedSentimentList={dataIngested['determined_sentiment_list']}

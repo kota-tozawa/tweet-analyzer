@@ -66,15 +66,15 @@ server <- function(input, output, session) {
         download_user_tweets(user, ntweets = ntweets2nd)
       }
 
-      sentiment_polarity_analysis_result <- sentiment_polarity_analysis(user, ntweets = ntweets)
-      breaks <- pluck(sentiment_polarity_analysis_result, 1)
-      scores <- pluck(sentiment_polarity_analysis_result, 2)
-      lengths <- pluck(sentiment_polarity_analysis_result, 3)
-      title_polarity <- pluck(sentiment_polarity_analysis_result, 4)
+      sentiment_polarity_time_series_result <- sentiment_polarity_time_series(user, ntweets = ntweets)
+      breaks <- pluck(sentiment_polarity_time_series_result, 1)
+      scores <- pluck(sentiment_polarity_time_series_result, 2)
+      lengths <- pluck(sentiment_polarity_time_series_result, 3)
+      title_polarity <- pluck(sentiment_polarity_time_series_result, 4)
 
-      sentiment_analysis_with_comprehend_result <- sentiment_analysis_with_comprehend(user, ntweets = ntweets2nd)
-      determined_sentiment_list <- pluck(sentiment_analysis_with_comprehend_result, 1)
-      title_comprehend <- pluck(sentiment_analysis_with_comprehend_result, 2)
+      sentiment_classification_result <- sentiment_classification(user, ntweets = ntweets2nd)
+      determined_sentiment_list <- pluck(sentiment_classification_result, 1)
+      title_comprehend <- pluck(sentiment_classification_result, 2)
 
       list(
         breaks = breaks,

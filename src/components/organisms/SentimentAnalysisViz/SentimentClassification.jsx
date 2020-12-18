@@ -14,7 +14,7 @@ import {
 import * as Colors from '../../atoms/colors';
 import CustomizedLabel from '../../molecules/CustomizedLabel';
 
-const SentimentAnalysisWithComprehend = ({ determinedSentimentList }) => {
+const SentimentClassification = ({ determinedSentimentList }) => {
   let pos = 0;
   let neg = 0;
   let neut = 0;
@@ -89,8 +89,8 @@ const SentimentAnalysisWithComprehend = ({ determinedSentimentList }) => {
   );
 };
 
-SentimentAnalysisWithComprehend.propTypes = {
+SentimentClassification.propTypes = {
   determinedSentimentList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default SentimentAnalysisWithComprehend;
+export default SentimentClassification;

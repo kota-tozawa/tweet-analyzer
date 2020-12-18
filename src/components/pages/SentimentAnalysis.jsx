@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Typography, Link } from '@material-ui/core';
 import * as Consts from '../atoms/constants';
 import FormForSentimentAnalysis from '../organisms/Forms/FormForSentimentAnalysis';
-import SentimentPolarityAnalysisViz from '../organisms/SentimentAnalysisViz/SentimentAnalysisUsingPolarityDictionaryViz';
-import SentimentAnalysisWithComprehendViz from '../organisms/SentimentAnalysisViz/SentimentAnalysisUsingAmazonComprehendViz';
+import SentimentPolarityTimeSeries from '../organisms/SentimentAnalysisViz/SentimentPolarityTimeSeries';
+import SentimentClassificationViz from '../organisms/SentimentAnalysisViz/SentimentClassification';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
 class SentimentAnalysis extends Component {
@@ -54,7 +54,7 @@ class SentimentAnalysis extends Component {
             })}
         </Typography>
         {dataIngested && (
-          <SentimentPolarityAnalysisViz
+          <SentimentPolarityTimeSeries
             breaks={dataIngested['breaks']}
             scores={dataIngested['scores']}
             lengths={dataIngested['lengths']}
@@ -64,7 +64,7 @@ class SentimentAnalysis extends Component {
           {dataIngested && dataIngested['title_comprehend']}
         </Typography>
         {dataIngested && (
-          <SentimentAnalysisWithComprehendViz
+          <SentimentClassificationViz
             determinedSentimentList={dataIngested['determined_sentiment_list']}
           />
         )}

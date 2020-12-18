@@ -14,7 +14,7 @@ import {
 import { theme } from '../../atoms/theme';
 
 // ticks については app.R を参照のこと
-const TweetFreqTimeSeriesViz = ({ breaks, freqs, ticks }) => {
+const TweetFreqTimeSeries = ({ breaks, freqs, ticks }) => {
   const data = freqs.map((freq, i) => ({
     period: breaks[i],
     freq: freq,
@@ -61,10 +61,10 @@ const TweetFreqTimeSeriesViz = ({ breaks, freqs, ticks }) => {
   );
 };
 
-TweetFreqTimeSeriesViz.propTypes = {
+TweetFreqTimeSeries.propTypes = {
   breaks: PropTypes.arrayOf(PropTypes.string).isRequired,
   freqs: PropTypes.arrayOf(PropTypes.number).isRequired,
   ticks: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default TweetFreqTimeSeriesViz;
+export default TweetFreqTimeSeries;

@@ -40,9 +40,11 @@ class WordCloud extends Component {
           options={Consts.ntweetOptionsLong}
         />
         <h3>{dataIngested && dataIngested['title']}</h3>
-        <Typography>
-          {dataIngested &&
-            '注意：「取得するツイート数」が小さいとワードクラウドがきれいに描画されない場合があります。'}
+        <Typography component={'span'}>
+          <pre>
+            {dataIngested &&
+              '注意：「取得するツイート数」が小さいとワードクラウドがきれいに描画されない場合があります。'}
+          </pre>
         </Typography>
         {dataIngested && (
           <WordCloudViz

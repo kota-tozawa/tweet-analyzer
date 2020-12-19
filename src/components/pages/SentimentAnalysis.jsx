@@ -26,8 +26,8 @@ class SentimentAnalysis extends Component {
   render() {
     const { dataIngested, analysisType } = this.state;
     const descriptions =
-      '感情極性値は、低いほどネガティブであることを表す。\n' +
-      'グラフ上部の凡例横にある「-o-」をクリックすると、線をトグルできる。';
+      '感情極性値は、低いほどネガティブであることを表します。\n' +
+      'グラフ上部の凡例横にある「-o-」をクリックすると、線をトグルできます。';
     return (
       <>
         <h2>ツイート内容のセンチメント分析</h2>

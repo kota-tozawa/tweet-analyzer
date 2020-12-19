@@ -5,6 +5,8 @@ import {
   Button,
   TextField,
   Select,
+  Checkbox,
+  FormControlLabel,
   MenuItem,
   Container,
   Paper,
@@ -41,6 +43,10 @@ const FormForSentimentAnalysis = ({ analysisType, options, options2nd }) => {
     window.Shiny.setInputValue('ntweets', values.ntweets);
     window.Shiny.setInputValue('ntweets2nd', values.ntweets2nd);
     window.Shiny.setInputValue('analysisType', values.analysisType);
+    window.Shiny.setInputValue(
+      'fetchLatestTweets',
+      String(values.fetchLatestTweets)
+    );
   };
 
   return (
@@ -50,6 +56,7 @@ const FormForSentimentAnalysis = ({ analysisType, options, options2nd }) => {
         ntweets: 400,
         ntweets2nd: 200,
         analysisType: analysisType,
+        fetchLatestTweets: false,
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
@@ -115,6 +122,17 @@ const FormForSentimentAnalysis = ({ analysisType, options, options2nd }) => {
                   </MenuItem>
                 ))}
               </Field>
+              <FormControlLabel
+                control={
+                  <Field
+                    name="fetchLatestTweets"
+                    as={Checkbox}
+                    type="checkbox"
+                  />
+                }
+                className={classes.interval}
+                label="最新のツイートデータを取得する"
+              />
               <div className={classes.buttonWrapper}>
                 <Button
                   type="submit"

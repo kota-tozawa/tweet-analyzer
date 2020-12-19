@@ -5,6 +5,8 @@ import {
   Button,
   TextField,
   Select,
+  Checkbox,
+  FormControlLabel,
   MenuItem,
   Container,
   Paper,
@@ -40,6 +42,12 @@ const BaseForm = ({ analysisType, options }) => {
     window.Shiny.setInputValue('user', values.user);
     window.Shiny.setInputValue('ntweets', values.ntweets);
     window.Shiny.setInputValue('analysisType', values.analysisType);
+    // ブーリアンは JS において true / false で表されるが、R では TRUE / FALSE で表されるので、JS のブーリアンをそのまま R に渡すとうまく動かない。
+    // なので文字列（'true' / 'false'）にして渡す。
+    window.Shiny.setInputValue(
+      'fetchLatestTweets',
+      String(values.fetchLatestTweets)
+    );
   };
 
   return (
@@ -48,6 +56,7 @@ const BaseForm = ({ analysisType, options }) => {
         user: '',
         ntweets: 400,
         analysisType: analysisType,
+        fetchLatestTweets: false,
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
@@ -95,6 +104,17 @@ const BaseForm = ({ analysisType, options }) => {
                   </MenuItem>
                 ))}
               </Field>
+              <FormControlLabel
+                control={
+                  <Field
+                    name="fetchLatestTweets"
+                    as={Checkbox}
+                    type="checkbox"
+                  />
+                }
+                className={classes.interval}
+                label="最新のツイートデータを取得する"
+              />
               <div className={classes.buttonWrapper}>
                 <Button
                   type="submit"

@@ -11,15 +11,19 @@ server <- function(input, output, session) {
     sentiment_analysis_flg <- analysis_type == "sentimentAnalysis"
 
     # 画面で入力された Twitter ユーザー名と取得するツイート数を変数に格納
-      req(input$user) -> user
-      req(input$ntweets) -> ntweets
+    req(input$user) -> user
+    req(input$ntweets) -> ntweets
+
+    # 最新のツイートデータを取得するか否か
+    req(input$fetchLatestTweets) -> fetch_latest_tweets
+    fetch_latest_tweets <- fetch_latest_tweets == "true"
 
     # 時系列プロット用のデータを用意
     if (tweet_freq_flg) {
-      # 入力されたユーザー名・件数でツイートを取得
-      # ただし、画面から入力が submit されるたびに Twitter API にアクセスしてしまうので、同じ数で既に取得している場合は取得をスキップ
-      # TODO 同じユーザー名・回数でもう一度ツイートを取得することを希望する場合、例えば、一週間ぶりに使うときに新しいデータに更新したい場合には、それができるようにする
-      download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
+      # 入力されたユーザー名・件数でツイートデータを取得。
+      # ただし、画面から入力が submit されるたびに Twitter API にアクセスされるのを防ぐため、
+      #「最新のツイートデータを取得する」が画面で選択されていない限り、過去に同じパラメーターでツイートデータ取得している場合は取得をスキップする。
+      download_flg <- !did_download_with_same_info(user, ntweets = ntweets) || fetch_latest_tweets
       if (download_flg) {
         download_user_tweets(user, ntweets = ntweets)
       }
@@ -36,7 +40,7 @@ server <- function(input, output, session) {
       )
     } else if (wordcloud_flg) {
       # ワードクラウド用のデータを用意
-      download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
+      download_flg <- !did_download_with_same_info(user, ntweets = ntweets) || fetch_latest_tweets
       if (download_flg) {
         download_user_tweets(user, ntweets = ntweets)
       }
@@ -55,8 +59,8 @@ server <- function(input, output, session) {
       # センチメント分析用のデータを用意
       req(input$ntweets2nd) -> ntweets2nd
 
-      download_flg_ntweets <- !did_download_with_same_info(user, ntweets = ntweets)
-      download_flg_ntweets2nd <- !did_download_with_same_info(user, ntweets = ntweets2nd)
+      download_flg_ntweets <- !did_download_with_same_info(user, ntweets = ntweets) || fetch_latest_tweets
+      download_flg_ntweets2nd <- !did_download_with_same_info(user, ntweets = ntweets2nd) || fetch_latest_tweets
       if (download_flg_ntweets) {
         download_user_tweets(user, ntweets = ntweets)
       } else if (download_flg_ntweets2nd) {

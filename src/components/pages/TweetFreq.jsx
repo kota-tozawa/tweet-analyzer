@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Typography } from '@material-ui/core';
 import * as Consts from '../atoms/constants';
 import BaseForm from '../organisms/Forms/BaseForm';
 import TweetFreqTimeSeries from '../organisms/TweetFreqViz/TweetFreqTimeSeries';
+import TweetFreqStatisticsTable from '../organisms/TweetFreqViz/TweetFreqStatisticsTable';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
 class TweetFreq extends Component {
@@ -23,6 +25,9 @@ class TweetFreq extends Component {
 
   render() {
     const { dataIngested, analysisType } = this.state;
+    const descriptions =
+      'ツイートテキストがないツイートが含まれている場合（e.g.: 写真のみのツイート）、ツイート頻度合計と取得するツイート数の値が等しくなりません。\n' +
+      '小数点以下の値を含む数値は、小数点第3桁以下で四捨五入して表示しています。';
     return (
       <>
         <h2>ツイート頻度の時系列プロット</h2>
@@ -35,6 +40,18 @@ class TweetFreq extends Component {
           <TweetFreqTimeSeries
             breaks={dataIngested['breaks']}
             freqs={dataIngested['freqs']}
+          />
+        )}
+        <h3>{dataIngested && '記述統計量'}</h3>
+        <Typography component={'span'}>
+          {dataIngested &&
+            descriptions.split('\n').map((t, i) => {
+              return <pre key={i}>{t}</pre>;
+            })}
+        </Typography>
+        {dataIngested && (
+          <TweetFreqStatisticsTable
+            summaryStatistics={dataIngested['summary_statistics']}
           />
         )}
       </>

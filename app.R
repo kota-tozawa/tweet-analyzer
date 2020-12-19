@@ -31,11 +31,13 @@ server <- function(input, output, session) {
       tweet_freq_time_series_result <- tweet_freq_time_series(user, ntweets = ntweets)
       breaks <- pluck(tweet_freq_time_series_result, 1)
       freqs <- pluck(tweet_freq_time_series_result, 2)
-      title <- pluck(tweet_freq_time_series_result, 3)
+      summary_statistics <- pluck(tweet_freq_time_series_result, 3)
+      title <- pluck(tweet_freq_time_series_result, 4)
 
       list(
         breaks = breaks,
         freqs = freqs,
+        summary_statistics = summary_statistics,
         title = title
       )
     } else if (wordcloud_flg) {

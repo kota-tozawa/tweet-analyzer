@@ -24,18 +24,18 @@ const TweetFreqStatisticsTable = (summaryStatistics) => {
   // データ構造が {summaryStatistics: {summaryStatistics: {sum, ...}}} になっているため、階層を一段上げる
   const data = summaryStatistics.summaryStatistics;
 
-  const createData = (name, sum, minFreq, maxFreq, meanFreq, sdFreq) => {
-    return { name, sum, minFreq, maxFreq, meanFreq, sdFreq };
+  const createData = (name, sum, min, max, mean, sd) => {
+    return { name, sum, min, max, mean, sd };
   };
 
   const rows = [
     createData(
       'ツイート頻度',
       separateNumberWithCommas(data['sum']),
-      data['min_freq'],
-      data['max_freq'],
-      roundDecimal(data['mean_freq'], 3),
-      roundDecimal(data['sd_freq'], 3)
+      data['min'],
+      data['max'],
+      roundDecimal(data['mean'], 3),
+      roundDecimal(data['sd'], 3)
     ),
   ];
 
@@ -53,16 +53,26 @@ const TweetFreqStatisticsTable = (summaryStatistics) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
+          {rows.map((row, i) => (
+            <TableRow key={i}>
+              <TableCell key={row.name} component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.sum}</TableCell>
-              <TableCell align="right">{row.minFreq}</TableCell>
-              <TableCell align="right">{row.maxFreq}</TableCell>
-              <TableCell align="right">{row.meanFreq}</TableCell>
-              <TableCell align="right">{row.sdFreq}</TableCell>
+              <TableCell key={row.sum} align="right">
+                {row.sum}
+              </TableCell>
+              <TableCell key={row.min} align="right">
+                {row.min}
+              </TableCell>
+              <TableCell key={row.max} align="right">
+                {row.max}
+              </TableCell>
+              <TableCell key={row.mean} align="right">
+                {row.mean}
+              </TableCell>
+              <TableCell key={row.sd} align="right">
+                {row.sd}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

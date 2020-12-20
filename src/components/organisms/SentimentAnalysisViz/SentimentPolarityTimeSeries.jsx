@@ -129,7 +129,7 @@ const SentimentPolarityTimeSeries = ({ breaks, scores, lengths }) => {
               name={label.name}
               stroke={label.color}
               dot={false}
-              hide={lineProps[label.key] === true}
+              hide={lineProps[label.key]}
             />
           ))}
         </LineChart>

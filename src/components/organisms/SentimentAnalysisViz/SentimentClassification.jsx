@@ -58,7 +58,7 @@ const SentimentClassification = ({ determinedSentimentList }) => {
     { sentiment: '肯定的', value: pos, color: Colors.blue },
     { sentiment: '否定的', value: neg, color: Colors.red },
     { sentiment: '中立的', value: neut, color: Colors.green },
-    { sentiment: '肯定と否定の混合', value: mixed, color: Colors.purple },
+    { sentiment: '肯定と否定の混在', value: mixed, color: Colors.purple },
   ];
 
   // data['value'] で昇順ソート（グラフ上では降順）

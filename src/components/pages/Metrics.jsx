@@ -55,7 +55,9 @@ class Metrics extends Component {
             {dataIngested && <MetricsTable metrics={dataIngested['metrics']} />}
           </Grid>
           <Grid item xs={3}>
-            <h3>{dataIngested && 'よくメンションするユーザー トップ10'}</h3>
+            <h3>
+              {dataIngested && '頻繁にツイート文中でメンションされるユーザー'}
+            </h3>
             {dataIngested && (
               <MentionsTable metrics={dataIngested['metrics']} />
             )}

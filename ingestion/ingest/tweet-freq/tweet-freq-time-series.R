@@ -33,8 +33,8 @@ tweet_freq_time_series <- function(user, ntweets) {
 
   # 1日当たりツイート頻度の要約統計量（合計、最小値、最大値、平均、標準偏差）を得る
   summary_statistics <- tws_imputed %>% summarise(tibble(sum = sum(FREQ), min = min(FREQ), max = max(FREQ), mean = mean(FREQ), sd = sd(FREQ)))
-  summary_statistics <- list(sum = summary_statistics$sum, min_freq = summary_statistics$min, max_freq = summary_statistics$max,
-                             mean_freq = summary_statistics$mean, sd_freq = summary_statistics$sd)
+  summary_statistics <- list(sum = summary_statistics$sum, min = summary_statistics$min, max = summary_statistics$max,
+                             mean = summary_statistics$mean, sd = summary_statistics$sd)
 
   # 画面表示用タイトル作成
   tmp <- extract_dates(tws_imputed)

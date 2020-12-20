@@ -18,6 +18,7 @@ import Home from './components/pages/Home';
 import TweetFreq from './components/pages/TweetFreq';
 import WordCloud from './components/pages/WordCloud';
 import SentimentAnalysis from './components/pages/SentimentAnalysis';
+import Metrics from './components/pages/Metrics';
 
 const drawerWidth = 240;
 
@@ -147,6 +148,7 @@ const App = () => {
               component={SentimentAnalysis}
               exact
             />
+            <Route path="/metrics" component={Metrics} exact />
           </Switch>
         </main>
       </BrowserRouter>

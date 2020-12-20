@@ -6,6 +6,7 @@ import {
   ShowChart,
   Cloud,
   SentimentSatisfiedAlt,
+  Assessment,
 } from '@material-ui/icons';
 
 export const ListItems = (
@@ -38,6 +39,12 @@ export const ListItems = (
         <SentimentSatisfiedAlt />
       </ListItemIcon>
       <ListItemText primary="センチメント分析" />
+    </ListItem>
+    <ListItem key="Metrics" component={Link} to="/metrics" button>
+      <ListItemIcon>
+        <Assessment />
+      </ListItemIcon>
+      <ListItemText primary="その他メトリクス" />
     </ListItem>
   </>
 );

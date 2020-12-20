@@ -9,6 +9,7 @@ server <- function(input, output, session) {
     tweet_freq_flg <- analysis_type == "tweetFreq"
     wordcloud_flg <- analysis_type == "wordcloud"
     sentiment_analysis_flg <- analysis_type == "sentimentAnalysis"
+    metrics_flg <- analysis_type == "metrics"
 
     # 画面で入力された Twitter ユーザー名と取得するツイート数を変数に格納
     req(input$user) -> user
@@ -86,6 +87,18 @@ server <- function(input, output, session) {
         title_polarity = title_polarity,
         determined_sentiment_list = determined_sentiment_list,
         title_comprehend = title_comprehend
+      )
+    } else if (metrics_flg) {
+      # 各種メトリクス用データを用意
+      download_flg <- !did_download_with_same_info(user, ntweets = ntweets) || fetch_latest_tweets
+      if (download_flg) {
+        download_user_tweets(user, ntweets = ntweets)
+      }
+
+      metrics <- metrics(user, ntweets = ntweets)
+
+      list(
+        metrics = metrics
       )
     }
   })

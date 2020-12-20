@@ -8,10 +8,11 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  Label,
 } from 'recharts';
+import { Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { theme } from '../../atoms/theme';
+import { roundDecimal } from '../../atoms/functions';
 
 const labels = [
   {
@@ -66,69 +67,71 @@ const SentimentPolarityTimeSeries = ({ breaks, scores, lengths }) => {
   }));
 
   return (
-    <ResponsiveContainer width="100%" height={600}>
-      <LineChart
-        width={700}
-        height={500}
-        data={data}
-        margin={{
-          top: 30,
-          right: 30,
-          left: 20,
-          bottom: 20,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="period"
-          domain={['dataMin', 'dataMax']}
-          interval="preserveStartEnd"
-          label={{
-            value: '年月日',
-            offset: 25,
-            position: 'left',
+    <Paper>
+      <ResponsiveContainer width="100%" height={600}>
+        <LineChart
+          width={700}
+          height={500}
+          data={data}
+          margin={{
+            top: 30,
+            right: 30,
+            left: 20,
+            bottom: 20,
           }}
-          angle={-90}
-          textAnchor="end"
-          height={150}
-        />
-        <YAxis
-          dataKey="score"
-          yAxisId="left"
-          label={{ value: '感情極性値', angle: -90, position: 'insideLeft' }}
-        />
-        <YAxis
-          dataKey="length"
-          yAxisId="right"
-          orientation="right"
-          label={{
-            value: '文長',
-            angle: -90,
-            position: 'insideLeft',
-            offset: 50,
-          }}
-        />
-        <Tooltip />
-        <Legend
-          verticalAlign="top"
-          onClick={selectLine}
-          onMouseOver={handleLegendMouseEnter}
-          onMouseOut={handleLegendMouseLeave}
-        />
-        {labels.map((label, i) => (
-          <Line
-            key={i}
-            yAxisId={label.yAxisId}
-            type="monotone"
-            dataKey={label.key}
-            name={label.name}
-            stroke={label.color}
-            dot={false}
-            hide={lineProps[label.key] === true}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="period"
+            domain={['dataMin', 'dataMax']}
+            interval="preserveStartEnd"
+            label={{
+              value: '年月日',
+              offset: 25,
+              position: 'left',
+            }}
+            angle={-90}
+            textAnchor="end"
+            height={150}
           />
-        ))}
-      </LineChart>
-    </ResponsiveContainer>
+          <YAxis
+            dataKey="score"
+            yAxisId="left"
+            label={{ value: '感情極性値', angle: -90, position: 'insideLeft' }}
+          />
+          <YAxis
+            dataKey="length"
+            yAxisId="right"
+            orientation="right"
+            label={{
+              value: '文長',
+              angle: -90,
+              position: 'insideLeft',
+              offset: 50,
+            }}
+          />
+          <Tooltip formatter={(value) => roundDecimal(value, 2)} />
+          <Legend
+            verticalAlign="top"
+            onClick={selectLine}
+            onMouseOver={handleLegendMouseEnter}
+            onMouseOut={handleLegendMouseLeave}
+          />
+          {labels.map((label, i) => (
+            <Line
+              key={i}
+              yAxisId={label.yAxisId}
+              type="monotone"
+              dataKey={label.key}
+              name={label.name}
+              stroke={label.color}
+              dot={false}
+              hide={lineProps[label.key] === true}
+            />
+          ))}
+        </LineChart>
+      </ResponsiveContainer>
+    </Paper>
   );
 };
 

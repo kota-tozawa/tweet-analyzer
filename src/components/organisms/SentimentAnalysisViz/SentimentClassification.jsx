@@ -11,6 +11,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
+import { Paper } from '@material-ui/core';
 import * as Colors from '../../atoms/colors';
 
 const CustomizedLabel = ({ x, y, fill, value }) => {
@@ -66,48 +67,50 @@ const SentimentClassification = ({ determinedSentimentList }) => {
   });
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
-      <BarChart
-        width={600}
-        height={500}
-        data={data}
-        layout="vertical"
-        margin={{
-          top: 30,
-          right: 30,
-          left: 20,
-          bottom: 20,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="value"
-          type="number"
-          label={{
-            value: 'ツイート数',
-            position: 'insideBottom',
-            offset: -15,
+    <Paper>
+      <ResponsiveContainer width="100%" height={400}>
+        <BarChart
+          width={600}
+          height={500}
+          data={data}
+          layout="vertical"
+          margin={{
+            top: 30,
+            right: 30,
+            left: 20,
+            bottom: 20,
           }}
-        />
-        <YAxis
-          dataKey="sentiment"
-          type="category"
-          label={{
-            value: 'センチメント',
-            position: 'insideLeft',
-            offset: 0,
-            angle: -90,
-          }}
-          width={140}
-        />
-        <Tooltip />
-        <Bar dataKey="value" label={<CustomizedLabel />}>
-          {data.map((d, i) => (
-            <Cell key={i} fill={d.color} />
-          ))}
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="value"
+            type="number"
+            label={{
+              value: 'ツイート数',
+              position: 'insideBottom',
+              offset: -15,
+            }}
+          />
+          <YAxis
+            dataKey="sentiment"
+            type="category"
+            label={{
+              value: 'センチメント',
+              position: 'insideLeft',
+              offset: 0,
+              angle: -90,
+            }}
+            width={140}
+          />
+          <Tooltip />
+          <Bar dataKey="value" label={<CustomizedLabel />}>
+            {data.map((d, i) => (
+              <Cell key={i} fill={d.color} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </Paper>
   );
 };
 

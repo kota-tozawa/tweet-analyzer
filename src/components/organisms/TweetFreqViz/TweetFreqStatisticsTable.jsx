@@ -72,7 +72,7 @@ const TweetFreqStatisticsTable = (summaryStatistics) => {
 };
 
 TweetFreqStatisticsTable.propTypes = {
-  summaryStatistics: PropTypes.arrayOf(PropTypes.object).isRequired,
+  summaryStatistics: PropTypes.object.isRequired,
 };
 
 export default TweetFreqStatisticsTable;

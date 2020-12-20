@@ -67,7 +67,7 @@ const BaseForm = ({ analysisType, options }) => {
     >
       {({ errors, touched }) => (
         <Container style={{ marginTop: '66px' }} maxWidth="sm">
-          <Paper className={classes.paper} elevation={3}>
+          <Paper className={classes.paper}>
             <Form>
               <Typography className={classes.interval}>
                 Twitterユーザー名（先頭の@は抜きで入力してください）
@@ -123,7 +123,7 @@ const BaseForm = ({ analysisType, options }) => {
                   color="primary"
                   endIcon={<SendRounded />}
                   // エラーが表示されている間はボタンを押せなくする
-                  disabled={errors.user}
+                  disabled={errors.user ? true : false}
                 >
                   Send
                 </Button>

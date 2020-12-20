@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography, Link, withStyles, Paper } from '@material-ui/core';
+import { Grid, Typography, Link, withStyles } from '@material-ui/core';
 import * as Consts from '../atoms/constants';
 import BaseForm from '../organisms/Forms/BaseForm';
 import WordCloudViz from '../organisms/WordCloudViz/WordCloudViz';

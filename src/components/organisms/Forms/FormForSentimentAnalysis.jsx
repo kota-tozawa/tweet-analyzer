@@ -67,7 +67,7 @@ const FormForSentimentAnalysis = ({ analysisType, options, options2nd }) => {
     >
       {({ errors, touched }) => (
         <Container style={{ marginTop: '66px' }} maxWidth="sm">
-          <Paper className={classes.paper} elevation={3}>
+          <Paper className={classes.paper}>
             <Form>
               <Typography className={classes.interval}>
                 Twitterユーザー名（先頭の@は抜きで入力してください）

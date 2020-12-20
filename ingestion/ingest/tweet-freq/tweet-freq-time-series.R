@@ -9,7 +9,7 @@ library(lubridate)
 #' \code{tweet_freq_time_series} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、リストにして返す
 #' breaks: 年月日
 #' freqs: ツイート頻度
-#' summary_statistics：各種要約統計量の入ったリスト
+#' summary_statistics: 各種要約統計量の入ったリスト
 #' title: 画面表示用グラフタイトル
 #' @return list(breaks, freqs, summary_statistics, title)
 #' @examples

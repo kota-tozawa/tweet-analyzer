@@ -1,5 +1,6 @@
 library(dplyr)
 library(tidyr)
+library(stringr)
 library(lubridate)
 
 #' ツイート頻度の時系列データを抽出・加工する

@@ -1,4 +1,5 @@
 library(paws)
+library(stringr)
 library(purrr)
 library(dplyr)
 

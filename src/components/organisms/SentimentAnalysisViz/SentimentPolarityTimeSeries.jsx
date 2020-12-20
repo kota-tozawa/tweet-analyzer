@@ -29,7 +29,6 @@ const labels = [
   },
 ];
 
-// TODO 他のところもそうなんだけど、平均とか分散がキャプションみたいな形で見れるといいかも
 const SentimentPolarityTimeSeries = ({ breaks, scores, lengths }) => {
   const [lineProps, setLineProps] = useState(
     labels.reduce(

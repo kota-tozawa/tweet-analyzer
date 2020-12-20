@@ -75,6 +75,8 @@ server <- function(input, output, session) {
       scores <- pluck(sentiment_polarity_time_series_result, 2)
       lengths <- pluck(sentiment_polarity_time_series_result, 3)
       title_polarity <- pluck(sentiment_polarity_time_series_result, 4)
+      summary_statistics_em <- pluck(sentiment_polarity_time_series_result, 5)
+      summary_statistics_len <- pluck(sentiment_polarity_time_series_result, 6)
 
       sentiment_classification_result <- sentiment_classification(user, ntweets = ntweets2nd)
       determined_sentiment_list <- pluck(sentiment_classification_result, 1)
@@ -85,6 +87,8 @@ server <- function(input, output, session) {
         scores = scores,
         lengths = lengths,
         title_polarity = title_polarity,
+        summary_statistics_em = summary_statistics_em,
+        summary_statistics_len = summary_statistics_len,
         determined_sentiment_list = determined_sentiment_list,
         title_comprehend = title_comprehend
       )

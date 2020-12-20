@@ -3,6 +3,7 @@ import { Typography, Link } from '@material-ui/core';
 import * as Consts from '../atoms/constants';
 import FormForSentimentAnalysis from '../organisms/Forms/FormForSentimentAnalysis';
 import SentimentPolarityTimeSeries from '../organisms/SentimentAnalysisViz/SentimentPolarityTimeSeries';
+import PolarityStatisticsTable from '../organisms/SentimentAnalysisViz/PolarityStatisticsTable';
 import SentimentClassificationViz from '../organisms/SentimentAnalysisViz/SentimentClassification';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
@@ -56,6 +57,13 @@ class SentimentAnalysis extends Component {
             breaks={dataIngested['breaks']}
             scores={dataIngested['scores']}
             lengths={dataIngested['lengths']}
+          />
+        )}
+        <h3>{dataIngested && '感情極性値時系列データの記述統計量'}</h3>
+        {dataIngested && (
+          <PolarityStatisticsTable
+            summaryStatisticsEm={dataIngested['summary_statistics_em']}
+            summaryStatisticsLen={dataIngested['summary_statistics_len']}
           />
         )}
         <h3>{dataIngested && dataIngested['title_comprehend']}</h3>

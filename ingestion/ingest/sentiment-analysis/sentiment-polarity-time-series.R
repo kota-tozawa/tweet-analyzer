@@ -14,7 +14,9 @@ library(purrr)
 #' emotional_scores: 感情極性値のリスト
 #' sentence_lengths: 文長のリスト
 #' title: 画面表示用グラフタイトル
-#' @return list(breaks, emotional_scores, tweet_lengths, title)
+#' summary_statistics_em: 極性値の要約統計量
+#' summary_statistics_len: ツイート文長の要約統計量
+#' @return list(breaks, emotional_scores, sentence_lengths, title, summary_statistics_em, summary_statistics_len)
 #' @examples
 #' sentiment_polarity_time_series("Twitter", ntweets = 400)
 #' sentiment_polarity_time_series("Twitter", ntweets = "3200")
@@ -75,5 +77,15 @@ sentiment_polarity_time_series <- function(user, ntweets) {
   # 画面表示用タイトル
   title <- paste0("@", user, " の", "ツイートの感情極性値時系列")
 
-  return(list(breaks, emotional_scores, sentence_lengths, title))
+  # 極性値の要約統計量（最小値、最大値、平均、標準偏差）を得る
+  summary_statistics_em <- ems %>% summarise(tibble(min = min(EM), max = max(EM), mean = mean(EM), sd = sd(EM)))
+  summary_statistics_em <- list(min = summary_statistics_em$min, max = summary_statistics_em$max,
+                                mean = summary_statistics_em$mean, sd = summary_statistics_em$sd)
+
+  # ツイート文長の要約統計量（合計、最小値、最大値、平均、標準偏差）を得る
+  summary_statistics_len <- ems %>% summarise(tibble(sum = sum(LENGTH), min = min(LENGTH), max = max(LENGTH), mean = mean(LENGTH), sd = sd(LENGTH)))
+  summary_statistics_len <- list(sum = summary_statistics_len$sum, min = summary_statistics_len$min, max = summary_statistics_len$max,
+                                 mean = summary_statistics_len$mean, sd = summary_statistics_len$sd)
+
+  return(list(breaks, emotional_scores, sentence_lengths, title, summary_statistics_em, summary_statistics_len))
 }

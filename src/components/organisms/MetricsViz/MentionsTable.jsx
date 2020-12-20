@@ -9,6 +9,7 @@ import {
   TableRow,
   Paper,
 } from '@material-ui/core';
+import { separateNumberWithCommas } from '../../atoms/functions';
 
 const MentionsTable = (metrics) => {
   const mentionedUsers = metrics.metrics['mentioned_users'];
@@ -16,7 +17,7 @@ const MentionsTable = (metrics) => {
 
   const rows = mentionFreqs.map((freq, i) => ({
     user: '@' + mentionedUsers[i],
-    freq: freq,
+    freq: separateNumberWithCommas(freq),
   }));
 
   return (

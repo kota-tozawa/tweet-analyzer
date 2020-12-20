@@ -16,6 +16,8 @@ library(lubridate)
 #' tweet_freq_time_series("Twitter", ntweets = 400)
 #' tweet_freq_time_series("Twitter", ntweets = "3200")
 tweet_freq_time_series <- function(user, ntweets) {
+  ntweets <- parse_numeric(ntweets)
+
   # Rオブジェクトとして保存したツイートデータをロード
   path <- path_to_tweet_data(user, ntweets)
   load(path)

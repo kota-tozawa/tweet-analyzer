@@ -12,7 +12,7 @@ import {
 import { Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { theme } from '../../atoms/theme';
-import { roundDecimal } from '../../atoms/functions';
+import { roundDecimal, separateNumberWithCommas } from '../../atoms/functions';
 
 const labels = [
   {
@@ -109,7 +109,11 @@ const SentimentPolarityTimeSeries = ({ breaks, scores, lengths }) => {
               offset: 50,
             }}
           />
-          <Tooltip formatter={(value) => roundDecimal(value, 2)} />
+          <Tooltip
+            formatter={(value) =>
+              separateNumberWithCommas(roundDecimal(value, 2))
+            }
+          />
           <Legend
             verticalAlign="top"
             onClick={selectLine}

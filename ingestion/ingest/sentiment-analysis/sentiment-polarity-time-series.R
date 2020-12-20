@@ -34,6 +34,7 @@ sentiment_polarity_time_series <- function(user, ntweets) {
     select(TERM = V1, SCORE)
 
   # Rオブジェクトとして保存したツイートデータをロード
+  ntweets <- parse_numeric(ntweets)
   path <- path_to_tweet_data(user, ntweets)
   load(path)
 

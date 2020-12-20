@@ -9,7 +9,7 @@ import {
   TableRow,
   Paper,
 } from '@material-ui/core';
-import { roundDecimal } from '../../atoms/functions';
+import { roundDecimal, separateNumberWithCommas } from '../../atoms/functions';
 
 const MetricsTable = (metrics) => {
   const data = metrics.metrics;
@@ -26,8 +26,8 @@ const MetricsTable = (metrics) => {
     createData(
       '@' + data['user'],
       parseRetweetRatio(data['retweet_ratio']),
-      data['total_favs'],
-      data['total_retweets']
+      separateNumberWithCommas(data['total_favs']),
+      separateNumberWithCommas(data['total_retweets'])
     ),
   ];
 

@@ -19,6 +19,8 @@ library(lubridate)
 #' metrics("Twitter", ntweets = 400)
 #' metrics("Twitter", ntweets = "3200")
 metrics <- function(user, ntweets) {
+  ntweets <- parse_numeric(ntweets)
+
   # Rオブジェクトとして保存したツイートデータをロード
   path <- path_to_tweet_data(user, ntweets)
   load(path)

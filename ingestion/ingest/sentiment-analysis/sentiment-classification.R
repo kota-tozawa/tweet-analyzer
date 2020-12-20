@@ -14,6 +14,8 @@ library(dplyr)
 #' sentiment_classification("Twitter", ntweets = 50)
 #' sentiment_classification("Twitter", ntweets = "100")
 sentiment_classification <- function(user, ntweets) {
+  ntweets <- parse_numeric(ntweets)
+
   # Rオブジェクトとして保存したツイートデータをロード
   path <- path_to_tweet_data(user, ntweets)
   load(path)

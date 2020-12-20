@@ -138,7 +138,7 @@ const BaseForm = ({ analysisType, options }) => {
 
 BaseForm.propTypes = {
   analysisType: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.number).isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default BaseForm;

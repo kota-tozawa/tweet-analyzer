@@ -9,12 +9,13 @@ import {
   TableRow,
   Paper,
 } from '@material-ui/core';
+import { separateNumberWithCommas } from '../../atoms/functions';
 
 const WordFreqTable = ({ words, freqs }) => {
   const rows = freqs
     .map((freq, i) => ({
       word: words[i],
-      freq: freq,
+      freq: separateNumberWithCommas(freq),
     }))
     .slice(0, 20);
 

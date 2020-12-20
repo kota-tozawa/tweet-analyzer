@@ -156,8 +156,8 @@ const FormForSentimentAnalysis = ({ analysisType, options, options2nd }) => {
 
 FormForSentimentAnalysis.propTypes = {
   analysisType: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.number).isRequired,
-  options2nd: PropTypes.arrayOf(PropTypes.number).isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options2nd: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default FormForSentimentAnalysis;

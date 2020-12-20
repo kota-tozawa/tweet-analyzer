@@ -11,6 +11,8 @@ library(rtweet)
 #' download_user_tweets("Twitter", ntweets = 1600)
 #' download_user_tweets("Twitter", ntweets = "100")
 download_user_tweets <- function(user, ntweets) {
+  ntweets <- parse_numeric(ntweets)
+
   # Twitter APIアクセス用のトークンを生成するためのシークレットを環境変数から読み込む
   app <- Sys.getenv("APP")
   consumer_key <- Sys.getenv("CONSUMER_KEY")

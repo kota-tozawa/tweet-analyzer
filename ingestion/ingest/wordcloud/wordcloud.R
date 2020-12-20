@@ -16,6 +16,8 @@ library(stopwords)
 #' wordcloud("Twitter", ntweets = 400)
 #' wordcloud("Twitter", ntweets = "3200")
 wordcloud <- function(user, ntweets) {
+  ntweets <- parse_numeric(ntweets)
+
   # Rオブジェクトとして保存したツイートデータをロード
   path <- path_to_tweet_data(user, ntweets)
   load(path)

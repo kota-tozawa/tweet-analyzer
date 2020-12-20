@@ -1,8 +1,7 @@
 # 過去に同じユーザー名・ツイート数で既に API からデータを取得しているかどうかを判定する関数
 did_download_with_same_info <- function(user, ntweets) {
-  all_filenames <- list.files("output/raw/rdata/", pattern = "Rdata")
-  # 拡張子を除く
-  all_filenames <- sub("\\.[^.]*", "", all_filenames)
+  # 拡張子抜きのファイル名を取得する
+  all_filenames <- list.files("output/raw/rdata/", pattern = "Rdata") %>% str_remove("\\.[^.]*")
 
   # 想定されるファイル名
   assumed_file_name <- paste0(user, "-", ntweets)
@@ -135,4 +134,13 @@ impute_tweets_per_day_with_zero <- function(tws) {
     replace_na(list(FREQ = 0))
 
   return(tweets_per_day_imputed)
+}
+
+
+# カンマ入りのcharacter型の数字のカンマを除去し、numeric型に変換する関数
+# 数値を引数にとった場合はそのまま返す
+parse_numeric <- function(value) {
+  value <- value %>% as.character() %>% str_remove_all(",") %>% as.numeric()
+
+  return(value)
 }

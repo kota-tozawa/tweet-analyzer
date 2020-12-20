@@ -10,7 +10,7 @@ import {
   TableRow,
   Paper,
 } from '@material-ui/core';
-import { roundDecimal } from '../../atoms/functions';
+import { roundDecimal, separateNumberWithCommas } from '../../atoms/functions';
 
 const useStyles = makeStyles({
   table: {
@@ -31,7 +31,7 @@ const TweetFreqStatisticsTable = (summaryStatistics) => {
   const rows = [
     createData(
       'ツイート頻度',
-      data['sum'],
+      separateNumberWithCommas(data['sum']),
       data['min_freq'],
       data['max_freq'],
       roundDecimal(data['mean_freq'], 3),

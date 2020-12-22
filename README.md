@@ -181,7 +181,7 @@ $ npm install
 
 #### R
 
-新しくパッケージをインストールしたときに行う。\
+新しくパッケージをインストールしたときやパッケージを削除したときに下記コマンドを実行する。\
 できる限り CRAN からパッケージをインストールする。（`install.packages("package-name")` でインストールすることが望ましい）
 
 ```R
@@ -190,7 +190,7 @@ $ npm install
 
 #### JavaScript
 
-`npm install <package-name>`時に package.json と package-lock.json が自動で生成されるため、特に何もしなくて良い。\
+`npm install <package-name>`実行時に package.json と package-lock.json が自動で生成されるため、特に何もしなくて良い。\
 dev 環境のみで使用するパッケージをインストールするときは、`--save-dev`オプションをつける。
 
 ### コードと文章の静的解析・整形

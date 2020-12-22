@@ -11,6 +11,8 @@ library(rtweet)
 #' download_user_tweets("Twitter", ntweets = 1600)
 #' download_user_tweets("Twitter", ntweets = "100")
 download_user_tweets <- function(user, ntweets) {
+  ntweets <- parse_numeric(ntweets)
+
   # Twitter APIアクセス用のトークンを生成するためのシークレットを環境変数から読み込む
   app <- Sys.getenv("APP")
   consumer_key <- Sys.getenv("CONSUMER_KEY")
@@ -27,7 +29,6 @@ download_user_tweets <- function(user, ntweets) {
     access_secret = access_secret
   )
 
-  # TODO 変数名 tws をデータフレームであることを明示するため tws_df に変更
   # 指定したユーザーのツイートを取得
   tws <- get_timeline(user, n = ntweets)
 

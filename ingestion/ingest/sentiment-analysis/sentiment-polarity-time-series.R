@@ -9,16 +9,18 @@ library(purrr)
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 最新のツイートから何ツイート分までを対象とするか
-#' \code{sentiment_analysis} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、ベクトルにして返す
+#' \code{sentiment_polarity_time_series} download_user_tweets()で得たツイートデータから、Rechartsで可視化するために必要な値を取り出して加工し、リストにして返す
 #' breaks: 年月日
-#' emotional_scores: 感情極性値のベクトル
-#' sentence_lengths: 文長のベクトル
+#' emotional_scores: 感情極性値のリスト
+#' sentence_lengths: 文長のリスト
 #' title: 画面表示用グラフタイトル
-#' @return list(breaks, emotional_scores, tweet_lengths, title)
+#' summary_statistics_em: 極性値の要約統計量
+#' summary_statistics_len: ツイート文長の要約統計量
+#' @return list(breaks, emotional_scores, sentence_lengths, title, summary_statistics_em, summary_statistics_len)
 #' @examples
-#' sentiment_analysis("Twitter", ntweets = 400)
-#' sentiment_analysis("Twitter", ntweets = "3200")
-sentiment_analysis <- function(user, ntweets) {
+#' sentiment_polarity_time_series("Twitter", ntweets = 400)
+#' sentiment_polarity_time_series("Twitter", ntweets = "3200")
+sentiment_polarity_time_series <- function(user, ntweets) {
   # 辞書の準備
   # 東京工業大学の高村先生が公開されている語感情極性対応表を利用する
   # 極性値が低いほどネガティブ
@@ -33,14 +35,14 @@ sentiment_analysis <- function(user, ntweets) {
     summarize(SCORE = mean(V4)) %>%
     select(TERM = V1, SCORE)
 
-  # Rオブジェクトとして保存したツイート情報をロード
-  filepath <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
-  load(filepath)
+  # Rオブジェクトとして保存したツイートデータをロード
+  ntweets <- parse_numeric(ntweets)
+  path <- path_to_tweet_data(user, ntweets)
+  load(path)
 
   # ツイートの並び順を古い順にする（感情極性値の時系列変化を可視化するため）
-  tws <- tws %>%
-    arrange(CREATED_AT)
-  tws <-to_str_ymdhms(tws)
+  tws <- tws %>% arrange(CREATED_AT)
+  tws <- to_str_ymdhms(tws)
 
   # 個々のツイート内容のテキストをデータフレームにまとめる
   txts <- create_tweet_texts_dataframe(tws)
@@ -56,8 +58,7 @@ sentiment_analysis <- function(user, ntweets) {
   terms <- terms %>% left_join(dict)
 
   # IDごとにグルーピングし、極性値の合計を求める（極性値がないものは除く）
-  ems <- terms %>% group_by(ID) %>%
-    summarise(EM = sum(SCORE, na.rm = TRUE))
+  ems <- terms %>% group_by(ID) %>% summarise(EM = sum(SCORE, na.rm = TRUE))
 
   # 極性値の要約統計量を確認
   # ems %>% select(EM) %>% summary()
@@ -65,12 +66,10 @@ sentiment_analysis <- function(user, ntweets) {
   # ems %>% dplyr::filter(EM == min(EM)) %>% left_join(txts) %>% select(TEXT) %>% pull()
 
   # 個々のツイート文の長さを求める
-  txts <- txts %>%
-    mutate(LENGTH = nchar(TEXT))
-  ems <- ems %>%
-    left_join(txts, by = c("ID" = "CREATED_AT"))
+  txts <- txts %>% mutate(LENGTH = nchar(TEXT))
+  ems <- ems %>% left_join(txts, by = c("ID" = "CREATED_AT"))
 
-  # React で可視化するためにツイート投稿日、極性値、ツイート文長を別々のベクトルにする
+  # React で可視化するためにツイート投稿日、極性値、ツイート文長を別々のリストにする
   breaks <- ems$ID
   emotional_scores <- ems$EM
   sentence_lengths <- ems$LENGTH
@@ -78,5 +77,15 @@ sentiment_analysis <- function(user, ntweets) {
   # 画面表示用タイトル
   title <- paste0("@", user, " の", "ツイートの感情極性値時系列")
 
-  return(list(breaks, emotional_scores, sentence_lengths, title))
+  # 極性値の要約統計量（最小値、最大値、平均、標準偏差）を得る
+  summary_statistics_em <- ems %>% summarise(tibble(min = min(EM), max = max(EM), mean = mean(EM), sd = sd(EM)))
+  summary_statistics_em <- list(min = summary_statistics_em$min, max = summary_statistics_em$max,
+                                mean = summary_statistics_em$mean, sd = summary_statistics_em$sd)
+
+  # ツイート文長の要約統計量（合計、最小値、最大値、平均、標準偏差）を得る
+  summary_statistics_len <- ems %>% summarise(tibble(sum = sum(LENGTH), min = min(LENGTH), max = max(LENGTH), mean = mean(LENGTH), sd = sd(LENGTH)))
+  summary_statistics_len <- list(sum = summary_statistics_len$sum, min = summary_statistics_len$min, max = summary_statistics_len$max,
+                                 mean = summary_statistics_len$mean, sd = summary_statistics_len$sd)
+
+  return(list(breaks, emotional_scores, sentence_lengths, title, summary_statistics_em, summary_statistics_len))
 }

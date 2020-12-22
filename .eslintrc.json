@@ -12,7 +12,10 @@
       "error",
       {
         "singleQuote": true,
-        "semi": true
+        "semi": true,
+        "bracketSpacing": true,
+        "trailingComma": "es5",
+        "jsxSingleQuote": false
       }
     ],
     "yoda": 0,

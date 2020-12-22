@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Typography, Link } from '@material-ui/core';
-import UserAndNtweetsForm from '../organisms/UserAndNtweetsForm';
-import SentimentAnalysisViz from '../organisms/SentimentAnalysisViz';
+import * as Consts from '../atoms/constants';
+import FormForSentimentAnalysis from '../organisms/Forms/FormForSentimentAnalysis';
+import SentimentPolarityTimeSeries from '../organisms/SentimentAnalysisViz/SentimentPolarityTimeSeries';
+import PolarityStatisticsTable from '../organisms/SentimentAnalysisViz/PolarityStatisticsTable';
+import SentimentClassificationViz from '../organisms/SentimentAnalysisViz/SentimentClassification';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
 class SentimentAnalysis extends Component {
@@ -24,11 +27,11 @@ class SentimentAnalysis extends Component {
   render() {
     const { dataIngested, analysisType } = this.state;
     const descriptions =
-      '感情極性値は、低いほどネガティブであることを表す。\n' +
-      'グラフ上部の凡例横にある「-o-」をクリックすると、線をトグルできる。';
+      '感情極性値は、低いほどネガティブであることを表します。\n' +
+      'グラフ上部の凡例横にある「-o-」をクリックすると、線をトグルできます。';
     return (
       <>
-        <Typography paragraph>ツイート内容のセンチメント分析</Typography>
+        <h2>ツイート内容のセンチメント分析</h2>
         <Typography paragraph>
           <Link
             href="https://lionbridge.ai/ja/articles/sentiment-analysis-101/"
@@ -37,10 +40,12 @@ class SentimentAnalysis extends Component {
             センチメント分析（感情分析）とは？
           </Link>
         </Typography>
-        <UserAndNtweetsForm analysisType={analysisType} />
-        <Typography paragraph>
-          {dataIngested && dataIngested['title']}
-        </Typography>
+        <FormForSentimentAnalysis
+          analysisType={analysisType}
+          options={Consts.ntweetOptionsLong}
+          options2nd={Consts.ntweetOptionsShort}
+        />
+        <h3>{dataIngested && dataIngested['title_polarity']}</h3>
         <Typography component={'span'}>
           {dataIngested &&
             descriptions.split('\n').map((t, i) => {
@@ -48,10 +53,23 @@ class SentimentAnalysis extends Component {
             })}
         </Typography>
         {dataIngested && (
-          <SentimentAnalysisViz
+          <SentimentPolarityTimeSeries
             breaks={dataIngested['breaks']}
             scores={dataIngested['scores']}
             lengths={dataIngested['lengths']}
+          />
+        )}
+        <h3>{dataIngested && '感情極性値時系列データの記述統計量'}</h3>
+        {dataIngested && (
+          <PolarityStatisticsTable
+            summaryStatisticsEm={dataIngested['summary_statistics_em']}
+            summaryStatisticsLen={dataIngested['summary_statistics_len']}
+          />
+        )}
+        <h3>{dataIngested && dataIngested['title_comprehend']}</h3>
+        {dataIngested && (
+          <SentimentClassificationViz
+            determinedSentimentList={dataIngested['determined_sentiment_list']}
           />
         )}
       </>

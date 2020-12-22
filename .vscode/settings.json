@@ -8,6 +8,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.singleQuote": true,
+  "prettier.semi": true,
+  "prettier.bracketSpacing": true,
+  "prettier.trailingComma": "es5",
+  "prettier.jsxSingleQuote": false,
   // インポートパス自動更新
   "javascript.updateImportsOnFileMove.enabled": "always",
   // インデント関連の設定

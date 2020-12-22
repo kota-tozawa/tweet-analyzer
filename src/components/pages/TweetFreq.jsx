@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Typography } from '@material-ui/core';
-import UserAndNtweetsForm from '../organisms/UserAndNtweetsForm';
-import TweetFreqViz from '../organisms/TweetFreqViz';
+import * as Consts from '../atoms/constants';
+import BaseForm from '../organisms/Forms/BaseForm';
+import TweetFreqTimeSeries from '../organisms/TweetFreqViz/TweetFreqTimeSeries';
+import TweetFreqStatisticsTable from '../organisms/TweetFreqViz/TweetFreqStatisticsTable';
 
 // TODO 関数コンポーネントに書き換える。現状Hooksを用いたWebSocketによるRとJavaScript間の通信を上手く扱えずできていない。
 class TweetFreq extends Component {
@@ -23,18 +25,33 @@ class TweetFreq extends Component {
 
   render() {
     const { dataIngested, analysisType } = this.state;
+    const descriptions =
+      'ツイートテキストがないツイートが含まれている場合（e.g.: 写真のみのツイート）、ツイート頻度合計と取得するツイート数の値が等しくなりません。\n' +
+      '小数点以下の値を含む数値は、小数点第3桁以下で四捨五入して表示しています。';
     return (
       <>
-        <Typography paragraph>ツイート頻度の時系列プロット</Typography>
-        <UserAndNtweetsForm analysisType={analysisType} />
-        <Typography paragraph>
-          {dataIngested && dataIngested['title']}
-        </Typography>
+        <h2>ツイート頻度の時系列プロット</h2>
+        <BaseForm
+          analysisType={analysisType}
+          options={Consts.ntweetOptionsLong}
+        />
+        <h3>{dataIngested && dataIngested['title']}</h3>
         {dataIngested && (
-          <TweetFreqViz
+          <TweetFreqTimeSeries
             breaks={dataIngested['breaks']}
             freqs={dataIngested['freqs']}
-            ticks={dataIngested['ticks']}
+          />
+        )}
+        <h3>{dataIngested && '記述統計量'}</h3>
+        <Typography component={'span'}>
+          {dataIngested &&
+            descriptions.split('\n').map((t, i) => {
+              return <pre key={i}>{t}</pre>;
+            })}
+        </Typography>
+        {dataIngested && (
+          <TweetFreqStatisticsTable
+            summaryStatistics={dataIngested['summary_statistics']}
           />
         )}
       </>

@@ -1,11 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactWordcloud from 'react-wordcloud';
+import { Paper } from '@material-ui/core';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
+import * as Colors from '../../atoms/colors';
 
 const options = {
-  colors: ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b'],
+  colors: [
+    Colors.darkRed,
+    Colors.red,
+    Colors.strawberryPink,
+    Colors.pink,
+    Colors.skyBlue,
+    Colors.emeraldBlue,
+  ],
   enableTooltip: true,
   deterministic: false,
   fontFamily: 'impact',
@@ -25,10 +34,13 @@ const WordCloudViz = ({ words, freqs }) => {
     text: words[i],
     value: freq,
   }));
+
   return (
-    <div style={{ height: 800, width: 1200 }}>
-      <ReactWordcloud options={options} words={data} maxWords={100} />
-    </div>
+    <Paper>
+      <div style={{ height: 800, width: 1200 }}>
+        <ReactWordcloud options={options} words={data} maxWords={100} />
+      </div>
+    </Paper>
   );
 };
 

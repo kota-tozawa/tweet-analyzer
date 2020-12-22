@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import {
   Home,
-  Twitter,
   ShowChart,
   Cloud,
   SentimentSatisfiedAlt,
+  Assessment,
 } from '@material-ui/icons';
 
-export const MainListItems = (
-  <div>
+export const ListItems = (
+  <>
     <ListItem key="Home" component={Link} to="/" button>
       <ListItemIcon>
         <Home />
@@ -40,5 +40,11 @@ export const MainListItems = (
       </ListItemIcon>
       <ListItemText primary="センチメント分析" />
     </ListItem>
-  </div>
+    <ListItem key="Metrics" component={Link} to="/metrics" button>
+      <ListItemIcon>
+        <Assessment />
+      </ListItemIcon>
+      <ListItemText primary="その他メトリクス" />
+    </ListItem>
+  </>
 );

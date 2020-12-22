@@ -18,7 +18,7 @@ test_that("エラー（引数がNULL）", {
 
 context("Unit test: combine_tws_into_txt()")
 
-# TODO テキストファイルの保存場所が原因でテストできない。通常実行する時とテスト時でワーキングディレクトリが異なる。
+# テキストファイルの保存場所が原因でテストできない。通常実行する時とテスト時でワーキングディレクトリが異なる。
 # test_that("正常", {
 #   expected <- "./output/texts/tweets/MHLWitter-3200.txt"
 #   actual <- combine_tws_into_txt(tws, user = user, ntweets = ntweets)

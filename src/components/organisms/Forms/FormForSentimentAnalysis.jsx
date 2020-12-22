@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import {
   Button,
   TextField,
   Select,
+  Checkbox,
+  FormControlLabel,
   MenuItem,
   Container,
   Paper,
@@ -13,6 +14,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { SendRounded } from '@material-ui/icons';
+import { validationSchema } from '../../molecules/validationSchema';
 
 const useStyles = makeStyles({
   interval: {
@@ -32,17 +34,19 @@ const useStyles = makeStyles({
   },
 });
 
-const ntweetOptions = [200, 400, 800, 1600, 3200];
-
-// TODO proptypes による型チェック
-// TODO バリデーションをもっと作り込む
-const UserAndNtweetsForm = ({ analysisType }) => {
+// TODO 画面側だけでなく Shiny サーバーの方もエラーハンドリングするようにする
+const FormForSentimentAnalysis = ({ analysisType, options, options2nd }) => {
   const classes = useStyles();
 
   const setInputValues = (values) => {
     window.Shiny.setInputValue('user', values.user);
     window.Shiny.setInputValue('ntweets', values.ntweets);
+    window.Shiny.setInputValue('ntweets2nd', values.ntweets2nd);
     window.Shiny.setInputValue('analysisType', values.analysisType);
+    window.Shiny.setInputValue(
+      'fetchLatestTweets',
+      String(values.fetchLatestTweets)
+    );
   };
 
   return (
@@ -50,11 +54,11 @@ const UserAndNtweetsForm = ({ analysisType }) => {
       initialValues={{
         user: '',
         ntweets: 400,
+        ntweets2nd: 200,
         analysisType: analysisType,
+        fetchLatestTweets: false,
       }}
-      validationSchema={Yup.object({
-        user: Yup.string().required('必須項目です'),
-      })}
+      validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         // JS to R
         setInputValues(values);
@@ -63,7 +67,7 @@ const UserAndNtweetsForm = ({ analysisType }) => {
     >
       {({ errors, touched }) => (
         <Container style={{ marginTop: '66px' }} maxWidth="sm">
-          <Paper className={classes.paper} elevation={3}>
+          <Paper className={classes.paper}>
             <Form>
               <Typography className={classes.interval}>
                 Twitterユーザー名（先頭の@は抜きで入力してください）
@@ -84,8 +88,10 @@ const UserAndNtweetsForm = ({ analysisType }) => {
                   </Typography>
                 )}
               </ErrorMessage>
-              <Typography className={classes.interval}>
-                取得するツイート数（最新のツイートから何個前のツイートまで分析対象とするか）
+              <Typography component={'span'} className={classes.interval}>
+                <pre>
+                  取得するツイート数：感情極性対応表を用いた感情極性値時系列
+                </pre>
               </Typography>
               <Field
                 name="ntweets"
@@ -94,12 +100,39 @@ const UserAndNtweetsForm = ({ analysisType }) => {
                 variant="outlined"
                 fullWidth
               >
-                {ntweetOptions.map((option) => (
+                {options.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
                 ))}
               </Field>
+              <Typography component={'span'} className={classes.interval}>
+                <pre>取得するツイート数：自然言語処理を用いた感情分類</pre>
+              </Typography>
+              <Field
+                name="ntweets2nd"
+                as={Select}
+                type="select"
+                variant="outlined"
+                fullWidth
+              >
+                {options2nd.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Field>
+              <FormControlLabel
+                control={
+                  <Field
+                    name="fetchLatestTweets"
+                    as={Checkbox}
+                    type="checkbox"
+                  />
+                }
+                className={classes.interval}
+                label="最新のツイートデータを取得する"
+              />
               <div className={classes.buttonWrapper}>
                 <Button
                   type="submit"
@@ -107,6 +140,8 @@ const UserAndNtweetsForm = ({ analysisType }) => {
                   variant="contained"
                   color="primary"
                   endIcon={<SendRounded />}
+                  // エラーが表示されている間はボタンを押せなくする
+                  disabled={errors.user}
                 >
                   Send
                 </Button>
@@ -119,8 +154,10 @@ const UserAndNtweetsForm = ({ analysisType }) => {
   );
 };
 
-UserAndNtweetsForm.propTypes = {
+FormForSentimentAnalysis.propTypes = {
   analysisType: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options2nd: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default UserAndNtweetsForm;
+export default FormForSentimentAnalysis;

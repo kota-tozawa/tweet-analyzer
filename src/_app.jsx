@@ -13,11 +13,12 @@ import {
   List,
 } from '@material-ui/core';
 import { Menu, ChevronLeft } from '@material-ui/icons';
-import { MainListItems } from './components/organisms/ListItems';
+import { ListItems } from './components/organisms/ListItems';
 import Home from './components/pages/Home';
 import TweetFreq from './components/pages/TweetFreq';
 import WordCloud from './components/pages/WordCloud';
 import SentimentAnalysis from './components/pages/SentimentAnalysis';
+import Metrics from './components/pages/Metrics';
 
 const drawerWidth = 240;
 
@@ -81,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 // TODO ホーム画面（/）以外でリロードすると、Not Found になる
 const App = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -130,7 +131,7 @@ const App = () => {
             </IconButton>
           </div>
           <Divider />
-          <List>{MainListItems}</List>
+          <List>{ListItems}</List>
         </Drawer>
         <main
           className={clsx(classes.content, {
@@ -147,6 +148,7 @@ const App = () => {
               component={SentimentAnalysis}
               exact
             />
+            <Route path="/metrics" component={Metrics} exact />
           </Switch>
         </main>
       </BrowserRouter>

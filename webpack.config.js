@@ -1,7 +1,6 @@
 const path = require('path');
 const PUBLICPATH = '/static/';
 
-// TODO webpackのプラグインや設定に関してもっとよく調べる
 // HMRを有効にするためのプラグイン
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 // コンパイル時にdist配下にhtmlファイルも出力してくれるプラグイン。吐かれたhtmlをそのままpublic配下に置いて使える
@@ -42,6 +41,11 @@ module.exports = {
   ].filter(Boolean),
   resolve: {
     extensions: ['.js', '.jsx'],
+  },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
   // TODO ルート以外の場所でリロードすると404エラーになる
   devServer: {

@@ -9,16 +9,22 @@ server <- function(input, output, session) {
     tweet_freq_flg <- analysis_type == "tweetFreq"
     wordcloud_flg <- analysis_type == "wordcloud"
     sentiment_analysis_flg <- analysis_type == "sentimentAnalysis"
+    metrics_flg <- analysis_type == "metrics"
+
+    # 画面で入力された Twitter ユーザー名と取得するツイート数を変数に格納
+    req(input$user) -> user
+    req(input$ntweets) -> ntweets
+
+    # 最新のツイートデータを取得するか否か
+    req(input$fetchLatestTweets) -> fetch_latest_tweets
+    fetch_latest_tweets <- fetch_latest_tweets == "true"
 
     # 時系列プロット用のデータを用意
     if (tweet_freq_flg) {
-      req(input$user) -> user
-      req(input$ntweets) -> ntweets
-
-      # 入力されたユーザー名・件数でツイートを取得
-      # ただし、画面から入力が submit されるたびに Twitter API にアクセスしてしまうので、同じ数で既に取得している場合は取得をスキップ
-      # TODO 同じユーザー名・回数でもう一度ツイートを取得することを希望する場合、例えば、一週間ぶりに使うときに新しいデータに更新したい場合には、それができるようにする
-      download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
+      # 入力されたユーザー名・件数でツイートデータを取得。
+      # ただし、画面から入力が submit されるたびに Twitter API にアクセスされるのを防ぐため、
+      #「最新のツイートデータを取得する」が画面で選択されていない限り、過去に同じパラメーターでツイートデータ取得している場合は取得をスキップする。
+      download_flg <- !did_download_with_same_info(user, ntweets = ntweets) || fetch_latest_tweets
       if (download_flg) {
         download_user_tweets(user, ntweets = ntweets)
       }
@@ -26,22 +32,18 @@ server <- function(input, output, session) {
       tweet_freq_time_series_result <- tweet_freq_time_series(user, ntweets = ntweets)
       breaks <- pluck(tweet_freq_time_series_result, 1)
       freqs <- pluck(tweet_freq_time_series_result, 2)
-      title <- pluck(tweet_freq_time_series_result, 3)
+      summary_statistics <- pluck(tweet_freq_time_series_result, 3)
+      title <- pluck(tweet_freq_time_series_result, 4)
 
       list(
         breaks = breaks,
         freqs = freqs,
-        # ticks は年月のデータとなる。使い道は今のところないがとりあえずJS側に渡すようにしている。
-        # e.g.: ["2020-01-01", "2020-02-01", "2020-03-01", ...]
-        ticks = pretty(breaks),
+        summary_statistics = summary_statistics,
         title = title
       )
     } else if (wordcloud_flg) {
       # ワードクラウド用のデータを用意
-      req(input$user) -> user
-      req(input$ntweets) -> ntweets
-
-      download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
+      download_flg <- !did_download_with_same_info(user, ntweets = ntweets) || fetch_latest_tweets
       if (download_flg) {
         download_user_tweets(user, ntweets = ntweets)
       }
@@ -58,25 +60,49 @@ server <- function(input, output, session) {
       )
     } else if (sentiment_analysis_flg) {
       # センチメント分析用のデータを用意
-      req(input$user) -> user
-      req(input$ntweets) -> ntweets
+      req(input$ntweets2nd) -> ntweets2nd
 
-      download_flg <- !did_download_with_same_info(user, ntweets = ntweets)
-      if (download_flg) {
+      download_flg_ntweets <- !did_download_with_same_info(user, ntweets = ntweets) || fetch_latest_tweets
+      download_flg_ntweets2nd <- !did_download_with_same_info(user, ntweets = ntweets2nd) || fetch_latest_tweets
+      if (download_flg_ntweets) {
         download_user_tweets(user, ntweets = ntweets)
+      } else if (download_flg_ntweets2nd) {
+        download_user_tweets(user, ntweets = ntweets2nd)
       }
 
-      sentiment_analysis_result <- sentiment_analysis(user, ntweets = ntweets)
-      breaks <- pluck(sentiment_analysis_result, 1)
-      scores <- pluck(sentiment_analysis_result, 2)
-      lengths <- pluck(sentiment_analysis_result, 3)
-      title <- pluck(sentiment_analysis_result, 4)
+      sentiment_polarity_time_series_result <- sentiment_polarity_time_series(user, ntweets = ntweets)
+      breaks <- pluck(sentiment_polarity_time_series_result, 1)
+      scores <- pluck(sentiment_polarity_time_series_result, 2)
+      lengths <- pluck(sentiment_polarity_time_series_result, 3)
+      title_polarity <- pluck(sentiment_polarity_time_series_result, 4)
+      summary_statistics_em <- pluck(sentiment_polarity_time_series_result, 5)
+      summary_statistics_len <- pluck(sentiment_polarity_time_series_result, 6)
+
+      sentiment_classification_result <- sentiment_classification(user, ntweets = ntweets2nd)
+      determined_sentiment_list <- pluck(sentiment_classification_result, 1)
+      title_comprehend <- pluck(sentiment_classification_result, 2)
 
       list(
         breaks = breaks,
         scores = scores,
         lengths = lengths,
-        title = title
+        title_polarity = title_polarity,
+        summary_statistics_em = summary_statistics_em,
+        summary_statistics_len = summary_statistics_len,
+        determined_sentiment_list = determined_sentiment_list,
+        title_comprehend = title_comprehend
+      )
+    } else if (metrics_flg) {
+      # 各種メトリクス用データを用意
+      download_flg <- !did_download_with_same_info(user, ntweets = ntweets) || fetch_latest_tweets
+      if (download_flg) {
+        download_user_tweets(user, ntweets = ntweets)
+      }
+
+      metrics <- metrics(user, ntweets = ntweets)
+
+      list(
+        metrics = metrics
       )
     }
   })

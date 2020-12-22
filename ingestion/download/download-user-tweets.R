@@ -36,6 +36,6 @@ download_user_tweets <- function(user, ntweets) {
   names(tws) <- toupper(names(tws))
 
   # 上で取得したツイート情報を保存（何度もAPIにリクエストを送らないため、一時的に保存）
-  filename <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
-  save(tws, file = filename)
+  filepath <- path_to_tweet_data(user, ntweets)
+  save(tws, file = filepath)
 }

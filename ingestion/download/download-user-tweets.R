@@ -5,7 +5,7 @@ library(rtweet)
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 取得するツイートの数（最大3200まで）
-#' \code{download_user_tweets} Twitter API にリクエストを送り、特定のユーザーのツイートデータ（RT含む）を取得し、.Rdataとして保存する
+#' \code{download_user_tweets} Twitter API にリクエストを送り、特定のユーザーのツイートデータ（RT含む）を取得し、.Rdataファイルとして保存する
 #' @return 戻り値無し
 #' @examples
 #' download_user_tweets("Twitter", ntweets = 1600)

@@ -14,7 +14,7 @@ library(stopwords)
 #' @return list(words, freqs, title)
 #' @examples
 #' wordcloud("Twitter", ntweets = 400)
-#' wordcloud("Twitter", ntweets = "3200")
+#' wordcloud("Twitter", ntweets = "3,200")
 wordcloud <- function(user, ntweets) {
   ntweets <- parse_numeric(ntweets)
 

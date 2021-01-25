@@ -5,7 +5,7 @@ library(rtweet)
 #'
 #' @param user character Twitterユーザー名（先頭にアットマークは付けない）
 #' @param ntweets numeric | character 取得するツイートの数（最大3200まで）
-#' \code{download_user_tweets} Twitter API にリクエストを送り、特定のユーザーのツイートデータ（RT含む）を取得し、.Rdataとして保存する
+#' \code{download_user_tweets} Twitter API にリクエストを送り、特定のユーザーのツイートデータ（RT含む）を取得し、.Rdataファイルとして保存する
 #' @return 戻り値無し
 #' @examples
 #' download_user_tweets("Twitter", ntweets = 1600)
@@ -36,6 +36,6 @@ download_user_tweets <- function(user, ntweets) {
   names(tws) <- toupper(names(tws))
 
   # 上で取得したツイート情報を保存（何度もAPIにリクエストを送らないため、一時的に保存）
-  filename <- paste0("./output/raw/rdata/", user, "-", ntweets, ".Rdata")
-  save(tws, file = filename)
+  filepath <- path_to_tweet_data(user, ntweets)
+  save(tws, file = filepath)
 }

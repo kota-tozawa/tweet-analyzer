@@ -29,6 +29,7 @@ const labels = [
   },
 ];
 
+// TODO ラベルにツイートへのリンクをつけて、ツイート内容が見れるようにする
 const SentimentPolarityTimeSeries = ({ breaks, scores, lengths }) => {
   const [lineProps, setLineProps] = useState(
     labels.reduce(

@@ -1,4 +1,3 @@
-// TODO フォームではカンマ表記で選択させるようにする
 export const ntweetOptionsLong = [
   '50',
   '100',

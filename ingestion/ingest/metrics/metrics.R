@@ -18,7 +18,7 @@ library(lubridate)
 #' @return metrics
 #' @examples
 #' metrics("Twitter", ntweets = 400)
-#' metrics("Twitter", ntweets = "3200")
+#' metrics("Twitter", ntweets = "3,200")
 metrics <- function(user, ntweets) {
   ntweets <- parse_numeric(ntweets)
 
@@ -33,7 +33,7 @@ metrics <- function(user, ntweets) {
   retweet_ratio <- num_retweets / num_all_tweets
 
   # ツイートのいいねされた回数合計（リツイートは含まない）
-  total_favs <- tws %>% select(FAVORITE_COUNT) %>% sum() %>% as.numeric()
+  total_favs <- tws %>% dplyr::filter(IS_RETWEET == FALSE) %>% select(FAVORITE_COUNT) %>% sum() %>% as.numeric()
 
   # ツイートがリツイートされた回数合計（リツイートは含まない）
   total_retweets <- tws %>% dplyr::filter(IS_RETWEET == FALSE) %>% select(RETWEET_COUNT) %>% sum() %>% as.numeric()

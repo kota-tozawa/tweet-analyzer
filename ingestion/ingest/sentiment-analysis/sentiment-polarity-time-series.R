@@ -19,10 +19,10 @@ library(purrr)
 #' @return list(breaks, emotional_scores, sentence_lengths, title, summary_statistics_em, summary_statistics_len)
 #' @examples
 #' sentiment_polarity_time_series("Twitter", ntweets = 400)
-#' sentiment_polarity_time_series("Twitter", ntweets = "3200")
+#' sentiment_polarity_time_series("Twitter", ntweets = "3,200")
 sentiment_polarity_time_series <- function(user, ntweets) {
   # 辞書の準備
-  # 東京工業大学の高村先生が公開されている語感情極性対応表を利用する
+  # 東京工業大学の高村先生が公開されている単語情極性対応表を利用する
   # 極性値が低いほどネガティブ
   dict <- read.table("http://www.lr.pi.titech.ac.jp/~takamura/pubs/pn_ja.dic",
                     sep = ":", stringsAsFactors = FALSE, fileEncoding = "CP932", encoding = "UTF-8")
@@ -54,7 +54,7 @@ sentiment_polarity_time_series <- function(user, ntweets) {
   terms <- map2_dfr(txts$CREATED_AT, txts$TEXT,
                     ~ rmecabc(..1, ..2))
 
-  # 語感情極性対応表と単語とツイート投稿日がペアになったデータフレームを TERM で結合
+  # 単語感情極性対応表と単語とツイート投稿日がペアになったデータフレームを TERM で結合
   terms <- terms %>% left_join(dict)
 
   # IDごとにグルーピングし、極性値の合計を求める（極性値がないものは除く）

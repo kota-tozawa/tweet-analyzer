@@ -15,7 +15,7 @@ library(lubridate)
 #' @return list(breaks, freqs, summary_statistics, title)
 #' @examples
 #' tweet_freq_time_series("Twitter", ntweets = 400)
-#' tweet_freq_time_series("Twitter", ntweets = "3200")
+#' tweet_freq_time_series("Twitter", ntweets = "3,200")
 tweet_freq_time_series <- function(user, ntweets) {
   ntweets <- parse_numeric(ntweets)
 

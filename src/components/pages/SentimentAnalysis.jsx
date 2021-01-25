@@ -26,9 +26,11 @@ class SentimentAnalysis extends Component {
 
   render() {
     const { dataIngested, analysisType } = this.state;
-    const descriptions =
-      '感情極性値は、低いほどネガティブであることを表します。\n' +
+    const descriptionsForPolarityTimeSeries =
+      '感情極性値は、低いほどネガティブであることを表します（-15以下だと比較的ネガティブ、-1以上ならば比較的ポジティブ？）。\n' +
       'グラフ上部の凡例横にある「-o-」をクリックすると、線をトグルできます。';
+    const descriptionsForSummaryStatistics =
+      '小数点以下の値を含む数値は、小数点第3桁以下で四捨五入して表示しています。';
     return (
       <>
         <h2>ツイート内容のセンチメント分析</h2>
@@ -48,7 +50,7 @@ class SentimentAnalysis extends Component {
         <h3>{dataIngested && dataIngested['title_polarity']}</h3>
         <Typography component={'span'}>
           {dataIngested &&
-            descriptions.split('\n').map((t, i) => {
+            descriptionsForPolarityTimeSeries.split('\n').map((t, i) => {
               return <pre key={i}>{t}</pre>;
             })}
         </Typography>
@@ -60,6 +62,12 @@ class SentimentAnalysis extends Component {
           />
         )}
         <h3>{dataIngested && '感情極性値時系列データの記述統計量'}</h3>
+        <Typography component={'span'}>
+          {dataIngested &&
+            descriptionsForSummaryStatistics.split('\n').map((t, i) => {
+              return <pre key={i}>{t}</pre>;
+            })}
+        </Typography>
         {dataIngested && (
           <PolarityStatisticsTable
             summaryStatisticsEm={dataIngested['summary_statistics_em']}

@@ -37,7 +37,7 @@ const WordCloudViz = ({ words, freqs }) => {
 
   return (
     <Paper>
-      <div style={{ height: 800, width: 1200 }}>
+      <div style={{ height: 1200, width: 1200 }}>
         <ReactWordcloud options={options} words={data} maxWords={100} />
       </div>
     </Paper>
